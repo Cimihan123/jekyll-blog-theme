@@ -3,6 +3,7 @@
 <div id="search-container">
 <input type="text" id="search-input" placeholder="search...">
 <ul id="results-container">
+  
 </ul>
 </div>
 
@@ -13,7 +14,7 @@
 <!-- Configuration -->
 <script>
 const getUrl = location.host;
-var result = `<div id='search'><a href='${getUrl}'> {title}</a><br><span>{date}</span></div>`;  
+var result = `<div id='search'> <a href='${getUrl}'> {title}</a> <span>{date}</span></div>`;  
 
 SimpleJekyllSearch({
   searchInput: document.getElementById('search-input'),
