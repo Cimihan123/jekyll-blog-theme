@@ -90,9 +90,9 @@ Remember: you need to provide absolute paths for the pdf. Otherwise, you will en
 
 Starting from the compose file where we have added two services Gophish and Mailhog.
 
-`Gophish is an open-source phishing toolkit designed for businesses and penetration testers. It provides the ability to quickly and easily set up and execute phishing engagements and security awareness training.`
+> "Gophish is an open-source phishing toolkit designed for businesses and penetration testers. It provides the ability to quickly and easily set up and execute phishing engagements and security awareness training.
 
-` MailHog to create fake SMTP server for testing purpose.`
+> "MailHog to create fake SMTP server for testing purpose.
 
 Spinning up the aforementioned docker file.
 
@@ -484,7 +484,7 @@ Of course, there are more than this, but according to our context for this blog,
 
 I am going to use remnux distro to analyze the pdf file.
 
-`"**REMnux®** is a Linux toolkit for reverse-engineering and analyzing malicious software. REMnux provides a curated collection of free tools created by the community. Analysts can use it to investigate malware without having to find, install, and configure the tools."`
+> " **REMnux®** is a Linux toolkit for reverse-engineering and analyzing malicious software. REMnux provides a curated collection of free tools created by the community. Analysts can use it to investigate malware without having to find, install, and configure the tools.
 
 I have already pulled the image.
 
