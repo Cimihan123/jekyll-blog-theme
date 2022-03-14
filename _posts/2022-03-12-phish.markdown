@@ -426,49 +426,51 @@ The analysis part should always be done in a sandbox environment. Going out of t
 
 The first step of yours always should be searching for anything weird in email.
 
-1.Analyze source
+&nbsp;
+
+**1.Analyze source**
 
 &nbsp;
 
-2.Try to find the origin of email such as sender IP
+**2.Try to find the origin of email such as sender IP**
 
 Sites to look for analyzing email header
 
 
-**https://toolbox.googleapps.com/apps/messageheader/analyzeheader**
+https://toolbox.googleapps.com/apps/messageheader/analyzeheader
 
-**https://mha.azurewebsites.net/**
+https://mha.azurewebsites.net/
 
 
-3.Extracting Urls and Defanging Urls
+**3.Extracting Urls and Defanging Urls**
 
 **https://gchq.github.io/CyberChef/#recipe=Extract_URLs%28false%29Defang_URL%28true,true,true,%27Valid%20domains%20and%20full%20URLs%27%29&input=aHR0cDovL2dvb2dsZS5jb20**
 
 &nbsp;
 
-4.Checking DNS records of suspicious URLs or IP addresses
+**4.Checking DNS records of suspicious URLs or IP addresses**
 
 &nbsp;
 
-5.Take a Screenshot of suspicious URLs or IP addresses
+**5.Take a Screenshot of suspicious URLs or IP addresses**
 
 **https://www.url2png.com/**
 
 &nbsp;
 
-6.Checking if the URLs or IPs are blacklisted or not
+**6.Checking if the URLs or IPs are blacklisted or not**
 
 **https://www.ipvoid.com/ip-blacklist-check/**
 
 &nbsp;
 
-7.Checking if the URLs or Ip addresses are malicious or not
+**7.Checking if the URLs or Ip addresses are malicious or not**
 
 **https://www.virustotal.com/gui/home/upload**
 
 &nbsp;
 
-8.Downloading the attachments, get the hash of it then analyze if they are malicious or not.
+**8.Downloading the attachments, get the hash of it then analyze if they are malicious or not**
 
 **https://www.virustotal.com/gui/home/upload**
 
@@ -476,7 +478,7 @@ Sites to look for analyzing email header
 
 &nbsp;
 
-9.Finally we go deeper, we use different malware analysis tools. Both automatic and manual approaches should be followed.
+**9.Finally we go deeper, we use different malware analysis tools. Both automatic and manual approaches should be followed.**
 
 Of course, there are more than this, but according to our context for this blog, we are going to analyze the attached pdf.
 
