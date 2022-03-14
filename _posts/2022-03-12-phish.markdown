@@ -329,7 +329,7 @@ As I am running docker, it was like before. Just ensure that the URL should be a
 Reflecting the IP into the body will make it very suspicious and it is not a good habit to put the IP address directly into the email body. I have added a hostname in my host's file. This will resolve my gophish IP address into **"testingserver.op"**.
 
 
-If you remember we put "{{.URL}}" in our email template. Actually, we are putting a gopher listener URL here.
+If you remember we put "\{\{.URL\}\}" in our email template. Actually, we are putting a gopher listener URL here.
 
 ![ template ><](/assets/img/blog2-phish/35.png)
 
