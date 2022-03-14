@@ -12,7 +12,8 @@
 
 <!-- Configuration -->
 <script>
-var result = "<div id='search'><a href='{{site.baseurl}}'> {title}</a><br><span>{date}</span></div>";  
+const getUrl = location.host;
+var result = `<div id='search'><a href='${getUrl}'> {title}</a><br><span>{date}</span></div>`;  
 
 SimpleJekyllSearch({
   searchInput: document.getElementById('search-input'),
