@@ -13,7 +13,7 @@ resume_address: Some Address, SomeCity
 langtech: Languages and Technologies
 resume_communication: English
 resume_programming_langs: Python
-resume_tools: Metsploit
+resume_tools: Metasploit
 resume_version_control: SVN
 resume_os: Ubuntu
 
