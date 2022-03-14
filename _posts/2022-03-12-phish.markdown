@@ -433,36 +433,36 @@ The first step of yours always should be searching for anything weird in email.
 Sites to look for analyzing email header
 
 
-Messageheader
-Edit descriptiontoolbox.googleapps.com
-Message Header Analyzer
-Edit descriptionmha.azurewebsites.net
+**https://toolbox.googleapps.com/apps/messageheader/analyzeheader**
+
+**https://mha.azurewebsites.net/**
+
 
 3. Extracting Urls and Defanging Urls
 
-CyberChef
-The Cyber Swiss Army Knife - a web app for encryption, encoding, compression and data analysisgchq.github.io
+**https://gchq.github.io/CyberChef/#recipe=Extract_URLs%28false%29Defang_URL%28true,true,true,%27Valid%20domains%20and%20full%20URLs%27%29&input=aHR0cDovL2dvb2dsZS5jb20**
+
 
 4. Checking DNS records of suspicious URLs or IP addresses
 
 5. Take a Screenshot of suspicious URLs or IP addresses
 
-Screenshots as a Service
-Capture snapshots of any website, right in your app, quickly and reliably.www.url2png.com
+**https://www.url2png.com/**
 
 6. Checking if the URLs or IPs are blacklisted or not
-IP Address Blacklist Check, IP DNSBL Check | IPVoid
-Scan an IP address through multiple DNS-based blacklists (DNSBL) and IP reputation services, to facilitate the…www.ipvoid.com
+
+**https://www.ipvoid.com/ip-blacklist-check/**
 
 7. Checking if the URLs or Ip addresses are malicious or not
-VirusTotal
-VirusTotalwww.virustotal.com
 
-8. Downloading the attachments, get the hash of it then analyze if they are malicious or not
-VirusTotal
-VirusTotalwww.virustotal.com
-Talos File Reputation
-Enter a file's SHA256 to search Talos' current file reputation system. The disposition search will return a file's…talosintelligence.com
+**https://www.virustotal.com/gui/home/upload**
+
+8. Downloading the attachments, get the hash of it then analyze if they are malicious or not.
+
+**https://www.virustotal.com/gui/home/upload**
+
+**https://talosintelligence.com/talos_file_reputation**
+
 
 9. Finally we go deeper, we use different malware analysis tools. Both automatic and manual approaches should be followed.
 
@@ -493,7 +493,7 @@ First, check if the pdf has the correct magic number or not.
 
 ![ burp-server ><](/assets/img/blog2-phish/51.png)
 
-To check it, visit here: https://en.wikipedia.org/wiki/List_of_file_signatures
+To check it, visit here: **https://en.wikipedia.org/wiki/List_of_file_signatures**
 
 It seems correct.
 
