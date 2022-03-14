@@ -23,7 +23,7 @@ Just the outlines of what I am going to use to perform this task are given below
 6. peepdf
 7. pdfid
 8. Remnux
-```
+```[](url)
 
 The purpose of using docker is for both learning and easiness.
 
@@ -428,7 +428,7 @@ The first step of yours always should be searching for anything weird in email.
 
 1.Analyze source
 
-2. Try to find the origin of email such as sender IP
+2.Try to find the origin of email such as sender IP
 
 Sites to look for analyzing email header
 
@@ -438,33 +438,33 @@ Sites to look for analyzing email header
 **https://mha.azurewebsites.net/**
 
 
-3. Extracting Urls and Defanging Urls
+3.Extracting Urls and Defanging Urls
 
 **https://gchq.github.io/CyberChef/#recipe=Extract_URLs%28false%29Defang_URL%28true,true,true,%27Valid%20domains%20and%20full%20URLs%27%29&input=aHR0cDovL2dvb2dsZS5jb20**
 
 
-4. Checking DNS records of suspicious URLs or IP addresses
+4.Checking DNS records of suspicious URLs or IP addresses
 
-5. Take a Screenshot of suspicious URLs or IP addresses
+5.Take a Screenshot of suspicious URLs or IP addresses
 
 **https://www.url2png.com/**
 
-6. Checking if the URLs or IPs are blacklisted or not
+6.Checking if the URLs or IPs are blacklisted or not
 
 **https://www.ipvoid.com/ip-blacklist-check/**
 
-7. Checking if the URLs or Ip addresses are malicious or not
+7.Checking if the URLs or Ip addresses are malicious or not
 
 **https://www.virustotal.com/gui/home/upload**
 
-8. Downloading the attachments, get the hash of it then analyze if they are malicious or not.
+8.Downloading the attachments, get the hash of it then analyze if they are malicious or not.
 
 **https://www.virustotal.com/gui/home/upload**
 
 **https://talosintelligence.com/talos_file_reputation**
 
 
-9. Finally we go deeper, we use different malware analysis tools. Both automatic and manual approaches should be followed.
+9.Finally we go deeper, we use different malware analysis tools. Both automatic and manual approaches should be followed.
 
 Of course, there are more than this, but according to our context for this blog, we are going to analyze the attached pdf.
 
