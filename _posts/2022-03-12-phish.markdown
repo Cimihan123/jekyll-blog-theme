@@ -23,7 +23,7 @@ Just the outlines of what I am going to use to perform this task are given below
 6. peepdf
 7. pdfid
 8. Remnux
-```[](url)
+```
 
 The purpose of using docker is for both learning and easiness.
 
