@@ -280,9 +280,9 @@ We are creating an HTML template. This way we could insert HTML tags, elements, 
 ![ template ><](/assets/img/blog2-phish/29.png)
 
 
-**{{.URL}}** this will automatically create the link. It will be our gophish server IP.
+**\{\{.URL\}\}** this will automatically create the link. It will be our gophish server IP.
 
-**{{.FirstName}}** will display the first name of the targeted email user. You will see this in the users and groups section where we have to add users to whom we are going to launch the phishing campaign.
+**\{\{.FirstName\}\}** will display the first name of the targeted email user. You will see this in the users and groups section where we have to add users to whom we are going to launch the phishing campaign.
 
 ![ template ><](/assets/img/blog2-phish/30.png)
 
