@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=, initial-scale=1.0">
+	<link rel="stylesheet" href="{{ site.baseurl }}/assets/css/resume.css">  
+	<title>Contact</title>
+</head>
+
+<body>
+	{% include nav.html %} 
+
+	<!--nav end-->
+	<div class="container">
+		<header>
+			<h1>{{ page.resume_name }}</h1>
+
+			<div class="row">
+				<ul>
+					<li class="address">
+						<i class="fa fa-home fa-1x"></i>
+						{{ page.resume_address }}
+					</li>
+					<li class="phone">
+						<span><i class="fa fa-phone fa-1x"></i>
+							{{ page.resume_phone }}
+						</span>
+						<!-- <span><i class="fa fa-mobile fa-1x"></i>519 666 1234</span> -->
+					</li>
+					<li class="email"><i class="fa fa-envelope fa-1x"></i>
+						{{ page.resume_email }}					</li>
+				</ul>
+			</div>
+		</header>
+
+		<article>
+			<h2>{{page.langtech}}</h2>
+
+			<div class="row tech">
+				<ul>
+					<li><span>Communication</span>: {{ page.resume_communication }}</li>
+					<li><span>Languages</span>: {{ page.resume_programming_langs }}</li>
+					<li><span>Tools</span>: {{ page.resume_tools }}</li>
+					<li><span>Version Control</span>: {{ page.resume_version_control }}</li>
+					<li><span>Operating Systems</span>: {{ page.resume_os }}</li>
+					<!-- <li><span>SDKs</span>: Android, iOS</li> -->
+					<!-- <li><span>IDE</span>: Eclipse, Aptana, Visual Studio, PhpStorm, Notepad++, Xcode</li> -->
+					<!-- <li><span>Exposure</span>: C, C++, C#, Objective-C, XML, UNIX Shell, JavaScript, Assembly</li> -->
+				</ul>
+			</div>
+		</article>
+
+		<article>
+			<h2>{{page.education}}</h2>
+
+			<div class="row">
+				<ul>
+					<li class="right edu-date">
+						<ul>
+							<li>Sept 2011 - Current</li>
+						</ul>
+					</li>
+					<li class="header">{{ page.header1 }}</li>
+					<li class="description">{{ page.description1 }}</li>
+				</ul>
+			</div>
+
+			<div class="row">
+				<ul>
+					<li class="right edu-date">
+						<ul>
+							<li>Sept 2011 - Current</li>
+						</ul>
+					</li>
+					<li class="header">{{ page.header1 }}</li>
+					<li class="description">{{ page.description1 }}</li>
+				</ul>
+			</div>
+
+		</article>
+
+		<article>
+			<h2>{{page.experience}}</h2>
+
+			<div class="row exp-list">
+				<ul>
+					<li class="right">
+						<ul>
+							<li>Oct 2013 - Current </li>
+						</ul>
+					</li>
+					<li class="header"> {{ page.exp-header }} <span>University of SomeCity</span></li>
+					<li><i class="fa fa-caret-right fa-1x"></i> {{ page.exp-description }} </li>
+					<!-- <li><i class="fa fa-caret-right fa-1x"></i>Reviewed materials prior to scheduled practical session
+						to provide accurate answers to questions</li> -->
+				</ul>
+			</div>
+
+			
+			
+		</article>
+
+		<article>
+			<h2>{{page.certification}}</h2>
+
+			<li><i class="fa fa-caret-right fa-1x"></i> Something </li>
+			<li><i class="fa fa-caret-right fa-1x"></i> Something </li>
+		</article>
+	</div>
+	<!--scroller-->
+	<div class=title>
+
+	</div>
+	<div id="jsScroll" class="scroll" onclick="scrollToTop();">
+		<i class="fa fa-angle-up"></i>
+	</div>
+
+</body>
+{% include scroll.html %}
+{% include toggle.html %}
+
+
+</html>

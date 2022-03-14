@@ -1,0 +1,454 @@
+@import url('https://fonts.googleapis.com/css2?family=Reem+Kufi&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+  	color: white;
+    list-style-type: none;
+    box-sizing: border-box;
+
+}
+
+
+body{
+    overflow-x: hidden;
+    font-family: 'Reem Kufi', sans-serif;
+    background-color: #222028;
+}
+
+
+/** nav start **/
+nav{
+    height: 6rem;
+    width: 100vw;
+    display: flex;
+    position: absolute;
+    z-index: 19;
+}
+
+.nav-links > li > a {
+  color: wheat;
+
+}
+
+
+/*Styling Links*/
+.nav-links{
+    display: flex;
+    list-style: none; 
+    width: 88vw;
+    padding: 0 0.7vw;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.nav-links li a{
+    text-decoration: none;
+    margin: 0 0.7vw;
+}
+
+.nav-links li {
+    position: relative;
+}
+
+.nav-links a:after {    
+    background: none repeat scroll 0 0 transparent;
+    bottom: 0;
+    content: "";
+    display: block;
+    height: 2px;
+    left: 50%;
+    position: absolute;
+    background: #fff;
+    transition: width 0.3s ease 0s, left 0.3s ease 0s;
+    width: 0;
+  }
+.nav-links  a:hover:after { 
+    width: 100%; 
+    left: 0; 
+  }
+
+
+
+/*Styling Hamburger Icon*/
+.hamburger div{
+    width: 30px;
+    height:3px;
+    background: #D3DBA5;
+    margin: 5px;
+    transition: all 0.3s ease;
+}
+.hamburger{
+    display: none;
+}
+
+/*Stying for small screens*/
+@media screen and (max-width: 800px){
+ 
+    nav{
+        position: fixed;
+        z-index: 3;
+    }
+    .backclick   {
+      margin-left: 85%;
+    }
+
+
+    .hamburger{
+        display:block;
+        position: absolute;
+        cursor: pointer;
+        right: 5%;
+        top: 50%;
+        transform: translate(-5%, -50%);
+        z-index: 2;
+        transition: all 0.7s ease;
+    }
+    .nav-links{
+        position: fixed;
+        background: #131418;
+        height: 100vh;
+        width: 100%;
+        flex-direction: column;
+        clip-path: circle(50px at 90% -20%);
+        -webkit-clip-path: circle(50px at 90% -10%);
+        transition: all 1s ease-out;
+        pointer-events: none;
+    }
+    .nav-links.open{
+        clip-path: circle(1000px at 90% -10%);
+        -webkit-clip-path: circle(1000px at 90% -10%);
+        pointer-events: all;
+    }
+    .nav-links li{
+        opacity: 0;
+    }
+    .nav-links li:nth-child(1){
+        transition: all 0.5s ease 0.2s;
+    }
+    .nav-links li:nth-child(2){
+        transition: all 0.5s ease 0.4s;
+    }
+    .nav-links li:nth-child(3){
+        transition: all 0.5s ease 0.6s;
+    }
+    .nav-links li:nth-child(4){
+        transition: all 0.5s ease 0.7s;
+    }
+    .nav-links li:nth-child(5){
+        transition: all 0.5s ease 0.8s;
+    }
+    .nav-links li:nth-child(6){
+        transition: all 0.5s ease 0.9s;
+        margin: 0;
+    }
+    .nav-links li:nth-child(7){
+        transition: all 0.5s ease 1s;
+        margin: 0;
+    }
+    li.fade{
+        opacity: 1;
+    }
+}
+/*Animating Hamburger Icon on Click*/
+.toggle .line1{
+  transform: rotate(-45deg) translate(-5px,6px);
+}
+.toggle .line2{
+  transition: all 0.7s ease;
+  width:0;
+}
+.toggle .line3{
+  transform: rotate(45deg) translate(-5px,-6px);
+}
+/** nav end **/
+
+
+/** 
+ * Reset Styles 
+ */
+
+img {
+border-style: none;
+height: auto;
+}
+
+a img {
+border: none;
+outline: none;
+}
+
+figure {
+display: block;
+background-color: #fff;
+-ms-interpolation-mode: bicubic;
+}
+
+figure img {
+display: block;
+width: auto;
+max-width: 100%;
+}
+
+/**
+ * Variables 
+ */
+:root {
+--master-color: #c19f63;
+--master-color-partner-dark: #7c591d;
+
+--headings-color: #263358;
+
+--main-bg-color: #fff;
+--secondary1-bg-color: #f6f6f6;
+--secondary2-bg-color: #fff0ec;
+
+--main-txt-color: #333;
+--secondary-txt-color: #757575;
+
+--sub-color: #b4b4b4;
+}
+
+/** 
+ * Typography 
+ */
+
+
+
+
+h2 {
+    display: block;
+    font-family:  'Reem Kufi', sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 1.4em;
+    color: var(--headings-color);
+}
+
+
+h2 {
+font-size: calc(22px + .8vw);
+}
+
+h1 a,
+h2 a {
+font-weight: 300;
+text-decoration: none;
+color: whitesmoke;
+background-color: transparent;
+outline: none;
+}
+
+a:hover {
+color: var(--master-color-partner-dark);
+}
+
+a:focus {
+color: var(--headings-color);
+background-color: var(--secondary2-bg-color); 
+}
+
+
+
+
+  
+  /* Text Centering Shortcut */
+  .horizontal-center {
+    text-align: center;
+  }
+ 
+  .table {
+    display: table;
+  }
+  .table-row {
+    display: table-row;
+  }
+  .vertical-center {
+    position: relative;
+    display: table-cell;
+    vertical-align: middle;
+    color: #e0e0d6;
+    
+  }
+  
+  /* Navbar */
+  #navbar {
+    margin-bottom: 0;
+    font-family: 'ubuntu';
+  }
+  
+  /* Page title */
+  .bg {
+    position: absolute; 
+    top: -50%; 
+    left: -50%; 
+    width: 200%; 
+    height: 200%;
+  }
+  .bg img {
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    bottom: 0; 
+    margin: auto; 
+    min-width: 50%;
+    min-height: 50%;
+  }
+  #page-title {
+    position: relative;
+    width: 100%;
+    color: white;
+    background-color: #1f4a6f;
+    font-family: 'ubuntu';
+    overflow: hidden;
+  }
+  
+  #title-image {
+    filter:alpha(opacity=10);
+    opacity: 0.1;
+    -moz-opacity:0.2;
+    filter: blur(2px);
+    -webkit-filter: blur(2px);
+    
+  }
+
+
+  #page-title .container {
+    min-height: 350px;
+    display: table;
+  }
+ 
+  /* Article */
+  article {
+    font-family: 'roboto';
+    font-size: 1.2em;
+    
+  }
+  article h2, article h3 {
+    font-family: 'ubuntu'
+  }
+ 
+.author-image{
+    height: 200px;
+    width: 300px;
+}
+.publish-day{
+    color: #e6eca8;
+
+}
+
+
+p {
+    color: #e0e1cc;
+}
+
+.post-title > a {
+    color: #e6eca8;
+}
+
+
+.line{
+    width: 90%;
+    height: 47px;
+    margin: auto;
+    border-bottom: 1px solid rgb(252, 250, 250);
+}
+
+/** scroller **/
+@import url('https://fonts.googleapis.com/css?family=Anton&display=swap" rel="stylesheet');
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+
+.title {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.title span{
+  font-family: 'Anton', 'sans-serif';
+  color: white;
+  text-shadow: 0 0 5px #333;
+  font-size: 26px;
+  letter-spacing: 2px;
+  border-bottom: 4px solid rgba(90,92,106,1);
+}
+
+.scroll {
+  cursor: pointer;
+  width: 70px;
+  height: 70px;
+  position: fixed;
+  bottom: 40px;
+  right: -80px;
+  border-radius: 100%;
+  background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(90,92,106,1) 0%, rgba(32,45,58,1) 81.3% );
+  color: #fff;
+  font-size: 44px;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: 0 0 5px 0px #888;
+  transition: 300ms;
+}
+
+.scroll i {
+  margin-top: 10px;
+  text-shadow: 0 0 2px #fff;
+}
+
+.scroll:hover i {
+  animation-name: rotate;
+  animation-duration: 300ms;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes rotate {
+  from {margin-top: 15px}
+  to {margin-top: 5px}
+}
+
+.visible {
+  right: 30px;
+  transition: all 400ms;
+  transform: rotate(360deg)
+}
+
+/** image right **/
+img[alt$=">"] {
+  float: right;
+}
+/** image left **/
+
+img[alt$="<"] {
+  float: left;
+}
+
+/** image cetner **/
+img[alt$="><"] {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: auto;
+  float: none!important;
+}
+
+a {
+  color: rgb(241, 199, 83);
+}
+
+
+.backclick   {
+  text-align: right;
+  margin-right: 200px;
+  color: whitesmoke;
+}

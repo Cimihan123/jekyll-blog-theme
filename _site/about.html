@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/assets/css/about.css">  
+  <title>About</title>
+</head>
+
+<body>
+  <nav>
+    <div class="hamburger">
+      <div class="line1"></div>
+      <div class="line2"></div>
+      <div class="line3"></div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="/resume">Resume</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/home">Home</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/about">About Me</a></li>
+
+    </ul>
+  </nav>  
+
+   
+
+  <div class="intro">
+    <img src="/assets/img/sau.png">
+    <div class="wrapper">
+      <div class="line"></div>
+      <p class="paraAbout"> I'm a Creative Developer for interactive projects that usually are apps, VR and Creative
+        websites. I Spend most of time coding outstanding projects or studying new technologies. to improve my
+        development stack. I develop compelling designs that spring to life using transition and animations that suit my
+        clients, using the most sophisticated technologies available today for fully interactive and responsive websites
+        and apps.</p>
+    </div>
+  </div>
+
+
+</body>
+<script>
+	const hamburger = document.querySelector(".hamburger");
+	const navLinks = document.querySelector(".nav-links");
+	const links = document.querySelectorAll(".nav-links li");
+
+	hamburger.addEventListener('click', () => {
+		//Animate Links
+		navLinks.classList.toggle("open");
+		links.forEach(link => {
+			link.classList.toggle("fade");
+		});
+
+		//Hamburger Animation
+		hamburger.classList.toggle("toggle");
+	});
+
+
+</script>
+
+
+</html>

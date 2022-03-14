@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=, initial-scale=1.0">
+	<link rel="stylesheet" href="/assets/css/resume.css">  
+	<title>Contact</title>
+</head>
+
+<body>
+	<nav>
+    <div class="hamburger">
+      <div class="line1"></div>
+      <div class="line2"></div>
+      <div class="line3"></div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="/resume">Resume</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/home">Home</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/about">About Me</a></li>
+
+    </ul>
+  </nav>  
+
+   
+
+	<!--nav end-->
+	<div class="container">
+		<header>
+			<h1>Shyam Bahadur</h1>
+
+			<div class="row">
+				<ul>
+					<li class="address">
+						<i class="fa fa-home fa-1x"></i>
+						Some Address, SomeCity
+					</li>
+					<li class="phone">
+						<span><i class="fa fa-phone fa-1x"></i>
+							+98-9898989898
+						</span>
+						<!-- <span><i class="fa fa-mobile fa-1x"></i>519 666 1234</span> -->
+					</li>
+					<li class="email"><i class="fa fa-envelope fa-1x"></i>
+						john@mail.com					</li>
+				</ul>
+			</div>
+		</header>
+
+		<article>
+			<h2>Languages and Technologies</h2>
+
+			<div class="row tech">
+				<ul>
+					<li><span>Communication</span>: English</li>
+					<li><span>Languages</span>: Python</li>
+					<li><span>Tools</span>: Metsploit</li>
+					<li><span>Version Control</span>: SVN</li>
+					<li><span>Operating Systems</span>: Ubuntu</li>
+					<!-- <li><span>SDKs</span>: Android, iOS</li> -->
+					<!-- <li><span>IDE</span>: Eclipse, Aptana, Visual Studio, PhpStorm, Notepad++, Xcode</li> -->
+					<!-- <li><span>Exposure</span>: C, C++, C#, Objective-C, XML, UNIX Shell, JavaScript, Assembly</li> -->
+				</ul>
+			</div>
+		</article>
+
+		<article>
+			<h2>Education</h2>
+
+			<div class="row">
+				<ul>
+					<li class="right edu-date">
+						<ul>
+							<li>Sept 2011 - Current</li>
+						</ul>
+					</li>
+					<li class="header">Undergraduate, BSc (Hons) Computer Science</li>
+					<li class="description">Concentration in Object Oriented Programming, Web Development, and Mathematics</li>
+				</ul>
+			</div>
+
+			<div class="row">
+				<ul>
+					<li class="right edu-date">
+						<ul>
+							<li>Sept 2011 - Current</li>
+						</ul>
+					</li>
+					<li class="header">Undergraduate, BSc (Hons) Computer Science</li>
+					<li class="description">Concentration in Object Oriented Programming, Web Development, and Mathematics</li>
+				</ul>
+			</div>
+
+		</article>
+
+		<article>
+			<h2>Experience</h2>
+
+			<div class="row exp-list">
+				<ul>
+					<li class="right">
+						<ul>
+							<li>Oct 2013 - Current </li>
+						</ul>
+					</li>
+					<li class="header"> Student Teaching Assistant <span>University of SomeCity</span></li>
+					<li><i class="fa fa-caret-right fa-1x"></i> Assisted instructors by providing additional aid to students during their practical sessions </li>
+					<!-- <li><i class="fa fa-caret-right fa-1x"></i>Reviewed materials prior to scheduled practical session
+						to provide accurate answers to questions</li> -->
+				</ul>
+			</div>
+
+			
+			
+		</article>
+
+		<article>
+			<h2>Certification</h2>
+
+			<li><i class="fa fa-caret-right fa-1x"></i> Something </li>
+			<li><i class="fa fa-caret-right fa-1x"></i> Something </li>
+		</article>
+	</div>
+	<!--scroller-->
+	<div class=title>
+
+	</div>
+	<div id="jsScroll" class="scroll" onclick="scrollToTop();">
+		<i class="fa fa-angle-up"></i>
+	</div>
+
+</body>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<script>
+		//scroller
+		window.addEventListener('scroll', e => {
+		var el = document.getElementById('jsScroll');
+		if (window.scrollY > 200) {
+			el.classList.add('visible');
+		} else {
+			el.classList.remove('visible');
+		}
+	});
+
+	function scrollToTop() {
+		window.scrollTo({
+			top: 0,
+			behavior: 'smooth'
+		});
+	}
+</script>
+<script>
+	const hamburger = document.querySelector(".hamburger");
+	const navLinks = document.querySelector(".nav-links");
+	const links = document.querySelectorAll(".nav-links li");
+
+	hamburger.addEventListener('click', () => {
+		//Animate Links
+		navLinks.classList.toggle("open");
+		links.forEach(link => {
+			link.classList.toggle("fade");
+		});
+
+		//Hamburger Animation
+		hamburger.classList.toggle("toggle");
+	});
+
+
+</script>
+
+
+</html>

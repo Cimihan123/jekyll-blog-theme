@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css">
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Ubuntu|Roboto'>
+  <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/blog.css">  
+  <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/pagination.css">  
+  <title>Blog</title>
+</head>
+
+<body>
+  {% include navsearch.html %} 
+  <main>
+
+    {{ content }}
+
+  <div id="jsScroll" class="scroll" onclick="scrollToTop();">
+    <i class="fa fa-angle-up"></i>
+  </div>
+</body>
+
+{% include scroll.html %}
+{% include toggle.html %}
+
+</script>
+
+</html>

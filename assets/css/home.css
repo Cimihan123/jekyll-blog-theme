@@ -1,0 +1,245 @@
+@import url('https://fonts.googleapis.com/css2?family=Reem+Kufi&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    color: white;
+    list-style-type: none;
+}
+body{
+    overflow-x: hidden;
+    font-family: 'Reem Kufi', sans-serif;
+    background-color: #222028;
+}
+
+nav{
+    height: 6rem;
+    width: 100vw;
+    display: flex;
+    position: absolute;
+    z-index: 10;
+    left: 0;
+    bottom: 0;
+}
+.nav-links > li > a {
+  color: wheat;
+
+}
+
+a {
+    font-size: 1.2rem;
+}
+
+
+/*Styling Links*/
+.nav-links{
+    display: flex;
+    list-style: none; 
+    width: 88vw;
+    padding: 0 0.7vw;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.nav-links li a{
+    text-decoration: none;
+    margin: 0 0.7vw;
+}
+
+.nav-links li {
+    position: relative;
+}
+
+.nav-links a:after {    
+    background: none repeat scroll 0 0 transparent;
+    bottom: 0;
+    content: "";
+    display: block;
+    height: 2px;
+    left: 50%;
+    position: absolute;
+    background: #fff;
+    transition: width 0.3s ease 0s, left 0.3s ease 0s;
+    width: 0;
+  }
+.nav-links  a:hover:after { 
+    width: 100%; 
+    left: 0; 
+  }
+
+
+
+/*Styling Hamburger Icon*/
+.hamburger div{
+    width: 30px;
+    height:3px;
+    background: #f2f5f7;
+    margin: 5px;
+    transition: all 0.3s ease;
+}
+.hamburger{
+    display: none;
+}
+
+/*Stying for small screens*/
+@media screen and (max-width: 800px){
+    nav{
+        position: fixed;
+        z-index: 3;
+        top: 0;
+    }
+    .hamburger{
+        display:block;
+        position: absolute;
+        cursor: pointer;
+        right: 5%;
+        top: 50%;
+        transform: translate(-5%, -50%);
+        z-index: 2;
+        transition: all 0.7s ease;
+    }
+    .nav-links{
+        position: fixed;
+        background: #131418;
+        height: 100vh;
+        width: 100%;
+        flex-direction: column;
+        clip-path: circle(50px at 90% -20%);
+        -webkit-clip-path: circle(50px at 90% -10%);
+        transition: all 1s ease-out;
+        pointer-events: none;
+    }
+    .nav-links.open{
+        clip-path: circle(1000px at 90% -10%);
+        -webkit-clip-path: circle(1000px at 90% -10%);
+        pointer-events: all;
+    }
+    .nav-links li{
+        opacity: 0;
+    }
+    .nav-links li:nth-child(1){
+        transition: all 0.5s ease 0.2s;
+    }
+    .nav-links li:nth-child(2){
+        transition: all 0.5s ease 0.4s;
+    }
+    .nav-links li:nth-child(3){
+        transition: all 0.5s ease 0.6s;
+    }
+    .nav-links li:nth-child(4){
+        transition: all 0.5s ease 0.7s;
+    }
+    .nav-links li:nth-child(5){
+        transition: all 0.5s ease 0.8s;
+    }
+    .nav-links li:nth-child(6){
+        transition: all 0.5s ease 0.9s;
+        margin: 0;
+    }
+    .nav-links li:nth-child(7){
+        transition: all 0.5s ease 1s;
+        margin: 0;
+    }
+    li.fade{
+        opacity: 1;
+    }
+}
+/*Animating Hamburger Icon on Click*/
+.toggle .line1{
+    transform: rotate(-45deg) translate(-5px,6px);
+}
+.toggle .line2{
+    transition: all 0.7s ease;
+    width:0;
+}
+.toggle .line3{
+    transform: rotate(45deg) translate(-5px,-6px);
+}
+/** nav end **/
+
+#main {
+    max-width: 1400px;
+    margin: auto;
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 10px 40px rgba(0,0,0,0.5);
+  }
+  
+  @media (max-width: 1000px) {
+    #main {
+      max-width: 800px;
+    }
+  }
+  
+  @media (max-width: 800px) {
+    #cover {
+      flex-direction: column-reverse;
+      max-height: 85vh;
+    }
+    #img-div {
+      width: 100%;
+      margin-bottom: 1.5em;
+    }
+    #img-caption {
+      display: none;
+    }
+    
+    #div-title {
+      width: 100%;
+      text-align: center;
+    }
+    .hr-1 {
+      display: none;
+    }
+  }
+
+  
+  #cover {
+    color: white;
+    background: #0f0f0f;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    min-height: 480px;
+  }
+  
+  #cover #div-title {
+    flex-basis: 700px;
+  }
+  
+  #title {
+    font-size: 1.3em;
+    line-height: 1em;
+  }
+  
+  #subtitle {
+    font-size: 4.2em;
+  }
+
+  span {
+      color: #BCAB70;
+      font-size: 5rem;
+  }
+  
+  #cover #img-div {
+    flex-basis: 360px;
+  }
+  
+  #img-div #image {
+    max-width: 80%;
+    height: auto;
+    object-fit: cover;
+    margin: auto;
+    filter: sepia(100%);
+    display: block;
+  }
+  
+  #img-caption {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 1em;
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+ 

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/css/contact.css">  
+    <title>Contact</title>
+</head>
+
+<body>
+    <nav>
+    <div class="hamburger">
+      <div class="line1"></div>
+      <div class="line2"></div>
+      <div class="line3"></div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="/resume">Resume</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/home">Home</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/about">About Me</a></li>
+
+    </ul>
+  </nav>  
+
+   
+    
+    <div class="Contact">
+            <div class="intro">
+                <img class="img1" src="/assets/img/sau.png">
+                <div class="wrapper">
+                    <img class="img2" src="https://i.stack.imgur.com/AWZtN.png" alt="ImageLoad" />
+                    <h1 class="getInTouch"> Get In Touch</h1>
+                </div>
+            </div>
+            <div class="footInfo">
+                <div class="writeMe">
+                    <h1>Write me:</h1>
+                    <p>hello@nothing.com</p>
+                </div>
+                <div class="followMe">
+                    <h1>Follow me:</h1>
+                    <p>
+                        <a href="https://facebook.com"  class="ico1"  target="_blank" rel="noopener noreferrer"><i class="ico fa-brands fa-facebook"></i>Facebook.</a><br>
+                        <a href="https://instagram.com"  target="_blank" rel="noopener noreferrer"><i class="ico ico2 fa-brands fa-instagram"></i>Twitter.</a><br>
+                        <a href="https://twitter.com"  target="_blank" rel="noopener noreferrer"><i class="ico fa-brands fa-twitter"></i>Instagram.</a><br>
+                    </p>
+                </div>
+            </div>
+            </div>
+
+</body>
+<script>
+	const hamburger = document.querySelector(".hamburger");
+	const navLinks = document.querySelector(".nav-links");
+	const links = document.querySelectorAll(".nav-links li");
+
+	hamburger.addEventListener('click', () => {
+		//Animate Links
+		navLinks.classList.toggle("open");
+		links.forEach(link => {
+			link.classList.toggle("fade");
+		});
+
+		//Hamburger Animation
+		hamburger.classList.toggle("toggle");
+	});
+
+
+</script>
+
+</html>
