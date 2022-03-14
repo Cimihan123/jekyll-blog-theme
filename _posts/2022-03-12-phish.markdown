@@ -58,7 +58,7 @@ First I will inject malicious js code into a pdf file. Then I will phish myself 
 
 I am using JS2PDFInjector to inject a simple malicious js code into a pdf file. 
 
-Link: https://github.com/cornerpirate/JS2PDFInjector
+Link: <https://github.com/cornerpirate/JS2PDFInjector>
 
 ![ js2pdfinjector ><](/assets/img/blog2-phish/1.png )
 
@@ -437,14 +437,14 @@ The first step of yours always should be searching for anything weird in email.
 Sites to look for analyzing email header
 
 
-https://toolbox.googleapps.com/apps/messageheader/analyzeheader
+<https://toolbox.googleapps.com/apps/messageheader/analyzeheader>
 
-https://mha.azurewebsites.net/
+<https://mha.azurewebsites.net/>
 
 
 **3.Extracting Urls and Defanging Urls**
 
-**https://gchq.github.io/CyberChef/#recipe=Extract_URLs%28false%29Defang_URL%28true,true,true,%27Valid%20domains%20and%20full%20URLs%27%29&input=aHR0cDovL2dvb2dsZS5jb20**
+<https://gchq.github.io/CyberChef/#recipe=Extract_URLs%28false%29Defang_URL%28true,true,true,%27Valid%20domains%20and%20full%20URLs%27%29&input=aHR0cDovL2dvb2dsZS5jb20>
 
 &nbsp;
 
@@ -454,27 +454,27 @@ https://mha.azurewebsites.net/
 
 **5.Take a Screenshot of suspicious URLs or IP addresses**
 
-**https://www.url2png.com/**
+<https://www.url2png.com/>
 
 &nbsp;
 
 **6.Checking if the URLs or IPs are blacklisted or not**
 
-**https://www.ipvoid.com/ip-blacklist-check/**
+<https://www.ipvoid.com/ip-blacklist-check/>
 
 &nbsp;
 
 **7.Checking if the URLs or Ip addresses are malicious or not**
 
-**https://www.virustotal.com/gui/home/upload**
+<https://www.virustotal.com/gui/home/upload>
 
 &nbsp;
 
 **8.Downloading the attachments, get the hash of it then analyze if they are malicious or not**
 
-**https://www.virustotal.com/gui/home/upload**
+<https://www.virustotal.com/gui/home/upload>
 
-**https://talosintelligence.com/talos_file_reputation**
+<https://talosintelligence.com/talos_file_reputation>
 
 &nbsp;
 
@@ -505,15 +505,15 @@ We are now into the container.
 
 First, check if the pdf has the correct magic number or not.
 
-![ burp-server ><](/assets/img/blog2-phish/51.png)
+![ pdf-magic-num ><](/assets/img/blog2-phish/51.png)
 
-To check it, visit here: **https://en.wikipedia.org/wiki/List_of_file_signatures**
+To check it, visit here: <https://en.wikipedia.org/wiki/List_of_file_signatures>
 
 It seems correct.
 
 Let's analyze the pdf file with a tool called **pdfid**.
 
-![ burp-server ><](/assets/img/blog2-phish/52.png)
+![ pdfid ><](/assets/img/blog2-phish/52.png)
 
 It contains some javascript. It is better for us not to open the pdf file as /OpenAction is also 1 which means the js will take some actions on opening the pdf file.
 
@@ -550,14 +550,14 @@ The first 7 words or less to it , you can find them in almost every pdf.
 
 I find **peedpdf** more cooler than **pdfid** as **peepdf** can provide the same information. It has been found that the pdf contains some suspicious elements i.e JS
 
-![ burp-server ><](/assets/img/blog2-phish/53.png)
+![ peepdf ><](/assets/img/blog2-phish/53.png)
 
 ```
 pdfid lastone.pdf
 peepdf lastone.pdf
 ```
 
-![ burp-server ><](/assets/img/blog2-phish/54.png)
+![ peepdf ><](/assets/img/blog2-phish/54.png)
 
 
 We can extract the js contents using these tools. For this, we have to write a simple script. i.e extract js > aything.txt
@@ -574,7 +574,7 @@ echo 'extract js > extracted.txt' > anything.txt
 peepdf -s extract.txt malicouspdf.pdf
 
 ```
-![ burp-server ><](/assets/img/blog2-phish/55.png)
+![ peepdf-extract ><](/assets/img/blog2-phish/55.png)
 
 
 The js content is successfully extracted.
