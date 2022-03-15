@@ -444,7 +444,8 @@ Sites to look for analyzing email header
 
 **3.Extracting Urls and Defanging Urls**
 
-<https://gchq.github.io/CyberChef/#recipe=Extract_URLs%28false%29Defang_URL%28true,true,true,%27Valid%20domains%20and%20full%20URLs%27%29&input=aHR0cDovL2dvb2dsZS5jb20>
+<https://gchq.github.io/CyberChef/#recipe=Extract_URLs%28false%29Defang_URL%28true,true,true
+,%27Valid%20domains%20and%20full%20URLs%27%29&input=aHR0cDovL2dvb2dsZS5jb20>
 
 &nbsp;
 
