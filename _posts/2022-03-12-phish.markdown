@@ -441,6 +441,7 @@ Link: [Toolbox](https://toolbox.googleapps.com/apps/messageheader/analyzeheader)
 
 Link: [mha](https://mha.azurewebsites.net/)
 
+&nbsp;
 
 **3.Extracting Urls and Defanging Urls**
 
@@ -509,7 +510,7 @@ First, check if the pdf has the correct magic number or not.
 
 ![ pdf-magic-num ><](/assets/img/blog2-phish/51.png)
 
-To check it, visit here: <https://en.wikipedia.org/wiki/List_of_file_signatures>
+To check it, visit here: [Signatures](https://en.wikipedia.org/wiki/List_of_file_signatures)
 
 It seems correct.
 
