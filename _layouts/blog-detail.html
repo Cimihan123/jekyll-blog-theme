@@ -49,7 +49,7 @@
 
     <div class="container foreground">
         <h1>Recent Posts</h1>
-        {% assign sorted = site.posts | sort: 'date'  %}
+        {% assign sorted = site.posts %}
         {% for post in sorted limit:4  %}
         <article class="article-preview">
             <div class="row">
