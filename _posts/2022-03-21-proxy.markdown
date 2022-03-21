@@ -10,7 +10,7 @@ excerpt_separator:  <!-- excerpt-end -->
 
 &nbsp;
 
- <span style="font-size:30px;">I</span>n this blog, I will explain how to access network connections on Tryhackme/HTB/etc…. machines.Having an internet connection will make it a lot easier when we are trying to pwn machines or playing attack/defense challenges although it could be slow but works.
+<!-- excerpt-start --> <span style="font-size:30px;">I</span>n this blog, I will explain how to access network connections on Tryhackme/HTB/etc…. machines.Having an internet connection will make it a lot easier when we are trying to pwn machines <!-- excerpt-end --> or playing attack/defense challenges although it could be slow but works.
 
 ### Setup
 I am performing it on my machine which is free to play on TryHackMe
