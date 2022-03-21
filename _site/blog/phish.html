@@ -46,7 +46,7 @@
     </header>
 
     <div class="backclick">
-        <a  onclick="window.history.back()"> <i class="fa-solid fa-arrow-left-long"></i></a>
+        <a onclick="window.location.href='../blog';"> <i class="fa-solid fa-arrow-left-long"></i></a>
 
     </div>
     <div class="container foreground">
@@ -100,7 +100,7 @@ Just the outlines of what I am going to use to perform this task are given below
 
 <p>I am using JS2PDFInjector to inject a simple malicious js code into a pdf file.</p>
 
-<p>Link: https://github.com/cornerpirate/JS2PDFInjector</p>
+<p>Link: <a href="https://github.com/cornerpirate/JS2PDFInjector">JS2PDFInjector</a></p>
 
 <p><img src="/assets/img/blog2-phish/1.png" alt=" js2pdfinjector &gt;&lt;" /></p>
 
@@ -128,9 +128,13 @@ Just the outlines of what I am going to use to perform this task are given below
 
 <p>Starting from the compose file where we have added two services Gophish and Mailhog.</p>
 
-<p>‘Gophish is an open-source phishing toolkit designed for businesses and penetration testers. It provides the ability to quickly and easily set up and execute phishing engagements and security awareness training.’</p>
+<blockquote>
+  <p>“Gophish is an open-source phishing toolkit designed for businesses and penetration testers. It provides the ability to quickly and easily set up and execute phishing engagements and security awareness training.</p>
+</blockquote>
 
-<p>’ MailHog to create fake SMTP server for testing purpose.’</p>
+<blockquote>
+  <p>“MailHog to create fake SMTP server for testing purpose.</p>
+</blockquote>
 
 <p>Spinning up the aforementioned docker file.</p>
 
@@ -299,9 +303,9 @@ docker network inspect fcff01c8be6a
 
 <p><img src="/assets/img/blog2-phish/29.png" alt=" template &gt;&lt;" /></p>
 
-<p><em>**</em> this will automatically create the link. It will be our gophish server IP.</p>
+<p><strong>{{.URL}}</strong> this will automatically create the link. It will be our gophish server IP.</p>
 
-<p><em>**</em> will display the first name of the targeted email user. You will see this in the users and groups section where we have to add users to whom we are going to launch the phishing campaign.</p>
+<p><strong>{{.FirstName}}</strong> will display the first name of the targeted email user. You will see this in the users and groups section where we have to add users to whom we are going to launch the phishing campaign.</p>
 
 <p><img src="/assets/img/blog2-phish/30.png" alt=" template &gt;&lt;" /></p>
 
@@ -344,7 +348,7 @@ As I am running docker, it was like before. Just ensure that the URL should be a
 
 <p>Reflecting the IP into the body will make it very suspicious and it is not a good habit to put the IP address directly into the email body. I have added a hostname in my host’s file. This will resolve my gophish IP address into <strong>“testingserver.op”</strong>.</p>
 
-<p>If you remember we put “” in our email template. Actually, we are putting a gopher listener URL here.</p>
+<p>If you remember we put “{{.URL}}” in our email template. Actually, we are putting a gopher listener URL here.</p>
 
 <p><img src="/assets/img/blog2-phish/35.png" alt=" template &gt;&lt;" /></p>
 
@@ -431,66 +435,69 @@ It executes the js code which we inserted. See the pop created by the payload.</
 
 <p>The first step of yours always should be searching for anything weird in email.</p>
 
-<p>1.Analyze source</p>
+<p> </p>
 
-<ol>
-  <li>Try to find the origin of email such as sender IP</li>
-</ol>
+<p><strong>1.Analyze source</strong></p>
+
+<p> </p>
+
+<p><strong>2.Try to find the origin of email such as sender IP</strong></p>
 
 <p>Sites to look for analyzing email header</p>
 
-<p>Messageheader
-Edit descriptiontoolbox.googleapps.com
-Message Header Analyzer
-Edit descriptionmha.azurewebsites.net</p>
+<p>Link: <a href="https://toolbox.googleapps.com/apps/messageheader/analyzeheader">Toolbox</a></p>
 
-<ol>
-  <li>Extracting Urls and Defanging Urls</li>
-</ol>
+<p>Link: <a href="https://mha.azurewebsites.net/">mha</a></p>
 
-<p>CyberChef
-The Cyber Swiss Army Knife - a web app for encryption, encoding, compression and data analysisgchq.github.io</p>
+<p> </p>
 
-<ol>
-  <li>
-    <p>Checking DNS records of suspicious URLs or IP addresses</p>
-  </li>
-  <li>
-    <p>Take a Screenshot of suspicious URLs or IP addresses</p>
-  </li>
-</ol>
+<p><strong>3.Extracting Urls and Defanging Urls</strong></p>
 
-<p>Screenshots as a Service
-Capture snapshots of any website, right in your app, quickly and reliably.www.url2png.com</p>
+<p>Link: <a href="https://gchq.github.io/CyberChef/#recipe=Extract_URLs%28false%29Defang_URL%28true,true,true,%27Valid%20domains%20and%20full%20URLs%27%29&amp;input=aHR0cDovL2dvb2dsZS5jb20">CyberChef</a></p>
 
-<ol>
-  <li>
-    <p>Checking if the URLs or IPs are blacklisted or not
-IP Address Blacklist Check, IP DNSBL Check | IPVoid
-Scan an IP address through multiple DNS-based blacklists (DNSBL) and IP reputation services, to facilitate the…www.ipvoid.com</p>
-  </li>
-  <li>
-    <p>Checking if the URLs or Ip addresses are malicious or not
-VirusTotal
-VirusTotalwww.virustotal.com</p>
-  </li>
-  <li>
-    <p>Downloading the attachments, get the hash of it then analyze if they are malicious or not
-VirusTotal
-VirusTotalwww.virustotal.com
-Talos File Reputation
-Enter a file’s SHA256 to search Talos’ current file reputation system. The disposition search will return a file’s…talosintelligence.com</p>
-  </li>
-  <li>
-    <p>Finally we go deeper, we use different malware analysis tools. Both automatic and manual approaches should be followed.</p>
-  </li>
-</ol>
+<p> </p>
+
+<p><strong>4.Checking DNS records of suspicious URLs or IP addresses</strong></p>
+
+<p> </p>
+
+<p><strong>5.Take a Screenshot of suspicious URLs or IP addresses</strong></p>
+
+<p>Link: <a href="https://www.url2png.com/">URL2PNG</a></p>
+
+<p> </p>
+
+<p><strong>6.Checking if the URLs or IPs are blacklisted or not</strong></p>
+
+<p>Link: <a href="https://www.ipvoid.com/ip-blacklist-check/">IPVOID</a></p>
+
+<p> </p>
+
+<p><strong>7.Checking if the URLs or Ip addresses are malicious or not</strong></p>
+
+<p>Link: <a href="https://www.virustotal.com/gui/home/upload">Virustotal</a></p>
+
+<p> </p>
+
+<p><strong>8.Downloading the attachments, get the hash of it then analyze if they are malicious or not</strong></p>
+
+<p>Link: <a href="https://www.virustotal.com/gui/home/upload">Virustotal</a></p>
+
+<p>Link: <a href="https://talosintelligence.com/talos_file_reputation">talosintelligence</a></p>
+
+<p> </p>
+
+<p><strong>9.Finally we go deeper, we use different malware analysis tools. Both automatic and manual approaches should be followed.</strong></p>
+
+<p> </p>
 
 <p>Of course, there are more than this, but according to our context for this blog, we are going to analyze the attached pdf.</p>
 
 <p>I am going to use remnux distro to analyze the pdf file.</p>
 
-<p>“<strong>REMnux®</strong> is a Linux toolkit for reverse-engineering and analyzing malicious software. REMnux provides a curated collection of free tools created by the community. Analysts can use it to investigate malware without having to find, install, and configure the tools.”</p>
+<blockquote>
+  <p>” <strong>REMnux®</strong> is a Linux toolkit for reverse-engineering and analyzing malicious software. REMnux provides a curated collection of free tools created by the community. Analysts can use it to investigate malware without having to find, install, and configure the tools.</p>
+</blockquote>
 
 <p>I have already pulled the image.</p>
 
@@ -508,15 +515,15 @@ docker <span class="nb">exec</span> <span class="nt">-it</span> d3511ccab833 /bi
 
 <p>First, check if the pdf has the correct magic number or not.</p>
 
-<p><img src="/assets/img/blog2-phish/51.png" alt=" burp-server &gt;&lt;" /></p>
+<p><img src="/assets/img/blog2-phish/51.png" alt=" pdf-magic-num &gt;&lt;" /></p>
 
-<p>To check it, visit here: https://en.wikipedia.org/wiki/List_of_file_signatures</p>
+<p>To check it, visit here: <a href="https://en.wikipedia.org/wiki/List_of_file_signatures">Signatures</a></p>
 
 <p>It seems correct.</p>
 
 <p>Let’s analyze the pdf file with a tool called <strong>pdfid</strong>.</p>
 
-<p><img src="/assets/img/blog2-phish/52.png" alt=" burp-server &gt;&lt;" /></p>
+<p><img src="/assets/img/blog2-phish/52.png" alt=" pdfid &gt;&lt;" /></p>
 
 <p>It contains some javascript. It is better for us not to open the pdf file as /OpenAction is also 1 which means the js will take some actions on opening the pdf file.</p>
 
@@ -552,13 +559,13 @@ docker <span class="nb">exec</span> <span class="nt">-it</span> d3511ccab833 /bi
 
 <p>I find <strong>peedpdf</strong> more cooler than <strong>pdfid</strong> as <strong>peepdf</strong> can provide the same information. It has been found that the pdf contains some suspicious elements i.e JS</p>
 
-<p><img src="/assets/img/blog2-phish/53.png" alt=" burp-server &gt;&lt;" /></p>
+<p><img src="/assets/img/blog2-phish/53.png" alt=" peepdf &gt;&lt;" /></p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pdfid lastone.pdf
 peepdf lastone.pdf
 </code></pre></div></div>
 
-<p><img src="/assets/img/blog2-phish/54.png" alt=" burp-server &gt;&lt;" /></p>
+<p><img src="/assets/img/blog2-phish/54.png" alt=" peepdf &gt;&lt;" /></p>
 
 <p>We can extract the js contents using these tools. For this, we have to write a simple script. i.e extract js &gt; aything.txt
 save it in a file.</p>
@@ -573,7 +580,7 @@ save it in a file.</p>
 peepdf <span class="nt">-s</span> extract.txt malicouspdf.pdf
 
 </code></pre></div></div>
-<p><img src="/assets/img/blog2-phish/55.png" alt=" burp-server &gt;&lt;" /></p>
+<p><img src="/assets/img/blog2-phish/55.png" alt=" peepdf-extract &gt;&lt;" /></p>
 
 <p>The js content is successfully extracted.</p>
 
@@ -634,6 +641,30 @@ peepdf <span class="nt">-s</span> extract.txt malicouspdf.pdf
                         <p>
                             
                             <p>In this blog, I am going to phish myself. Jumping directly into a conclusion does not make sense so I will be explaining from “how-to-create” to “how-to-do”.</p>
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </article>
+        
+        <article class="article-preview">
+            <div class="row">
+                <div class="col-sm-2">
+                    <h2 class="publish-day">21</h2>
+                    <div class="publish-month">2022</div>
+                </div>
+                <div class="col-sm-10">
+                    <h2 class="post-title"><a href="/blog/proxy">Proxy: Accessing Network Connection</a></h2>
+                    <!-- <h3 class="post-subtitle">Surfing Away on Pennies a Day</h3>   <a href="#"> -->
+                    <a href="/blog/proxy">
+                        <img src="/assets/thumbnail/phish.png" class="author-image">
+                        <!-- <span class="author-name">Brian Barrett</span> -->
+                    </a>
+                    <div class="post-preview">
+                        <p>
+                            
+                            
                         </p>
                     </div>
 

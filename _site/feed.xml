@@ -1,4 +1,91 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-03-14T20:16:37+05:45</updated><id>http://localhost:4000/feed.xml</id><title type="html">Sau Theme</title><subtitle>Nothing included right now. I will think about it.ss</subtitle><entry><title type="html">Phishing: Creating and Analyzing</title><link href="http://localhost:4000/blog/phish" rel="alternate" type="text/html" title="Phishing: Creating and Analyzing" /><published>2022-01-16T00:00:00+05:45</published><updated>2022-01-16T00:00:00+05:45</updated><id>http://localhost:4000/blog/phish</id><content type="html" xml:base="http://localhost:4000/blog/phish"><![CDATA[<h3 id="phish-phish-phish">Phish.. Phish.. Phish..</h3>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-03-21T21:42:54+05:45</updated><id>http://localhost:4000/feed.xml</id><title type="html">Sau Theme</title><subtitle>Nothing included right now. I will think about it.ss</subtitle><entry><title type="html">Proxy: Accessing Network Connection</title><link href="http://localhost:4000/blog/proxy" rel="alternate" type="text/html" title="Proxy: Accessing Network Connection" /><published>2022-03-21T00:00:00+05:45</published><updated>2022-03-21T00:00:00+05:45</updated><id>http://localhost:4000/blog/proxy</id><content type="html" xml:base="http://localhost:4000/blog/proxy"><![CDATA[<p>In this blog, I will explain how to access network connections on Tryhackme/HTB/etc…. machines.Having<br />  an internet connection will make it a lot easier when we are trying to pwn machines or playing attack/defense <br />challenges although it could be slow but works.</p>
+
+<h3 id="setup">Setup</h3>
+<p>I am performing it on my machine which is free to play on TryHackMe
+Link: <a href="https://tryhackme.com/room/enpass">EnPass</a></p>
+
+<p>The machine is up.</p>
+
+<p><img src="/assets/img/blog3-proxy/1.png" alt=" connected &gt;&lt;" /></p>
+
+<p>We have to install a proxy server on our machine. I will be going to use <em>Squid Proxy</em>.<br />
+I am using arch on wsl2.
+<img src="/assets/img/blog3-proxy/2.png" alt=" squid-install &gt;&lt;" /></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>For <span class="nb">arch</span>: <span class="nb">sudo </span>pacman <span class="nt">-Sy</span> squid
+For ubuntu: <span class="nb">sudo </span>apt <span class="nb">install </span>squid <span class="nt">-y</span>
+</code></pre></div></div>
+<p>Then enable the squid service and start it.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>systemctl <span class="nb">enable </span>squid
+<span class="nb">sudo </span>systemctl start squid
+or
+<span class="nb">sudo </span>service squid start
+</code></pre></div></div>
+<p>Let’s check locally if it is working or not.</p>
+
+<p><img src="/assets/img/blog3-proxy/3.png" alt=" squid-check &gt;&lt;" />
+As you see the connection is made via squid proxy.
+On normal, it would have been looked like this.
+<img src="/assets/img/blog3-proxy/4.png" alt=" squid-check &gt;&lt;" /></p>
+
+<p>So far we are good with the setup. Now let’s first gain root access to the machine.</p>
+
+<h3 id="performing">Performing</h3>
+
+<p>Right now I am on the machine.
+<img src="/assets/img/blog3-proxy/5.png" alt=" root-access &gt;&lt;" /></p>
+
+<p>The <strong>squid proxy</strong> runs on port 3128. We have to first forward our traffic to the remote machine via ssh.</p>
+
+<p>Basically, it’s a <strong>remote port</strong> forwarding where all the traffic/connections are passed from the SSH server to <br />the remote server via an SSH client. <br />In a simple term, we are giving access to the people who can’t whereas in the <strong>local port forward</strong>, we access the resources that we cannot.</p>
+
+<p><img src="/assets/img/blog3-proxy/6.png" alt=" port-forwarding &gt;&lt;" />
+We have successfully port forwarded.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh <span class="nt">-R</span> 3128:&lt;your-ip&gt;:3128 <span class="nt">-i</span> id_rsa root@&lt;machine-ip&gt;
+ss <span class="nt">-ltnp</span> | <span class="nb">grep </span>3128
+</code></pre></div></div>
+<p>Let’s confirm with the help of curl.</p>
+
+<p><img src="/assets/img/blog3-proxy/7.png" alt=" proxy-check &gt;&lt;" /></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl  <span class="nt">-x</span> http://127.0.0.1:3128 http://www.google.com/ <span class="nt">-I</span>
+</code></pre></div></div>
+<p><em>We are good with it</em></p>
+
+<p>We have successfully made the network connection work.</p>
+
+<h3 id="extra">Extra</h3>
+
+<p>What if we want to download packages? <em>apt cmdline</em> won’t download or update anything without an internet connection. 
+Just a few steps and it will start working.</p>
+
+<p>Add the following line into <em>/etc/profile</em>. This will make the proxy environment enable for all users globally.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export http_proxy=http://127.0.0.1:3128/
+</code></pre></div></div>
+
+<p><img src="/assets/img/blog3-proxy/8.png" alt=" proxy-check-without-x &gt;&lt;" /></p>
+
+<p><img src="/assets/img/blog3-proxy/9.png" alt=" proxy-check-without-x &gt;&lt;" /></p>
+
+<p>We don’t have to now mention the “-x” flag.<br /><em>apt</em> will also work now. you can see <em>nmap</em>  is not installed first. Let’s try installing <strong>nmap</strong>.</p>
+
+<p><img src="/assets/img/blog3-proxy/10.png" alt=" proxy-check-without-x &gt;&lt;" /></p>
+
+<p>Yea, we are now successfully getting an internet connection.</p>
+
+<p>If you can’t install any packages ( <strong>apt</strong> ) then you can try adding following line into a file “<strong>/etc/apt/apt.conf</strong>”.<br />Create it if you can’t find it.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Acquire::http::Proxy <span class="s2">"http://127.0.0.1:3128/"</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p> </p>
+
+<p> </p>
+
+<p>Thank you for reading. :)</p>
+
+<p>Have a good day/night.</p>]]></content><author><name></name></author><category term="proxy" /><summary type="html"><![CDATA[In this blog, I will explain how to access network connections on Tryhackme/HTB/etc…. machines.Having an internet connection will make it a lot easier when we are trying to pwn machines or playing attack/defense challenges although it could be slow but works. Setup I am performing it on my machine which is free to play on TryHackMe Link: EnPass The machine is up. We have to install a proxy server on our machine. I will be going to use Squid Proxy. I am using arch on wsl2. For arch: sudo pacman -Sy squid For ubuntu: sudo apt install squid -y Then enable the squid service and start it. sudo systemctl enable squid sudo systemctl start squid or sudo service squid start Let’s check locally if it is working or not. As you see the connection is made via squid proxy. On normal, it would have been looked like this. So far we are good with the setup. Now let’s first gain root access to the machine. Performing Right now I am on the machine. The squid proxy runs on port 3128. We have to first forward our traffic to the remote machine via ssh. Basically, it’s a remote port forwarding where all the traffic/connections are passed from the SSH server to the remote server via an SSH client. In a simple term, we are giving access to the people who can’t whereas in the local port forward, we access the resources that we cannot. We have successfully port forwarded. ssh -R 3128:&lt;your-ip&gt;:3128 -i id_rsa root@&lt;machine-ip&gt; ss -ltnp | grep 3128 Let’s confirm with the help of curl. curl -x http://127.0.0.1:3128 http://www.google.com/ -I We are good with it We have successfully made the network connection work. Extra What if we want to download packages? apt cmdline won’t download or update anything without an internet connection. Just a few steps and it will start working. Add the following line into /etc/profile. This will make the proxy environment enable for all users globally. export http_proxy=http://127.0.0.1:3128/ We don’t have to now mention the “-x” flag.apt will also work now. you can see nmap is not installed first. Let’s try installing nmap. Yea, we are now successfully getting an internet connection. If you can’t install any packages ( apt ) then you can try adding following line into a file “/etc/apt/apt.conf”.Create it if you can’t find it. Acquire::http::Proxy "http://127.0.0.1:3128/";     Thank you for reading. :) Have a good day/night.]]></summary></entry><entry><title type="html">Phishing: Creating and Analyzing</title><link href="http://localhost:4000/blog/phish" rel="alternate" type="text/html" title="Phishing: Creating and Analyzing" /><published>2022-01-16T00:00:00+05:45</published><updated>2022-01-16T00:00:00+05:45</updated><id>http://localhost:4000/blog/phish</id><content type="html" xml:base="http://localhost:4000/blog/phish"><![CDATA[<h3 id="phish-phish-phish">Phish.. Phish.. Phish..</h3>
 
 <!-- excerpt-start -->
 <p>In this blog, I am going to phish myself. Jumping directly into a conclusion does not make sense so I will be explaining from “how-to-create” to “how-to-do”.
@@ -44,7 +131,7 @@ Just the outlines of what I am going to use to perform this task are given below
 
 <p>I am using JS2PDFInjector to inject a simple malicious js code into a pdf file.</p>
 
-<p>Link: https://github.com/cornerpirate/JS2PDFInjector</p>
+<p>Link: <a href="https://github.com/cornerpirate/JS2PDFInjector">JS2PDFInjector</a></p>
 
 <p><img src="/assets/img/blog2-phish/1.png" alt=" js2pdfinjector &gt;&lt;" /></p>
 
@@ -72,9 +159,13 @@ Just the outlines of what I am going to use to perform this task are given below
 
 <p>Starting from the compose file where we have added two services Gophish and Mailhog.</p>
 
-<p>‘Gophish is an open-source phishing toolkit designed for businesses and penetration testers. It provides the ability to quickly and easily set up and execute phishing engagements and security awareness training.’</p>
+<blockquote>
+  <p>“Gophish is an open-source phishing toolkit designed for businesses and penetration testers. It provides the ability to quickly and easily set up and execute phishing engagements and security awareness training.</p>
+</blockquote>
 
-<p>’ MailHog to create fake SMTP server for testing purpose.’</p>
+<blockquote>
+  <p>“MailHog to create fake SMTP server for testing purpose.</p>
+</blockquote>
 
 <p>Spinning up the aforementioned docker file.</p>
 
@@ -243,9 +334,9 @@ docker network inspect fcff01c8be6a
 
 <p><img src="/assets/img/blog2-phish/29.png" alt=" template &gt;&lt;" /></p>
 
-<p><em>**</em> this will automatically create the link. It will be our gophish server IP.</p>
+<p><strong>{{.URL}}</strong> this will automatically create the link. It will be our gophish server IP.</p>
 
-<p><em>**</em> will display the first name of the targeted email user. You will see this in the users and groups section where we have to add users to whom we are going to launch the phishing campaign.</p>
+<p><strong>{{.FirstName}}</strong> will display the first name of the targeted email user. You will see this in the users and groups section where we have to add users to whom we are going to launch the phishing campaign.</p>
 
 <p><img src="/assets/img/blog2-phish/30.png" alt=" template &gt;&lt;" /></p>
 
@@ -288,7 +379,7 @@ As I am running docker, it was like before. Just ensure that the URL should be a
 
 <p>Reflecting the IP into the body will make it very suspicious and it is not a good habit to put the IP address directly into the email body. I have added a hostname in my host’s file. This will resolve my gophish IP address into <strong>“testingserver.op”</strong>.</p>
 
-<p>If you remember we put “” in our email template. Actually, we are putting a gopher listener URL here.</p>
+<p>If you remember we put “{{.URL}}” in our email template. Actually, we are putting a gopher listener URL here.</p>
 
 <p><img src="/assets/img/blog2-phish/35.png" alt=" template &gt;&lt;" /></p>
 
@@ -375,66 +466,69 @@ It executes the js code which we inserted. See the pop created by the payload.</
 
 <p>The first step of yours always should be searching for anything weird in email.</p>
 
-<p>1.Analyze source</p>
+<p> </p>
 
-<ol>
-  <li>Try to find the origin of email such as sender IP</li>
-</ol>
+<p><strong>1.Analyze source</strong></p>
+
+<p> </p>
+
+<p><strong>2.Try to find the origin of email such as sender IP</strong></p>
 
 <p>Sites to look for analyzing email header</p>
 
-<p>Messageheader
-Edit descriptiontoolbox.googleapps.com
-Message Header Analyzer
-Edit descriptionmha.azurewebsites.net</p>
+<p>Link: <a href="https://toolbox.googleapps.com/apps/messageheader/analyzeheader">Toolbox</a></p>
 
-<ol>
-  <li>Extracting Urls and Defanging Urls</li>
-</ol>
+<p>Link: <a href="https://mha.azurewebsites.net/">mha</a></p>
 
-<p>CyberChef
-The Cyber Swiss Army Knife - a web app for encryption, encoding, compression and data analysisgchq.github.io</p>
+<p> </p>
 
-<ol>
-  <li>
-    <p>Checking DNS records of suspicious URLs or IP addresses</p>
-  </li>
-  <li>
-    <p>Take a Screenshot of suspicious URLs or IP addresses</p>
-  </li>
-</ol>
+<p><strong>3.Extracting Urls and Defanging Urls</strong></p>
 
-<p>Screenshots as a Service
-Capture snapshots of any website, right in your app, quickly and reliably.www.url2png.com</p>
+<p>Link: <a href="https://gchq.github.io/CyberChef/#recipe=Extract_URLs%28false%29Defang_URL%28true,true,true,%27Valid%20domains%20and%20full%20URLs%27%29&amp;input=aHR0cDovL2dvb2dsZS5jb20">CyberChef</a></p>
 
-<ol>
-  <li>
-    <p>Checking if the URLs or IPs are blacklisted or not
-IP Address Blacklist Check, IP DNSBL Check | IPVoid
-Scan an IP address through multiple DNS-based blacklists (DNSBL) and IP reputation services, to facilitate the…www.ipvoid.com</p>
-  </li>
-  <li>
-    <p>Checking if the URLs or Ip addresses are malicious or not
-VirusTotal
-VirusTotalwww.virustotal.com</p>
-  </li>
-  <li>
-    <p>Downloading the attachments, get the hash of it then analyze if they are malicious or not
-VirusTotal
-VirusTotalwww.virustotal.com
-Talos File Reputation
-Enter a file’s SHA256 to search Talos’ current file reputation system. The disposition search will return a file’s…talosintelligence.com</p>
-  </li>
-  <li>
-    <p>Finally we go deeper, we use different malware analysis tools. Both automatic and manual approaches should be followed.</p>
-  </li>
-</ol>
+<p> </p>
+
+<p><strong>4.Checking DNS records of suspicious URLs or IP addresses</strong></p>
+
+<p> </p>
+
+<p><strong>5.Take a Screenshot of suspicious URLs or IP addresses</strong></p>
+
+<p>Link: <a href="https://www.url2png.com/">URL2PNG</a></p>
+
+<p> </p>
+
+<p><strong>6.Checking if the URLs or IPs are blacklisted or not</strong></p>
+
+<p>Link: <a href="https://www.ipvoid.com/ip-blacklist-check/">IPVOID</a></p>
+
+<p> </p>
+
+<p><strong>7.Checking if the URLs or Ip addresses are malicious or not</strong></p>
+
+<p>Link: <a href="https://www.virustotal.com/gui/home/upload">Virustotal</a></p>
+
+<p> </p>
+
+<p><strong>8.Downloading the attachments, get the hash of it then analyze if they are malicious or not</strong></p>
+
+<p>Link: <a href="https://www.virustotal.com/gui/home/upload">Virustotal</a></p>
+
+<p>Link: <a href="https://talosintelligence.com/talos_file_reputation">talosintelligence</a></p>
+
+<p> </p>
+
+<p><strong>9.Finally we go deeper, we use different malware analysis tools. Both automatic and manual approaches should be followed.</strong></p>
+
+<p> </p>
 
 <p>Of course, there are more than this, but according to our context for this blog, we are going to analyze the attached pdf.</p>
 
 <p>I am going to use remnux distro to analyze the pdf file.</p>
 
-<p>“<strong>REMnux®</strong> is a Linux toolkit for reverse-engineering and analyzing malicious software. REMnux provides a curated collection of free tools created by the community. Analysts can use it to investigate malware without having to find, install, and configure the tools.”</p>
+<blockquote>
+  <p>” <strong>REMnux®</strong> is a Linux toolkit for reverse-engineering and analyzing malicious software. REMnux provides a curated collection of free tools created by the community. Analysts can use it to investigate malware without having to find, install, and configure the tools.</p>
+</blockquote>
 
 <p>I have already pulled the image.</p>
 
@@ -452,15 +546,15 @@ docker <span class="nb">exec</span> <span class="nt">-it</span> d3511ccab833 /bi
 
 <p>First, check if the pdf has the correct magic number or not.</p>
 
-<p><img src="/assets/img/blog2-phish/51.png" alt=" burp-server &gt;&lt;" /></p>
+<p><img src="/assets/img/blog2-phish/51.png" alt=" pdf-magic-num &gt;&lt;" /></p>
 
-<p>To check it, visit here: https://en.wikipedia.org/wiki/List_of_file_signatures</p>
+<p>To check it, visit here: <a href="https://en.wikipedia.org/wiki/List_of_file_signatures">Signatures</a></p>
 
 <p>It seems correct.</p>
 
 <p>Let’s analyze the pdf file with a tool called <strong>pdfid</strong>.</p>
 
-<p><img src="/assets/img/blog2-phish/52.png" alt=" burp-server &gt;&lt;" /></p>
+<p><img src="/assets/img/blog2-phish/52.png" alt=" pdfid &gt;&lt;" /></p>
 
 <p>It contains some javascript. It is better for us not to open the pdf file as /OpenAction is also 1 which means the js will take some actions on opening the pdf file.</p>
 
@@ -496,13 +590,13 @@ docker <span class="nb">exec</span> <span class="nt">-it</span> d3511ccab833 /bi
 
 <p>I find <strong>peedpdf</strong> more cooler than <strong>pdfid</strong> as <strong>peepdf</strong> can provide the same information. It has been found that the pdf contains some suspicious elements i.e JS</p>
 
-<p><img src="/assets/img/blog2-phish/53.png" alt=" burp-server &gt;&lt;" /></p>
+<p><img src="/assets/img/blog2-phish/53.png" alt=" peepdf &gt;&lt;" /></p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pdfid lastone.pdf
 peepdf lastone.pdf
 </code></pre></div></div>
 
-<p><img src="/assets/img/blog2-phish/54.png" alt=" burp-server &gt;&lt;" /></p>
+<p><img src="/assets/img/blog2-phish/54.png" alt=" peepdf &gt;&lt;" /></p>
 
 <p>We can extract the js contents using these tools. For this, we have to write a simple script. i.e extract js &gt; aything.txt
 save it in a file.</p>
@@ -517,13 +611,13 @@ save it in a file.</p>
 peepdf <span class="nt">-s</span> extract.txt malicouspdf.pdf
 
 </code></pre></div></div>
-<p><img src="/assets/img/blog2-phish/55.png" alt=" burp-server &gt;&lt;" /></p>
+<p><img src="/assets/img/blog2-phish/55.png" alt=" peepdf-extract &gt;&lt;" /></p>
 
 <p>The js content is successfully extracted.</p>
 
 <p>Thank you for reading. :)</p>
 
-<p>Have a good day/night.</p>]]></content><author><name></name></author><category term="jekyll" /><category term="update" /><summary type="html"><![CDATA[Phish.. Phish.. Phish.. In this blog, I am going to phish myself. Jumping directly into a conclusion does not make sense so I will be explaining from “how-to-create” to “how-to-do”.]]></summary></entry><entry><title type="html">Suspicious USB Stick</title><link href="http://localhost:4000/blog/usb-btlo" rel="alternate" type="text/html" title="Suspicious USB Stick" /><published>2021-04-07T00:00:00+05:45</published><updated>2021-04-07T00:00:00+05:45</updated><id>http://localhost:4000/blog/usb-btlo</id><content type="html" xml:base="http://localhost:4000/blog/usb-btlo"><![CDATA[<h3 id="challenge-description">Challenge Description</h3>
+<p>Have a good day/night.</p>]]></content><author><name></name></author><category term="phishing" /><summary type="html"><![CDATA[Phish.. Phish.. Phish.. In this blog, I am going to phish myself. Jumping directly into a conclusion does not make sense so I will be explaining from “how-to-create” to “how-to-do”.]]></summary></entry><entry><title type="html">Suspicious USB Stick</title><link href="http://localhost:4000/blog/usb-btlo" rel="alternate" type="text/html" title="Suspicious USB Stick" /><published>2021-04-07T00:00:00+05:45</published><updated>2021-04-07T00:00:00+05:45</updated><id>http://localhost:4000/blog/usb-btlo</id><content type="html" xml:base="http://localhost:4000/blog/usb-btlo"><![CDATA[<h3 id="challenge-description">Challenge Description</h3>
 
 <p>→<!-- excerpt-start --> One of our clients informed us they recently suffered an employee data breach. As a startup company, they had a constrained budget allocated for security and employee  <!-- excerpt-end --> training. I visited them and spoke with the relevant stakeholders. I also collected some suspicious emails and a USB drive an employee found on their premises. While I am analyzing the suspicious emails, can you check the contents on the USB drive?</p>
 
@@ -646,4 +740,4 @@ This is just my guess could be wrong.</p>
 <p> 
  </p>
 
-<p>Thank You :)</p>]]></content><author><name></name></author><category term="jekyll" /><category term="update" /><category term="something" /><summary type="html"><![CDATA[Challenge Description → One of our clients informed us they recently suffered an employee data breach. As a startup company, they had a constrained budget allocated for security and employee]]></summary></entry></feed>
+<p>Thank You :)</p>]]></content><author><name></name></author><category term="malware" /><category term="something" /><summary type="html"><![CDATA[Challenge Description → One of our clients informed us they recently suffered an employee data breach. As a startup company, they had a constrained budget allocated for security and employee]]></summary></entry></feed>

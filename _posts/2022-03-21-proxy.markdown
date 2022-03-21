@@ -1,0 +1,105 @@
+---
+layout: blog-detail
+title:  "Proxy: Accessing Network Connection"
+date:   mar 21, 2022
+categories: proxy
+titleimage: phish.png
+permalink: /blog/:title
+excerpt_separator:  <!-- excerpt-end -->
+---
+
+In this blog, I will explain how to access network connections on Tryhackme/HTB/etc…. machines.Having<br>  an internet connection will make it a lot easier when we are trying to pwn machines or playing attack/defense <br>challenges although it could be slow but works.
+
+### Setup
+I am performing it on my machine which is free to play on TryHackMe
+Link: [EnPass](https://tryhackme.com/room/enpass)
+
+The machine is up.
+
+![ connected ><](/assets/img/blog3-proxy/1.png)
+
+We have to install a proxy server on our machine. I will be going to use *Squid Proxy*.<br>
+I am using arch on wsl2.
+![ squid-install ><](/assets/img/blog3-proxy/2.png)
+
+```bash
+For arch: sudo pacman -Sy squid
+For ubuntu: sudo apt install squid -y
+```
+Then enable the squid service and start it.
+
+```bash
+sudo systemctl enable squid
+sudo systemctl start squid
+or
+sudo service squid start
+```
+Let's check locally if it is working or not.
+
+![ squid-check ><](/assets/img/blog3-proxy/3.png)
+As you see the connection is made via squid proxy.
+On normal, it would have been looked like this.
+![ squid-check ><](/assets/img/blog3-proxy/4.png)
+
+So far we are good with the setup. Now let's first gain root access to the machine.
+
+### Performing
+
+Right now I am on the machine.
+![ root-access ><](/assets/img/blog3-proxy/5.png)
+
+The **squid proxy** runs on port 3128. We have to first forward our traffic to the remote machine via ssh.
+
+Basically, it's a **remote port** forwarding where all the traffic/connections are passed from the SSH server to <br>the remote server via an SSH client. <br>In a simple term, we are giving access to the people who can't whereas in the **local port forward**, we access the resources that we cannot.
+
+![ port-forwarding ><](/assets/img/blog3-proxy/6.png)
+We have successfully port forwarded.
+```bash
+ssh -R 3128:<your-ip>:3128 -i id_rsa root@<machine-ip>
+ss -ltnp | grep 3128
+```
+Let's confirm with the help of curl.
+
+![ proxy-check ><](/assets/img/blog3-proxy/7.png)
+
+
+```bash
+curl  -x http://127.0.0.1:3128 http://www.google.com/ -I
+```
+*We are good with it*
+
+We have successfully made the network connection work. 
+
+### Extra
+
+What if we want to download packages? *apt cmdline* won't download or update anything without an internet connection. 
+Just a few steps and it will start working.
+
+Add the following line into */etc/profile*. This will make the proxy environment enable for all users globally.
+
+```
+export http_proxy=http://127.0.0.1:3128/
+```
+
+![ proxy-check-without-x ><](/assets/img/blog3-proxy/8.png)
+
+![ proxy-check-without-x ><](/assets/img/blog3-proxy/9.png)
+
+We don't have to now mention the "-x" flag.<br>*apt* will also work now. you can see *nmap*  is not installed first. Let's try installing **nmap**.
+
+![ proxy-check-without-x ><](/assets/img/blog3-proxy/10.png)
+
+Yea, we are now successfully getting an internet connection.
+
+If you can't install any packages ( **apt** ) then you can try adding following line into a file "**/etc/apt/apt.conf**".<br>Create it if you can't find it.
+```bash
+Acquire::http::Proxy "http://127.0.0.1:3128/";
+```
+
+&nbsp;
+
+&nbsp;
+
+Thank you for reading. :)
+
+Have a good day/night.

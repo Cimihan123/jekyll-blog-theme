@@ -1,0 +1,125 @@
+<h3 id="challenge-description">Challenge Description</h3>
+
+<p>→<!-- excerpt-start --> One of our clients informed us they recently suffered an employee data breach. As a startup company, they had a constrained budget allocated for security and employee  <!-- excerpt-end --> training. I visited them and spoke with the relevant stakeholders. I also collected some suspicious emails and a USB drive an employee found on their premises. While I am analyzing the suspicious emails, can you check the contents on the USB drive?</p>
+
+<p> 
+ 
+ </p>
+
+<p><strong>1. What file is the autorun.inf running?</strong></p>
+
+<p>→ README.pdf</p>
+
+<p><img src="/assets/img/blog1/1.png" alt="autorun &gt;&lt;" class="center" /></p>
+
+<p>autorun.inf - It’s a text file that can be used to automatically run some applications or load when some media like usb,cd/dvd is inserted.</p>
+
+<p><img src="/assets/img/blog1/1p2.png" alt="autorun &gt;&lt;" class="left" /></p>
+
+<p>For more info you can visit this link. <a href="https://www.samlogic.net/articles/autorun-commands.htm">Click Here </a></p>
+
+<p> 
+ </p>
+
+<p><strong>2. Does the pdf file pass virustotal scan? (No malicious results returned)</strong></p>
+
+<p>→ False</p>
+
+<p>As it also scans pdfs which is obvious.</p>
+
+<p><img src="/assets/img/blog1/2.png" alt="scan &gt;&lt;" class="left" /></p>
+
+<p>The pdf is utterly suspected as malicious.</p>
+
+<p><img src="/assets/img/blog1/3.png" alt="virtustotalscan &gt;&lt;" class="left" /></p>
+
+<p> 
+ </p>
+
+<p><strong>3. Does the file have the correct magic number?</strong></p>
+
+<p>→ True</p>
+
+<p>To check the signature , visit here: <a href="https://en.wikipedia.org/wiki/List_of_file_signatures">Click Here</a>
+<img src="/assets/img/blog1/4.png" alt=" signature &gt;&lt;" class="left" />
+The magic bytes matches with pdf magic bytes so the file has correct magic number.</p>
+
+<p>Let’s first analyze the pdf file with a tool pdfid.
+https://blog.didierstevens.com/programs/pdf-tools</p>
+
+<p> </p>
+
+<!-- <pre>
+<b style="color:black;" > -->
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/Page - the number of pages in pdf
+
+/Encrypt - stipulates a password need to be read
+
+/ObjStm - object streams
+
+/Js - pdf file may contains js code which could be malicious to open
+
+/AA and /OpenAction - action that will carried out automatically when we open a pdf file. Could automatically launch malicious js commands
+
+/AcroForm - pdf form authored with Adobe Acrobat Pro/Standard
+
+/JBIG2Decode - indicates pdf uses JBIG2Decode compression
+
+/RichMedia - use to embed files,videos etc on pdf
+
+/Launch - to lauch some actions
+
+/EmbeddedFile - contains some external files
+
+/XFA - XML Forms Architecture
+
+/URI - Url to access
+</code></pre></div></div>
+<!-- </b> 
+</pre> -->
+
+<p><img src="/assets/img/blog1/5.png" alt=" pdfidresult &gt;&lt;" class="left" /></p>
+
+<p>As we see it has some js contents which will automatically open on opening the pdf file and that seems particularly malicious.
+The same type of result can be obtained via peepdf tool.
+Here is the link: <a href="https://eternal-todo.com/tools/peepdf-pdf-analysis-tool">Click Here</a> tut for this tool. You can also download the tool if you want. :) Btw it only runs in python2.
+<img src="/assets/img/blog1/6.png" alt=" peepdf &gt;&lt;" class="left" /></p>
+
+<p>“pdf-parser - This tool will parse a PDF document to identify the fundamental elements used in the analyzed file. It will not render a PDF document.”
+On checking each objects , the object 28 seems rather interesting than other.
+This is just my guess could be wrong.</p>
+
+<p>/F - indicates file</p>
+
+<p>/D - indicates directory</p>
+
+<p>/P - indicates path</p>
+
+<p><img src="/assets/img/blog1/7.png" alt=" peepdf &gt;&lt;" class="left" /></p>
+
+<p> 
+ </p>
+
+<p><strong>4. What OS type can the file exploit? (Linux, MacOS, Windows, etc)</strong></p>
+
+<p>→ Windows</p>
+
+<p> 
+ </p>
+
+<p><strong>5. A Windows executable is mentioned in the pdf file, what is it?</strong></p>
+
+<p>→ cmd.exe</p>
+
+<p> 
+ </p>
+
+<p><strong>6. How many suspicious /OpenAction elements does the file have?</strong></p>
+
+<p>→ 1</p>
+
+<p> 
+ </p>
+
+<p>Thank You :)</p>
+

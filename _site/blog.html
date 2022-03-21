@@ -46,7 +46,7 @@
 
 <!-- Configuration -->
 <script>
-var result = '<div id="search"><a "href="{url}"> {title}</a><br><span>year: {date}</span></div>';  
+var result = '<div id="search"><a href="{url}"> {title}</a><br><span>year: {date}</span></div>';  
 
 SimpleJekyllSearch({
   searchInput: document.getElementById('search-input'),
@@ -57,7 +57,8 @@ SimpleJekyllSearch({
 
 })
 
-</script> 
+</script>
+ 
   <main>
 
     <!-- post list -->
@@ -68,12 +69,25 @@ SimpleJekyllSearch({
       <!-- Post start -->
       <div class="post-list__post post">
         <figure class="post__preview-img">
+          <a href="/blog/proxy"><img src="/assets/thumbnail/phish.png" alt="">
+          </a>
+        </figure>
+
+        <div class="post__header">
+          <time datetime="2019-11-09" class="post__time">21 March 2022</time>
+          <h2><a href="/blog/proxy">Proxy: Accessing Network Connection</a></h2>
+        </div>
+      </div>
+      
+      <!-- Post start -->
+      <div class="post-list__post post">
+        <figure class="post__preview-img">
           <a href="/blog/phish"><img src="/assets/thumbnail/phish.png" alt="">
           </a>
         </figure>
 
         <div class="post__header">
-          <time datetime="2019-11-09" class="post__time">01/16/22</time>
+          <time datetime="2019-11-09" class="post__time">16 January 2022</time>
           <h2><a href="/blog/phish">Phishing: Creating and Analyzing</a></h2>
         </div>
       </div>
@@ -86,7 +100,7 @@ SimpleJekyllSearch({
         </figure>
 
         <div class="post__header">
-          <time datetime="2019-11-09" class="post__time">04/07/21</time>
+          <time datetime="2019-11-09" class="post__time">7 April 2021</time>
           <h2><a href="/blog/usb-btlo">Suspicious USB Stick</a></h2>
         </div>
       </div>

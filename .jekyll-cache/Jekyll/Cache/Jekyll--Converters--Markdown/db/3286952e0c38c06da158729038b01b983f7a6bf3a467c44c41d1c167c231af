@@ -1,0 +1,86 @@
+I"%<!-- excerpt-start -->
+<p>In this blog, I will explain on how to access network connection on Tryhackme/HTB/etc…. machines.
+<br />
+Having internet connection will make a lot easier when we are trying to pwn machines or playing attack/defense<br /> challenges altough 
+it could be slow but works. 
+<!-- excerpt-end --></p>
+
+<p> </p>
+
+<h3 id="setup">Setup</h3>
+<p>I am peforming it on my machine which is free to play on TryHackMe.
+Link: <a href="https://tryhackme.com/room/enpass">EnPass</a></p>
+
+<p>The machine is up.</p>
+
+<p><img src="/assets/img/blog3-proxy/1.png" alt=" connected &gt;&lt;" /></p>
+
+<p>We have to  install a proxy sever on our machine. I will be going to use <em>Squid Proxy</em>.<br />
+I am using arch on wsl2.
+<img src="/assets/img/blog3-proxy/2.png" alt=" squid-install &gt;&lt;" /></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>For <span class="nb">arch</span>: <span class="nb">sudo </span>pacman <span class="nt">-Sy</span> squid
+For ubuntu: <span class="nb">sudo </span>apt <span class="nb">install </span>squid <span class="nt">-y</span>
+</code></pre></div></div>
+<p>Then enable the squid service and start it.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>systemctl <span class="nb">enable </span>squid
+<span class="nb">sudo </span>systemctl start squid
+or
+<span class="nb">sudo </span>service squid start
+</code></pre></div></div>
+<p>Let’s check locally if it is working or not.</p>
+
+<p><img src="/assets/img/blog3-proxy/3.png" alt=" squid-check &gt;&lt;" />
+As you see the connection is made via squid proxy.
+On normal, it would have been look like this.
+<img src="/assets/img/blog3-proxy/4.png" alt=" squid-check &gt;&lt;" /></p>
+
+<p>So far we are good with the setup. Now let’s first gain root access to the machine .</p>
+
+<h3 id="performing">Performing</h3>
+
+<p>Right now I am on the machine.
+<img src="/assets/img/blog3-proxy/5.png" alt=" root-access &gt;&lt;" /></p>
+
+<p>The <strong>squid proxy</strong> runs on port 3128. We have to first forward our traffic to the remote machine via ssh.</p>
+
+<p>Basically it’s a <strong>remote port</strong> forwarding where all the traffics/connections are passed from the SSH server to <br />the remote server via SSH client. <br />In a simple term, we are giving access to the people who can’t where as in <strong>local port forward</strong> ,<br /> we access to the resources that we cannot.</p>
+
+<p><img src="/assets/img/blog3-proxy/6.png" alt=" port-forwarding &gt;&lt;" />
+We have successfully port forwarded.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh <span class="nt">-R</span> 3128:&lt;your-ip&gt;:3128 <span class="nt">-i</span> id_rsa root@&lt;machine-ip&gt;
+ss <span class="nt">-ltnp</span> | <span class="nb">grep </span>3128
+</code></pre></div></div>
+<p>Let’s confirm with the help of curl.</p>
+
+<p><img src="/assets/img/blog3-proxy/7.png" alt=" proxy-check &gt;&lt;" /></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl  <span class="nt">-x</span> http://127.0.0.1:3128 http://www.google.com/ <span class="nt">-I</span>
+</code></pre></div></div>
+<p><em>We are good with it</em></p>
+
+<p>We have successfully made the network connection worked.</p>
+
+<h3 id="extra">Extra</h3>
+
+<p>What if we want to download packages ? <em>apt cmdline</em> won’t download or update anything without internet connection. 
+Just a few steps and it will start working.</p>
+
+<p>Add the following line into <em>/etc/profile</em>. This will make proxy environment enable for all users globally.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export http_proxy=http://127.0.0.1:3128/
+</code></pre></div></div>
+
+<p><img src="/assets/img/blog3-proxy/8.png" alt=" proxy-check-without-x &gt;&lt;" /></p>
+
+<p>We don’t have to now add “-x” flag.</p>
+
+<p> </p>
+
+<p> </p>
+
+<p>Thank you for reading. :)</p>
+
+<p>Have a good day/night.</p>
+:ET
