@@ -3,12 +3,14 @@ layout: blog-detail
 title:  "Proxy: Accessing Network Connection"
 date:   mar 21, 2022
 categories: proxy
-titleimage: phish.png
+titleimage: squid.webp
 permalink: /blog/:title
 excerpt_separator:  <!-- excerpt-end -->
 ---
 
-In this blog, I will explain how to access network connections on Tryhackme/HTB/etc…. machines.Having<br>  an internet connection will make it a lot easier when we are trying to pwn machines or playing attack/defense <br>challenges although it could be slow but works.
+&nbsp;
+
+ <span style="font-size:30px;">I</span>n this blog, I will explain how to access network connections on Tryhackme/HTB/etc…. machines.Having an internet connection will make it a lot easier when we are trying to pwn machines or playing attack/defense challenges although it could be slow but works.
 
 ### Setup
 I am performing it on my machine which is free to play on TryHackMe
