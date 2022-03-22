@@ -20,7 +20,7 @@ The machine is up.
 
 ![ connected ><](/assets/img/blog3-proxy/1.png)
 
-We have to install a proxy server on our machine. I will be going to use *Squid Proxy*.<br>
+We have to install a proxy server on our local machine. I will be going to use *Squid Proxy*.<br>
 I am using arch on wsl2.
 ![ squid-install ><](/assets/img/blog3-proxy/2.png)
 
@@ -40,14 +40,14 @@ Let's check locally if it is working or not.
 
 ![ squid-check ><](/assets/img/blog3-proxy/3.png)
 As you see the connection is made via squid proxy.
-On normal, it would have been looked like this.
+On normal, it would have been looked like this ( without Via: header)..
 ![ squid-check ><](/assets/img/blog3-proxy/4.png)
 
-So far we are good with the setup. Now let's first gain root access to the machine.
+So far we are good with the setup. Now let's first gain root access to the remote machine.
 
 ### Performing
 
-Right now I am on the machine.
+Right now I am on the remote machine as a root user.
 ![ root-access ><](/assets/img/blog3-proxy/5.png)
 
 The **squid proxy** runs on port 3128. We have to first forward our traffic to the remote machine via ssh.
@@ -77,7 +77,7 @@ We have successfully made the network connection work.
 What if we want to download packages? *apt cmdline* won't download or update anything without an internet connection. 
 Just a few steps and it will start working.
 
-Add the following line into */etc/profile*. This will make the proxy environment enable for all users globally.
+Add the following line into the */etc/profile*. This will make the proxy environment enable for all users globally.
 
 ```
 export http_proxy=http://127.0.0.1:3128/
@@ -87,7 +87,7 @@ export http_proxy=http://127.0.0.1:3128/
 
 ![ proxy-check-without-x ><](/assets/img/blog3-proxy/9.png)
 
-We don't have to now mention the "-x" flag.<br>*apt* will also work now. you can see *nmap*  is not installed first. Let's try installing **nmap**.
+We don't have to now mention the "-x" flag.<br>*apt* will also work now. you can see *Nmap*  is not installed first. Let's try installing **Nmap**.
 
 ![ proxy-check-without-x ><](/assets/img/blog3-proxy/10.png)
 
