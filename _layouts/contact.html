@@ -14,27 +14,27 @@
     
     <div class="Contact">
             <div class="intro">
-                <img class="img1" src="{{ site.baseurl }}/assets/img/{{ page.imgname }}">
                 <div class="wrapper">
-                    <img class="img2" src="https://i.stack.imgur.com/AWZtN.png" alt="ImageLoad" />
+                    <img class="img1" src="{{ site.baseurl }}/assets/img/{{ page.imgname }}">
                     <h1 class="getInTouch"> Get In Touch</h1>
                 </div>
             </div>
-            <div class="footInfo">
-                <div class="writeMe">
-                    <h1>Write me:</h1>
-                    <p>{{ page.mail }}</p>
-                </div>
-                <div class="followMe">
-                    <h1>Follow me:</h1>
-                    <p>
-                        <a href="{{ page.fblink }}"  class="ico1"  target="_blank" rel="noopener noreferrer"><i class="ico fa-brands fa-facebook"></i>Facebook.</a><br>
-                        <a href="{{ page.twlink }}"  target="_blank" rel="noopener noreferrer"><i class="ico ico2 fa-brands fa-instagram"></i>Twitter.</a><br>
-                        <a href="{{  page.instalink }}"  target="_blank" rel="noopener noreferrer"><i class="ico fa-brands fa-twitter"></i>Instagram.</a><br>
-                    </p>
-                </div>
-            </div>
-            </div>
+    </div>
+    <div class="footInfo">
+        <div class="writeMe">
+            <h1>Write me:</h1>
+            <p>{{ page.mail }}</p>
+        </div>
+        <div class="followMe">
+            <h1>Follow me:</h1>
+            <p>
+                <a href="{{ page.fblink }}"  class="ico1"  target="_blank" rel="noopener noreferrer"><i class="ico fa-brands fa-facebook"></i>Facebook.</a><br>
+                <a href="{{ page.twlink }}"  target="_blank" rel="noopener noreferrer"><i class="ico ico2 fa-brands fa-instagram"></i>Twitter.</a><br>
+                <a href="{{  page.instalink }}"  target="_blank" rel="noopener noreferrer"><i class="ico fa-brands fa-twitter"></i>Instagram.</a><br>
+            </p>
+        </div>
+    </div>
+
 
 </body>
 {% include toggle.html %}

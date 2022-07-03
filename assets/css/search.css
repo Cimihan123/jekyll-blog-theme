@@ -1,6 +1,7 @@
 
+
 input {
-    background-color: rgb(15, 10, 10);
+    background-color: #222028;
 }
 
 .suggestions {
@@ -165,7 +166,7 @@ input {
 		color: #f1f1f1;
 	}
 	body {
-		background: #171717;
+		background: #222028;
 	}
 	.search-bar input {
 		box-shadow: 0 0 0 0.4em #f1f1f1 inset;

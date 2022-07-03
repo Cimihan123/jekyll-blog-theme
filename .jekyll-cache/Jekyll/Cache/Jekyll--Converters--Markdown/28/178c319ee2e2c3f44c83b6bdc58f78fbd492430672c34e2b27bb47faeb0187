@@ -1,21 +1,17 @@
-I"!<!-- excerpt-start -->
-<p>In this blog, I will explain on how to access network connection on Tryhackme/HTB/etc…. machines.
-<br />
-Having internet connection will make a lot easier when we are trying to pwn machines or playing attack/defense<br /> challenges altough 
-it could be slow but works. 
-<!-- excerpt-end --></p>
+I"�<p> </p>
 
-<p> </p>
+<!-- excerpt-start -->
+<p><span style="font-size:30px;">I</span>n this blog, I will explain how to access network connections on Tryhackme/HTB/etc…. machines.Having an internet connection will make it a lot easier when we are trying to pwn machines <!-- excerpt-end --> or playing attack/defense challenges although it could be slow but works.</p>
 
 <h3 id="setup">Setup</h3>
-<p>I am peforming it on my machine which is free to play on TryHackMe.
+<p>I am performing it on my machine which is free to play on TryHackMe
 Link: <a href="https://tryhackme.com/room/enpass">EnPass</a></p>
 
 <p>The machine is up.</p>
 
 <p><img src="/assets/img/blog3-proxy/1.png" alt=" connected &gt;&lt;" /></p>
 
-<p>We have to  install a proxy sever on our machine. I will be going to use <em>Squid Proxy</em>.<br />
+<p>We have to install a proxy server on our local machine. I will be going to use <em>Squid Proxy</em>.<br />
 I am using arch on wsl2.
 <img src="/assets/img/blog3-proxy/2.png" alt=" squid-install &gt;&lt;" /></p>
 
@@ -33,19 +29,19 @@ or
 
 <p><img src="/assets/img/blog3-proxy/3.png" alt=" squid-check &gt;&lt;" />
 As you see the connection is made via squid proxy.
-On normal, it would have been look like this.
+On normal, it would have been looked like this ( without Via: header)..
 <img src="/assets/img/blog3-proxy/4.png" alt=" squid-check &gt;&lt;" /></p>
 
-<p>So far we are good with the setup. Now let’s first gain root access to the machine .</p>
+<p>So far we are good with the setup. Now let’s first gain root access to the remote machine.</p>
 
 <h3 id="performing">Performing</h3>
 
-<p>Right now I am on the machine.
+<p>Right now I am on the remote machine as a root user.
 <img src="/assets/img/blog3-proxy/5.png" alt=" root-access &gt;&lt;" /></p>
 
 <p>The <strong>squid proxy</strong> runs on port 3128. We have to first forward our traffic to the remote machine via ssh.</p>
 
-<p>Basically it’s a <strong>remote port</strong> forwarding where all the traffics/connections are passed from the SSH server to <br />the remote server via SSH client. <br />In a simple term, we are giving access to the people who can’t where as in <strong>local port forward</strong> ,<br /> we access to the resources that we cannot.</p>
+<p>Basically, it’s a <strong>remote port</strong> forwarding where all the traffic/connections are passed from the SSH server to <br />the remote server via an SSH client. <br />In a simple term, we are giving access to the people who can’t whereas in the <strong>local port forward</strong>, we access the resources that we cannot.</p>
 
 <p><img src="/assets/img/blog3-proxy/6.png" alt=" port-forwarding &gt;&lt;" />
 We have successfully port forwarded.</p>
@@ -60,14 +56,14 @@ ss <span class="nt">-ltnp</span> | <span class="nb">grep </span>3128
 </code></pre></div></div>
 <p><em>We are good with it</em></p>
 
-<p>We have successfully made the network connection worked.</p>
+<p>We have successfully made the network connection work.</p>
 
 <h3 id="extra">Extra</h3>
 
-<p>What if we want to download packages ? <em>apt cmdline</em> won’t download or update anything without internet connection. 
+<p>What if we want to download packages? <em>apt cmdline</em> won’t download or update anything without an internet connection. 
 Just a few steps and it will start working.</p>
 
-<p>Add the following line into <em>/etc/profile</em>. This will make proxy environment enable for all users globally.</p>
+<p>Add the following line into the <em>/etc/profile</em>. This will make the proxy environment enable for all users globally.</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export http_proxy=http://127.0.0.1:3128/
 </code></pre></div></div>
@@ -76,13 +72,13 @@ Just a few steps and it will start working.</p>
 
 <p><img src="/assets/img/blog3-proxy/9.png" alt=" proxy-check-without-x &gt;&lt;" /></p>
 
-<p>We don’t have to now mention “-x” flag.<br /><em>apt</em> will also work now. you can see <em>nmap</em>  is not installed first. Let’s try installing nmap.</p>
+<p>We don’t have to now mention the “-x” flag.<br /><em>apt</em> will also work now. you can see <em>Nmap</em>  is not installed first. Let’s try installing <strong>Nmap</strong>.</p>
 
 <p><img src="/assets/img/blog3-proxy/10.png" alt=" proxy-check-without-x &gt;&lt;" /></p>
 
-<p>Yea, we are now sucessfully getting internet connection.</p>
+<p>Yea, we are now successfully getting an internet connection.</p>
 
-<p>If you can’t install any packages ( <strong>apt</strong> ) then you can try adding following line into a file “/etc/apt/apt.conf”. Create it if you can’t find it.</p>
+<p>If you can’t install any packages ( <strong>apt</strong> ) then you can try adding following line into a file “<strong>/etc/apt/apt.conf</strong>”.<br />Create it if you can’t find it.</p>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Acquire::http::Proxy <span class="s2">"http://127.0.0.1:3128/"</span><span class="p">;</span>
 </code></pre></div></div>
 

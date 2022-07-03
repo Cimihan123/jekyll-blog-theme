@@ -17,20 +17,14 @@ nav{
     height: 6rem;
     width: 100vw;
     display: flex;
-    position: absolute;
+    position: relative;
     z-index: 10;
-    left: 0;
-    bottom: 0;
+    left: 5%;
+    
 }
 .nav-links > li > a {
   color: wheat;
-
 }
-
-a {
-    font-size: 1.2rem;
-}
-
 
 /*Styling Links*/
 .nav-links{
@@ -80,6 +74,7 @@ a {
 .hamburger{
     display: none;
 }
+
 
 /*Stying for small screens*/
 @media screen and (max-width: 800px){
@@ -160,7 +155,7 @@ a {
 #main {
     max-width: 1400px;
     margin: auto;
-    margin-top: 80px;
+    margin-top: 180px;
     display: flex;
     flex-direction: column;
     box-shadow: 0px 10px 40px rgba(0,0,0,0.5);
@@ -169,6 +164,11 @@ a {
   @media (max-width: 1000px) {
     #main {
       max-width: 800px;
+      margin-top: 80px;
+      
+    }
+    #div-title {
+      text-align: center;
     }
   }
   
@@ -192,6 +192,7 @@ a {
     .hr-1 {
       display: none;
     }
+
   }
 
   

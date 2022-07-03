@@ -8,19 +8,19 @@
     color: wheat;
     list-style-type: none;
     box-sizing: border-box;
-
 }
+
 body{
     overflow-x: hidden;
     font-family: 'Reem Kufi', sans-serif;
-    background-color: #222028;
-    
+    background: #222028;
+
 }
 
 
 /** nav start **/
 nav{
-    height: 6rem;
+    height: 7rem;
     width: 100vw;
     display: flex;
     z-index: 10;
@@ -29,7 +29,7 @@ nav{
 
 .nav-links > li > a {
     color: wheat;
-
+    font-size: 1.6rem;
 }
 
 /*Styling Links*/
@@ -40,6 +40,7 @@ nav{
     padding: 0 0.7vw;
     justify-content: space-evenly;
     align-items: center;
+    margin-bottom: -2.6rem;
 }
 .nav-links li a{
     text-decoration: none;
@@ -58,7 +59,6 @@ nav{
     height: 2px;
     left: 50%;
     position: absolute;
-    background: #fff;
     transition: width 0.3s ease 0s, left 0.3s ease 0s;
     width: 0;
   }
@@ -144,6 +144,9 @@ nav{
     }
 }
 /*Animating Hamburger Icon on Click*/
+.toggle {
+    z-index: 1;
+}
 .toggle .line1{
     transform: rotate(-45deg) translate(-5px,6px);
 }
@@ -173,7 +176,7 @@ outline: none;
 
 figure {
 display: block;
-background-color: #fff;
+/* background-color: #fff; */
 -ms-interpolation-mode: bicubic;
 }
 
@@ -186,13 +189,14 @@ max-width: 100%;
 /**
  * Variables 
  */
+ /**
 :root {
 --master-color: #c19f63;
 --master-color-partner-dark: #7c591d;
 
 --headings-color: #263358;
 
---main-bg-color: #fff;
+ --main-bg-color: #fff; 
 --secondary1-bg-color: #f6f6f6;
 --secondary2-bg-color: #fff0ec;
 
@@ -201,6 +205,7 @@ max-width: 100%;
 
 --sub-color: #b4b4b4;
 }
+**/
 
 /** 
  * Typography 
@@ -471,11 +476,6 @@ background-color: transparent;
   }
 } */
 
-
-.title {
-  text-align: center;
-  margin-top: 50px;
-}
 
 
 .scroll {

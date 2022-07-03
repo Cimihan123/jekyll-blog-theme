@@ -164,33 +164,27 @@ nav{
 }
 
 
+img {
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+    filter: sepia(200%);
+    /* display: block; */
+  }
 
-
-.img1 {
-    /* border-radius: 40%; */
-    height: 80%;
-    margin-top: 10%;
-}
 
 .wrapper{
     display: flex;
     justify-content: center;
     margin: auto;
-    border-bottom: 2px solid #EBD6DE;
-    border-top: 2px solid #EBD6DE;
     padding: 3px;
 }
 
-.img2 {
-  height: 70px;
-  width: 100px;
-  margin-top: 35px;
-}
 
 .getInTouch{
     font-size: 4.1rem;
     word-spacing: 5px;
-    margin: 2rem 4rem 1rem 0rem;
+    margin: 2rem 2rem 1rem 0rem;
     color: #DAC9C9;
     margin: 20px 0 0 40px;
     font-weight: 200;
@@ -201,7 +195,7 @@ nav{
 .footInfo{
     display: flex;
     justify-content: space-around;
-    margin-top: 40px;
+    margin-top: -70px;
 
 }
 h1{
@@ -216,88 +210,3 @@ h1{
     margin-right: 8px;
 }
 
-
-@media screen and (max-width: 685px) {
-  
-    .footInfo{
-        flex-direction: column;
-        margin-top: 2rem;
-        font-size: 0.4rem;
-        text-align: center;
-    }
-
-   .intro{
-       display: flex;
-       flex-direction: column;
-       
-    
-   }
-
-   .wrapper {
-        top: 57%;
-        left: 20%;
-        margin-right: -60px;
-    }
- 
-   .getInTouch{
-       font-size: 20px;
-   }
-   .img1{
-       transform: scale(0.71);
-       margin-top: 50px;
-   }
-   .img2{
-        height: 40px;
-        width: 70px;
-   }
-   .writeMe > h1 , .followMe > h1 {
-        font-size: 1.3rem;
-   }
-  
-    .writeMe > p, .followMe >p{
-        flex-direction: column-reverse;
-        font-size: 1.1rem;
-    }
-    .writeMe {
-        /* font-size: 1rem; */
-    }
-   .followMe{
-       margin-top: 2rem;
-       /* font-size: 1rem; */
-
-   }
-
-   .ico {
-    margin-right: 8px;
-    }
-
-    .ico1 {
-        margin-right: 10px;
-    }
-
-    .ico2 {
-        margin-left: -20px;
-    }
-  
-}
-
-@media screen and (max-width: 1272px) {
-    .img1 {
-        height: 70%;
-
-    }
-    .getInTouch {
-        padding-bottom: 25px;
-
-    }
-    .wrapper {
-        margin-right: 320px;
-        position: absolute;
-    }
-}
-
-/* @media screen and (max-width: 1065px) {
-    .wrapper {
-        font-size: 60px;
-    }
-} */

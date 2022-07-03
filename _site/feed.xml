@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-03-21T21:56:29+05:45</updated><id>http://localhost:4000/feed.xml</id><title type="html">Sau Theme</title><subtitle>Nothing included right now. I will think about it.ss</subtitle><entry><title type="html">Proxy: Accessing Network Connection</title><link href="http://localhost:4000/blog/proxy" rel="alternate" type="text/html" title="Proxy: Accessing Network Connection" /><published>2022-03-21T00:00:00+05:45</published><updated>2022-03-21T00:00:00+05:45</updated><id>http://localhost:4000/blog/proxy</id><content type="html" xml:base="http://localhost:4000/blog/proxy"><![CDATA[<p> </p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-07-03T20:42:02+05:45</updated><id>http://localhost:4000/feed.xml</id><title type="html">Sau Theme</title><subtitle>Nothing included right now. I will think about it.ss</subtitle><entry><title type="html">Proxy: Accessing Network Connection</title><link href="http://localhost:4000/blog/proxy" rel="alternate" type="text/html" title="Proxy: Accessing Network Connection" /><published>2022-03-21T00:00:00+05:45</published><updated>2022-03-21T00:00:00+05:45</updated><id>http://localhost:4000/blog/proxy</id><content type="html" xml:base="http://localhost:4000/blog/proxy"><![CDATA[<p> </p>
 
-<p><span style="font-size:30px;">I</span>n this blog, I will explain how to access network connections on Tryhackme/HTB/etc…. machines.Having an internet connection will make it a lot easier when we are trying to pwn machines or playing attack/defense challenges although it could be slow but works.</p>
+<!-- excerpt-start -->
+<p><span style="font-size:30px;">I</span>n this blog, I will explain how to access network connections on Tryhackme/HTB/etc…. machines.Having an internet connection will make it a lot easier when we are trying to pwn machines <!-- excerpt-end --> or playing attack/defense challenges although it could be slow but works.</p>
 
 <h3 id="setup">Setup</h3>
 <p>I am performing it on my machine which is free to play on TryHackMe
@@ -10,7 +11,7 @@ Link: <a href="https://tryhackme.com/room/enpass">EnPass</a></p>
 
 <p><img src="/assets/img/blog3-proxy/1.png" alt=" connected &gt;&lt;" /></p>
 
-<p>We have to install a proxy server on our machine. I will be going to use <em>Squid Proxy</em>.<br />
+<p>We have to install a proxy server on our local machine. I will be going to use <em>Squid Proxy</em>.<br />
 I am using arch on wsl2.
 <img src="/assets/img/blog3-proxy/2.png" alt=" squid-install &gt;&lt;" /></p>
 
@@ -28,14 +29,14 @@ or
 
 <p><img src="/assets/img/blog3-proxy/3.png" alt=" squid-check &gt;&lt;" />
 As you see the connection is made via squid proxy.
-On normal, it would have been looked like this.
+On normal, it would have been looked like this ( without Via: header)..
 <img src="/assets/img/blog3-proxy/4.png" alt=" squid-check &gt;&lt;" /></p>
 
-<p>So far we are good with the setup. Now let’s first gain root access to the machine.</p>
+<p>So far we are good with the setup. Now let’s first gain root access to the remote machine.</p>
 
 <h3 id="performing">Performing</h3>
 
-<p>Right now I am on the machine.
+<p>Right now I am on the remote machine as a root user.
 <img src="/assets/img/blog3-proxy/5.png" alt=" root-access &gt;&lt;" /></p>
 
 <p>The <strong>squid proxy</strong> runs on port 3128. We have to first forward our traffic to the remote machine via ssh.</p>
@@ -62,7 +63,7 @@ ss <span class="nt">-ltnp</span> | <span class="nb">grep </span>3128
 <p>What if we want to download packages? <em>apt cmdline</em> won’t download or update anything without an internet connection. 
 Just a few steps and it will start working.</p>
 
-<p>Add the following line into <em>/etc/profile</em>. This will make the proxy environment enable for all users globally.</p>
+<p>Add the following line into the <em>/etc/profile</em>. This will make the proxy environment enable for all users globally.</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export http_proxy=http://127.0.0.1:3128/
 </code></pre></div></div>
@@ -71,7 +72,7 @@ Just a few steps and it will start working.</p>
 
 <p><img src="/assets/img/blog3-proxy/9.png" alt=" proxy-check-without-x &gt;&lt;" /></p>
 
-<p>We don’t have to now mention the “-x” flag.<br /><em>apt</em> will also work now. you can see <em>nmap</em>  is not installed first. Let’s try installing <strong>nmap</strong>.</p>
+<p>We don’t have to now mention the “-x” flag.<br /><em>apt</em> will also work now. you can see <em>Nmap</em>  is not installed first. Let’s try installing <strong>Nmap</strong>.</p>
 
 <p><img src="/assets/img/blog3-proxy/10.png" alt=" proxy-check-without-x &gt;&lt;" /></p>
 
@@ -87,7 +88,7 @@ Just a few steps and it will start working.</p>
 
 <p>Thank you for reading. :)</p>
 
-<p>Have a good day/night.</p>]]></content><author><name></name></author><category term="proxy" /><summary type="html"><![CDATA[  In this blog, I will explain how to access network connections on Tryhackme/HTB/etc…. machines.Having an internet connection will make it a lot easier when we are trying to pwn machines or playing attack/defense challenges although it could be slow but works. Setup I am performing it on my machine which is free to play on TryHackMe Link: EnPass The machine is up. We have to install a proxy server on our machine. I will be going to use Squid Proxy. I am using arch on wsl2. For arch: sudo pacman -Sy squid For ubuntu: sudo apt install squid -y Then enable the squid service and start it. sudo systemctl enable squid sudo systemctl start squid or sudo service squid start Let’s check locally if it is working or not. As you see the connection is made via squid proxy. On normal, it would have been looked like this. So far we are good with the setup. Now let’s first gain root access to the machine. Performing Right now I am on the machine. The squid proxy runs on port 3128. We have to first forward our traffic to the remote machine via ssh. Basically, it’s a remote port forwarding where all the traffic/connections are passed from the SSH server to the remote server via an SSH client. In a simple term, we are giving access to the people who can’t whereas in the local port forward, we access the resources that we cannot. We have successfully port forwarded. ssh -R 3128:&lt;your-ip&gt;:3128 -i id_rsa root@&lt;machine-ip&gt; ss -ltnp | grep 3128 Let’s confirm with the help of curl. curl -x http://127.0.0.1:3128 http://www.google.com/ -I We are good with it We have successfully made the network connection work. Extra What if we want to download packages? apt cmdline won’t download or update anything without an internet connection. Just a few steps and it will start working. Add the following line into /etc/profile. This will make the proxy environment enable for all users globally. export http_proxy=http://127.0.0.1:3128/ We don’t have to now mention the “-x” flag.apt will also work now. you can see nmap is not installed first. Let’s try installing nmap. Yea, we are now successfully getting an internet connection. If you can’t install any packages ( apt ) then you can try adding following line into a file “/etc/apt/apt.conf”.Create it if you can’t find it. Acquire::http::Proxy "http://127.0.0.1:3128/";     Thank you for reading. :) Have a good day/night.]]></summary></entry><entry><title type="html">Phishing: Creating and Analyzing</title><link href="http://localhost:4000/blog/phish" rel="alternate" type="text/html" title="Phishing: Creating and Analyzing" /><published>2022-01-16T00:00:00+05:45</published><updated>2022-01-16T00:00:00+05:45</updated><id>http://localhost:4000/blog/phish</id><content type="html" xml:base="http://localhost:4000/blog/phish"><![CDATA[<h3 id="phish-phish-phish">Phish.. Phish.. Phish..</h3>
+<p>Have a good day/night.</p>]]></content><author><name></name></author><category term="proxy" /><summary type="html"><![CDATA[  In this blog, I will explain how to access network connections on Tryhackme/HTB/etc…. machines.Having an internet connection will make it a lot easier when we are trying to pwn machines]]></summary></entry><entry><title type="html">Phishing: Creating and Analyzing</title><link href="http://localhost:4000/blog/phish" rel="alternate" type="text/html" title="Phishing: Creating and Analyzing" /><published>2022-01-16T00:00:00+05:45</published><updated>2022-01-16T00:00:00+05:45</updated><id>http://localhost:4000/blog/phish</id><content type="html" xml:base="http://localhost:4000/blog/phish"><![CDATA[<h3 id="phish-phish-phish">Phish.. Phish.. Phish..</h3>
 
 <!-- excerpt-start -->
 <p><span style="font-size:30px;">I</span>n this blog, I am going to phish myself. Jumping directly into a conclusion does not make sense so I will be explaining from “how-to-create” to “how-to-do”.
