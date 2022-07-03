@@ -2,6 +2,17 @@
   
     {
 
+      "title"    : "Docker: Pivoting Lab",
+      "url"      : "http://localhost:4000/blog/pivoting",
+      "category" : "pivot",
+      "tags"     : "",
+      "date"     : "2022",
+      "discription" : "Pivoting…You may be familiar with the concept of pivoting. Pivoting is the way to move from one comporised system to another system.Suppose,“A” has access “B”.“B” has access “C”.“A” does not..."
+
+    } ,
+  
+    {
+
       "title"    : "Proxy: Accessing Network Connection",
       "url"      : "http://localhost:4000/blog/proxy",
       "category" : "proxy",

@@ -1,0 +1,119 @@
+---
+layout: blog-detail
+title:  "Docker: Pivoting Lab"
+date:  jul 03, 2022
+categories: pivot
+titleimage: phish.png
+permalink: /blog/:title
+excerpt_separator:  <!-- excerpt-end -->
+---
+
+### Pivoting...
+
+You may be familiar with the concept of pivoting. Pivoting is the way to move from one comporised system to another system.
+<br>
+
+Suppose,
+<br>
+"A"  has access "B".<br>
+"B" has access "C".<br>
+"A" does not have access "C".<br>
+
+So how can we access "C" directly from "A"? Well, that's direcly not possbile so we use the concept of pivoting. "A" can use "B" as the foothold to get access to "C".
+"A" first compromise the system "B" then can use this machine as the lauch point to attack the "C". 
+
+## Lab Creation Overview
+
+To have some practises on pivoting I created a lab in docker.
+
+Figure below gives the overview of the network setup of the docker compose files.
+Victim1 and Victim2 are our targets.They are on subnet *172.16.101.0/24*. Attacker is on different subnet *172.16.100.0/24*.
+
+Our helper machine  ( gateway machine ) will sit on both subnetworks.
+
+![ pivoting image ><](/assets/img/blog4-pivoting/1-overview.png)
+
+&nbsp;
+
+### Brief Overview of Docker Compose Files
+
+You can get the docker compose files from my github repo.
+
+Github Link: [Repository](https://github.com/Cimihan123/Pivoting)
+
+For this lab two networks  are created:- 
+
+1. **attacker** -> having subnet *172.16.100.0/24*
+
+2. **victim** -> having subnet *172.16.101.0/24*
+
+By default docker use bridge driver. For this lab also we are sticking with it although we can specify different network drivers.
+
+![ subnet image ><](/assets/img/blog4-pivoting/2-subnet.png)
+<p align="center">Fig: docker-compose-subnet.yml</p>
+
+&nbsp;
+
+Notice *helper* container is built locally. This will make easy as the base image will be customized rather than pulling everytime.
+
+This container is part of the both networks: attacker and victim.
+
+![ helper image ><](/assets/img/blog4-pivoting/3-helper.png)
+<p align="center">Fig: docker-compose.yml</p>
+
+A baseimage is being pulled. I won't recommend to do this in your production enviroment or anywhere. 
+I have enable ssh root login. 
+
+![ helper image ><](/assets/img/blog4-pivoting/4-helper-image.png)
+<p align="center">Fig: helper.Dockerfile</p>
+
+*attacker* is the part of **attacker* subnet habing an ip of *172.16.100.10*
+
+![ attacker image ><](/assets/img/blog4-pivoting/5-attacker.png)
+<p align="center">Fig: docker-compose.yml</p>
+
+*attacker* container also uses the *phusion/baseimage*. Additionally some other tools ( ping, nmap etc ) will be installed.
+
+![ attacker image ><](/assets/img/blog4-pivoting/5-attacker-image.png)
+<p align="center">Fig: attacker.Dockerfile</p>
+
+*victim* container is also built locally. It does have network ip *172.16.101.10*. This is the part of subnet *172.16.101.0/24*.
+
+![ victim1 image ><](/assets/img/blog4-pivoting/6-victim1.png)
+<p align="center">Fig: docker-compose.yml</p>
+
+I have installed sar2html Github Link: [Repository](https://github.com/cemtan/sar2html/).
+
+It is the plotting tool for system statistics. There is an issue in this tool. We will discuss about this on different section. For now just assume there is a vulnerability in this tool.
+
+![ victim1 image ><](/assets/img/blog4-pivoting/6-victim1-image.png)
+<p align="center">Fig: victim1.Dockerfile</p>
+
+For *victim2* there is no need to manipluate the image locally. There is already a vulnerable wordpress in docker hub. We just pull it from there. Below image show the structure to configure the wordpress as we also need database server. They are in same subnetwork so they can communicate with each other.
+
+![ victim2 image ><](/assets/img/blog4-pivoting/7-victim2.png)
+<p align="center">Fig: docker-compose.yml</p>
+
+
+### Running and Checking
+
+As far now we have little overview of our lab enviroment. Now we run the docker compose files and check them.
+
+We first build them. It may take some time for pulling, download and installing. Then we create and run the created containers.
+```bash
+docker-compose -f docker-compose-subnet.yml -f docker-compose.yml build
+docker-compose -f docker-compose-subnet.yml -f docker-compose.yml up --remove-orphans
+
+```
+
+&nbsp;
+
+There are total of 5 containers running.Once *Attacker*, *helper*, *victim1* and *victim2* are running then we check the connection between them.
+
+![ dockercomposeup image ><](/assets/img/blog4-pivoting/8-dockercompose.png)
+<p align="center">Fig: docker compose build & up</p>
+
+
+![ pinging helper image ><](/assets/img/blog4-pivoting/9-attacker-ping-helper.png)
+<p align="center">Fig: docker compose build & up</p>
+

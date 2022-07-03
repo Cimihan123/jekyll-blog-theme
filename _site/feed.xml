@@ -1,4 +1,113 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-07-03T20:42:02+05:45</updated><id>http://localhost:4000/feed.xml</id><title type="html">Sau Theme</title><subtitle>Nothing included right now. I will think about it.ss</subtitle><entry><title type="html">Proxy: Accessing Network Connection</title><link href="http://localhost:4000/blog/proxy" rel="alternate" type="text/html" title="Proxy: Accessing Network Connection" /><published>2022-03-21T00:00:00+05:45</published><updated>2022-03-21T00:00:00+05:45</updated><id>http://localhost:4000/blog/proxy</id><content type="html" xml:base="http://localhost:4000/blog/proxy"><![CDATA[<p> </p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-07-03T23:06:59+05:45</updated><id>http://localhost:4000/feed.xml</id><title type="html">Sau Theme</title><subtitle>Nothing included right now. I will think about it.ss</subtitle><entry><title type="html">Docker: Pivoting Lab</title><link href="http://localhost:4000/blog/pivoting" rel="alternate" type="text/html" title="Docker: Pivoting Lab" /><published>2022-07-03T00:00:00+05:45</published><updated>2022-07-03T00:00:00+05:45</updated><id>http://localhost:4000/blog/pivoting</id><content type="html" xml:base="http://localhost:4000/blog/pivoting"><![CDATA[<h3 id="pivoting">Pivoting…</h3>
+
+<p>You may be familiar with the concept of pivoting. Pivoting is the way to move from one comporised system to another system.
+<br /></p>
+
+<p>Suppose,
+<br />
+“A”  has access “B”.<br />
+“B” has access “C”.<br />
+“A” does not have access “C”.<br /></p>
+
+<p>So how can we access “C” directly from “A”? Well, that’s direcly not possbile so we use the concept of pivoting. “A” can use “B” as the foothold to get access to “C”.
+“A” first compromise the system “B” then can use this machine as the lauch point to attack the “C”.</p>
+
+<h2 id="lab-creation-overview">Lab Creation Overview</h2>
+
+<p>To have some practises on pivoting I created a lab in docker.</p>
+
+<p>Figure below gives the overview of the network setup of the docker compose files.
+Victim1 and Victim2 are our targets.They are on subnet <em>172.16.101.0/24</em>. Attacker is on different subnet <em>172.16.100.0/24</em>.</p>
+
+<p>Our helper machine  ( gateway machine ) will sit on both subnetworks.</p>
+
+<p><img src="/assets/img/blog4-pivoting/1-overview.png" alt=" pivoting image &gt;&lt;" /></p>
+
+<p> </p>
+
+<h3 id="brief-overview-of-docker-compose-files">Brief Overview of Docker Compose Files</h3>
+
+<p>You can get the docker compose files from my github repo.</p>
+
+<p>Github Link: <a href="https://github.com/Cimihan123/Pivoting">Repository</a></p>
+
+<p>For this lab two networks  are created:-</p>
+
+<ol>
+  <li>
+    <p><strong>attacker</strong> -&gt; having subnet <em>172.16.100.0/24</em></p>
+  </li>
+  <li>
+    <p><strong>victim</strong> -&gt; having subnet <em>172.16.101.0/24</em></p>
+  </li>
+</ol>
+
+<p>By default docker use bridge driver. For this lab also we are sticking with it although we can specify different network drivers.</p>
+
+<p><img src="/assets/img/blog4-pivoting/2-subnet.png" alt=" subnet image &gt;&lt;" /></p>
+<p align="center">Fig: docker-compose-subnet.yml</p>
+
+<p> </p>
+
+<p>Notice <em>helper</em> container is built locally. This will make easy as the base image will be customized rather than pulling everytime.</p>
+
+<p>This container is part of the both networks: attacker and victim.</p>
+
+<p><img src="/assets/img/blog4-pivoting/3-helper.png" alt=" helper image &gt;&lt;" /></p>
+<p align="center">Fig: docker-compose.yml</p>
+
+<p>A baseimage is being pulled. I won’t recommend to do this in your production enviroment or anywhere. 
+I have enable ssh root login.</p>
+
+<p><img src="/assets/img/blog4-pivoting/4-helper-image.png" alt=" helper image &gt;&lt;" /></p>
+<p align="center">Fig: helper.Dockerfile</p>
+
+<p><em>attacker</em> is the part of <em>*attacker</em> subnet habing an ip of <em>172.16.100.10</em></p>
+
+<p><img src="/assets/img/blog4-pivoting/5-attacker.png" alt=" attacker image &gt;&lt;" /></p>
+<p align="center">Fig: docker-compose.yml</p>
+
+<p><em>attacker</em> container also uses the <em>phusion/baseimage</em>. Additionally some other tools ( ping, nmap etc ) will be installed.</p>
+
+<p><img src="/assets/img/blog4-pivoting/5-attacker-image.png" alt=" attacker image &gt;&lt;" /></p>
+<p align="center">Fig: attacker.Dockerfile</p>
+
+<p><em>victim</em> container is also built locally. It does have network ip <em>172.16.101.10</em>. This is the part of subnet <em>172.16.101.0/24</em>.</p>
+
+<p><img src="/assets/img/blog4-pivoting/6-victim1.png" alt=" victim1 image &gt;&lt;" /></p>
+<p align="center">Fig: docker-compose.yml</p>
+
+<p>I have installed sar2html Github Link: <a href="https://github.com/cemtan/sar2html/">Repository</a>.</p>
+
+<p>It is the plotting tool for system statistics. There is an issue in this tool. We will discuss about this on different section. For now just assume there is a vulnerability in this tool.</p>
+
+<p><img src="/assets/img/blog4-pivoting/6-victim1-image.png" alt=" victim1 image &gt;&lt;" /></p>
+<p align="center">Fig: victim1.Dockerfile</p>
+
+<p>For <em>victim2</em> there is no need to manipluate the image locally. There is already a vulnerable wordpress in docker hub. We just pull it from there. Below image show the structure to configure the wordpress as we also need database server. They are in same subnetwork so they can communicate with each other.</p>
+
+<p><img src="/assets/img/blog4-pivoting/7-victim2.png" alt=" victim2 image &gt;&lt;" /></p>
+<p align="center">Fig: docker-compose.yml</p>
+
+<h3 id="running-and-checking">Running and Checking</h3>
+
+<p>As far now we have little overview of our lab enviroment. Now we run the docker compose files and check them.</p>
+
+<p>We first build them. It may take some time for pulling, download and installing. Then we create and run the created containers.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker-compose <span class="nt">-f</span> docker-compose-subnet.yml <span class="nt">-f</span> docker-compose.yml build
+docker-compose <span class="nt">-f</span> docker-compose-subnet.yml <span class="nt">-f</span> docker-compose.yml up <span class="nt">--remove-orphans</span>
+
+</code></pre></div></div>
+
+<p> </p>
+
+<p>There are total of 5 containers running.Once <em>Attacker</em>, <em>helper</em>, <em>victim1</em> and <em>victim2</em> are running then we check the connection between them.</p>
+
+<p><img src="/assets/img/blog4-pivoting/8-dockercompose.png" alt=" dockercomposeup image &gt;&lt;" /></p>
+<p align="center">Fig: docker compose build &amp; up</p>
+
+<p><img src="/assets/img/blog4-pivoting/9-attacker-ping-helper.png" alt=" pinging helper image &gt;&lt;" /></p>
+<p align="center">Fig: docker compose build &amp; up</p>]]></content><author><name></name></author><category term="pivot" /><summary type="html"><![CDATA[Pivoting… You may be familiar with the concept of pivoting. Pivoting is the way to move from one comporised system to another system. Suppose, “A” has access “B”. “B” has access “C”. “A” does not have access “C”. So how can we access “C” directly from “A”? Well, that’s direcly not possbile so we use the concept of pivoting. “A” can use “B” as the foothold to get access to “C”. “A” first compromise the system “B” then can use this machine as the lauch point to attack the “C”. Lab Creation Overview To have some practises on pivoting I created a lab in docker. Figure below gives the overview of the network setup of the docker compose files. Victim1 and Victim2 are our targets.They are on subnet 172.16.101.0/24. Attacker is on different subnet 172.16.100.0/24. Our helper machine ( gateway machine ) will sit on both subnetworks.   Brief Overview of Docker Compose Files You can get the docker compose files from my github repo. Github Link: Repository For this lab two networks are created:- attacker -&gt; having subnet 172.16.100.0/24 victim -&gt; having subnet 172.16.101.0/24 By default docker use bridge driver. For this lab also we are sticking with it although we can specify different network drivers. Fig: docker-compose-subnet.yml   Notice helper container is built locally. This will make easy as the base image will be customized rather than pulling everytime. This container is part of the both networks: attacker and victim. Fig: docker-compose.yml A baseimage is being pulled. I won’t recommend to do this in your production enviroment or anywhere. I have enable ssh root login. Fig: helper.Dockerfile attacker is the part of *attacker subnet habing an ip of 172.16.100.10 Fig: docker-compose.yml attacker container also uses the phusion/baseimage. Additionally some other tools ( ping, nmap etc ) will be installed. Fig: attacker.Dockerfile victim container is also built locally. It does have network ip 172.16.101.10. This is the part of subnet 172.16.101.0/24. Fig: docker-compose.yml I have installed sar2html Github Link: Repository. It is the plotting tool for system statistics. There is an issue in this tool. We will discuss about this on different section. For now just assume there is a vulnerability in this tool. Fig: victim1.Dockerfile For victim2 there is no need to manipluate the image locally. There is already a vulnerable wordpress in docker hub. We just pull it from there. Below image show the structure to configure the wordpress as we also need database server. They are in same subnetwork so they can communicate with each other. Fig: docker-compose.yml Running and Checking As far now we have little overview of our lab enviroment. Now we run the docker compose files and check them. We first build them. It may take some time for pulling, download and installing. Then we create and run the created containers. docker-compose -f docker-compose-subnet.yml -f docker-compose.yml build docker-compose -f docker-compose-subnet.yml -f docker-compose.yml up --remove-orphans   There are total of 5 containers running.Once Attacker, helper, victim1 and victim2 are running then we check the connection between them. Fig: docker compose build &amp; up Fig: docker compose build &amp; up]]></summary></entry><entry><title type="html">Proxy: Accessing Network Connection</title><link href="http://localhost:4000/blog/proxy" rel="alternate" type="text/html" title="Proxy: Accessing Network Connection" /><published>2022-03-21T00:00:00+05:45</published><updated>2022-03-21T00:00:00+05:45</updated><id>http://localhost:4000/blog/proxy</id><content type="html" xml:base="http://localhost:4000/blog/proxy"><![CDATA[<p> </p>
 
 <!-- excerpt-start -->
 <p><span style="font-size:30px;">I</span>n this blog, I will explain how to access network connections on Tryhackme/HTB/etc…. machines.Having an internet connection will make it a lot easier when we are trying to pwn machines <!-- excerpt-end --> or playing attack/defense challenges although it could be slow but works.</p>
