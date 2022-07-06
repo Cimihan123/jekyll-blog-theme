@@ -2,7 +2,7 @@
 layout: blog-detail
 title:  "Phishing: Creating and Analyzing"
 date:   jan 16, 2022
-categories: phishing
+categories: phishing  
 titleimage: phish.png
 permalink: /blog/:title
 excerpt_separator:  <!-- excerpt-end -->

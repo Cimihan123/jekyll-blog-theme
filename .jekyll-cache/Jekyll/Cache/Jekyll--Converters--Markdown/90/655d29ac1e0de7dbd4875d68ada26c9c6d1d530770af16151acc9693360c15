@@ -1,0 +1,210 @@
+I"�+<h2 id="pivoting">Pivoting…</h2>
+
+<!-- excerpt-start -->
+<p>You may be familiar with the concept of pivoting. Pivoting is the way to move from one comporised system<!-- excerpt-end --> to another system.
+<br /></p>
+
+<p>Suppose,
+<br />
+“A”  has access “B”.<br />
+“B” has access “C”.<br />
+“A” does not have access “C”.<br /></p>
+
+<p>So how can we access “C” directly from “A”? Well, that’s direcly not possbile so we use the concept of pivoting. “A” can use “B” as the foothold to get access to “C”.
+“A” first compromise the system “B” then can use this machine as the lauch point to attack the “C”.</p>
+
+<h2 id="lab-creation-overview">Lab Creation Overview</h2>
+
+<p>To have some practises on pivoting I created a lab in docker.</p>
+
+<p>Figure below gives the overview of the network setup of the docker compose files.
+Victim1 and Victim2 are our targets.They are on subnet <em>172.16.101.0/24</em>. Attacker is on different subnet <em>172.16.100.0/24</em>.</p>
+
+<p>Our helper machine  ( gateway machine ) will sit on both subnetworks.</p>
+
+<p><img src="/assets/img/blog4-pivoting/1-overview.png" alt=" pivoting image &gt;&lt;" /></p>
+
+<p> </p>
+
+<h3 id="brief-overview-of-docker-compose-files">Brief Overview of Docker Compose Files</h3>
+
+<p>You can get the docker compose files from my github repo.</p>
+
+<p>Github Link: <a href="https://github.com/Cimihan123/Pivoting">Repository</a></p>
+
+<p>For this lab two networks  are created:-</p>
+
+<ol>
+  <li>
+    <p><strong>attacker</strong> -&gt; having subnet <em>172.16.100.0/24</em></p>
+  </li>
+  <li>
+    <p><strong>victim</strong> -&gt; having subnet <em>172.16.101.0/24</em></p>
+  </li>
+</ol>
+
+<p>By default docker use bridge driver. We are sticking with it although we can specify different network drivers.</p>
+
+<p><img src="/assets/img/blog4-pivoting/2-subnet.png" alt=" subnet image &gt;&lt;" /></p>
+<p align="center">Fig: docker-compose-subnet.yml</p>
+
+<p> </p>
+
+<p>Notice <em>helper</em> container is built locally. This will make easy as the base image will be customized rather than pulling everytime.</p>
+
+<p>This container is part of the both networks: <em>attacker</em> and <em>victim</em>.</p>
+
+<p><img src="/assets/img/blog4-pivoting/3-helper.png" alt=" helper image &gt;&lt;" /></p>
+<p align="center">Fig: docker-compose.yml</p>
+
+<p>A baseimage is being pulled.I have enabled ssh root login I don’t recommend doing this in your production environment or anywhere without proper security guidelines.XD</p>
+
+<p><img src="/assets/img/blog4-pivoting/4-helper-image.png" alt=" helper image &gt;&lt;" /></p>
+<p align="center">Fig: helper.Dockerfile</p>
+
+<p><em>attacker</em> is the part of <em>attacker</em> subnet having an ip of <em>172.16.100.10</em></p>
+
+<p><img src="/assets/img/blog4-pivoting/5-attacker.png" alt=" attacker image &gt;&lt;" /></p>
+<p align="center">Fig: docker-compose.yml</p>
+
+<p><em>attacker</em> container also uses the <em>phusion/baseimage</em>. Additionally some other tools ( ping, nmap etc ) will be installed.</p>
+
+<p><img src="/assets/img/blog4-pivoting/5-attacker-image.png" alt=" attacker image &gt;&lt;" /></p>
+<p align="center">Fig: attacker.Dockerfile</p>
+
+<p><em>victim</em> container is also built locally. It does have network ip <em>172.16.101.10</em>. This is the part of subnet <em>172.16.101.0/24</em>.</p>
+
+<p><img src="/assets/img/blog4-pivoting/6-victim1.png" alt=" victim1 image &gt;&lt;" /></p>
+<p align="center">Fig: docker-compose.yml</p>
+
+<p>I have installed <em>sar2html</em> Github Link: <a href="https://github.com/cemtan/sar2html/">Repository</a>.</p>
+
+<p>It is the plotting tool for system statistics. There is an issue in this tool. We will discuss about this on different section. For now just assume there is a vulnerability in this tool.</p>
+
+<p><img src="/assets/img/blog4-pivoting/6-victim1-image.png" alt=" victim1 image &gt;&lt;" /></p>
+<p align="center">Fig: victim1.Dockerfile</p>
+
+<p>For <em>victim2</em> there is no need to manipluate the image locally. There is already a vulnerable wordpress in docker hub. We just pull it from there. Below image show the structure to configure the wordpress as we also need a database server. They are in same subnetwork so they can communicate with each other.</p>
+
+<p><img src="/assets/img/blog4-pivoting/7-victim2.png" alt=" victim2 image &gt;&lt;" /></p>
+<p align="center">Fig: docker-compose.yml</p>
+
+<h3 id="running-and-checking">Running and Checking</h3>
+
+<p>As far now we have brief overview of our lab enviroment. Now we run the docker compose files and check them.</p>
+
+<p>We first build them. It may take some time for pulling, download and installing. Then we create and run the created containers.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker-compose <span class="nt">-f</span> docker-compose-subnet.yml <span class="nt">-f</span> docker-compose.yml build
+docker-compose <span class="nt">-f</span> docker-compose-subnet.yml <span class="nt">-f</span> docker-compose.yml up
+
+</code></pre></div></div>
+
+<p> </p>
+
+<p>There are total of 5 containers running.Once <em>Attacker</em>, <em>helper</em>, <em>victim1</em> and <em>victim2</em> are running  we check the connection between them.</p>
+
+<p><img src="/assets/img/blog4-pivoting/8-dockercompose.png" alt=" dockercomposeup image &gt;&lt;" /></p>
+<p align="center">Fig: docker compose build &amp; up</p>
+
+<p><em>attacker</em> container can reach the <em>helper</em> network.You see the successful ping reply back from the <em>helper</em>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ping helper
+</code></pre></div></div>
+<p><img src="/assets/img/blog4-pivoting/9-attacker-ping-helper.png" alt=" pinging from attacher to helper image &gt;&lt;" /></p>
+<p align="center">Fig:Ping check from attacker </p>
+
+<p><img src="/assets/img/blog4-pivoting/9-attacker-ping-helper.png" alt=" pinging from attacher to helper image &gt;&lt;" /></p>
+<p align="center">Fig:Ping check from attacker </p>
+
+<p>I guess you can figure it out from the below picture.</p>
+
+<p><img src="/assets/img/blog4-pivoting/10-pingall.png" alt=" pinging from attacker to helper image &gt;&lt;" /></p>
+<p align="center">Fig:Ping check </p>
+
+<h2 id="attacking-and-pivoting">Attacking and Pivoting</h2>
+
+<p>Let’s first prefer discovering the ports in <em>helper</em> host.So our target is first to get access into the <em>helper</em> host.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nmap <span class="nt">-sC</span> <span class="nt">-sV</span> <span class="nt">-T4</span> 172.16.100.11
+</code></pre></div></div>
+<p><img src="/assets/img/blog4-pivoting/11-nmap-helper.png" alt=" helper nmap scan &gt;&lt;" /></p>
+<p align="center">Fig:nmap scan (helper) </p>
+
+<p>So there is port 22 (ssh) open.We have hydra installed in the attacker machine and there is a rockyou.txt.
+Bruteforcing the ssh login.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hydra <span class="nt">-l</span> root <span class="nt">-P</span> /home/rock.txt ssh://172.16.100.11
+</code></pre></div></div>
+<p> </p>
+
+<p><img src="/assets/img/blog4-pivoting/12-hydra.png" alt=" bruteforce ssh &gt;&lt;" /></p>
+<p align="center">Fig:Brutefore with Hydra </p>
+
+<p>We got the password for the user <strong>root</strong>.Let’s try using this cred.So, we are now into the helper machine.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh root@172.16.100.11
+</code></pre></div></div>
+<p> </p>
+
+<p><img src="/assets/img/blog4-pivoting/13-sshlogin.png" alt="  ssh login &gt;&lt;" /></p>
+<p align="center">Fig:ssh login </p>
+
+<p>There might be new hosts so I am going to scan further to gather new hosts and ports.</p>
+
+<p><em>ifconfig</em> shows that the <em>helper</em> machine is the part of two addresses family.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                                                1. 172.16.100.11
+                                                2. 172.16.101.11
+</code></pre></div></div>
+
+<p><img src="/assets/img/blog4-pivoting/15-ifconfig.png" alt="  ifconfig &gt;&lt;" /></p>
+<p align="center">Fig:ifconfig </p>
+
+<p> </p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hostname -I -&gt; displays all the addresses for the host
+</code></pre></div></div>
+
+<p><img src="/assets/img/blog4-pivoting/16-hostname.png" alt="  hostname &gt;&lt;" /></p>
+<p align="center">Fig:hostname </p>
+
+<p> </p>
+
+<p>Having ssh access makes very easy for tunneling.Creating dynamically port forwading leverages the SOCKS proxy.This will deliver all the trafic through ssh conncetion via given port to the destination server.Here we are forwading all the traffics to the attacker machine.</p>
+
+<p><strong>-N = disable execution of command</strong></p>
+
+<p><strong>-f = runs in background</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh <span class="nt">-D</span> 9050 root@172.16.100.11 <span class="nt">-f</span> <span class="nt">-N</span>
+</code></pre></div></div>
+<p><img src="/assets/img/blog4-pivoting/17-ssh-dynamic.png" alt="  dynamic &gt;&lt;" /></p>
+<p align="center">Fig:dynamic port forwarding </p>
+
+<p> </p>
+
+<p>Cross checking if it is running in background or not.XD</p>
+
+<p><img src="/assets/img/blog4-pivoting/17-1-netstat.png" alt="  netstat &gt;&lt;" /></p>
+<p align="center">Fig:netstat </p>
+
+<p>What we need now is a proxy tool.I am going to use <em>proxychains</em>.Remember the port we mentioned in “/etc/proxychains.conf” should be same as dynamic port.</p>
+
+<p><img src="/assets/img/blog4-pivoting/18-proxychain.png" alt="  proxychain &gt;&lt;" /></p>
+<p align="center">Fig:proxychain conf </p>
+
+<h4 id="discovering-newer-hosts-victims">Discovering newer hosts (victims)</h4>
+
+<p>The major concern is finding hosts.Having <em>nmap</em> would have been easier but mostly in real case scenerio you won’t find.</p>
+
+<p><img src="/assets/img/blog4-pivoting/14-nonmap.png" alt="  no nmap &gt;&lt;" /></p>
+<p align="center">Fig:no nmap </p>
+
+<p>We can run the ping sweep technique to scan hosts. The below one liner code will run in parallel mode.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for </span>i <span class="k">in</span> <span class="si">$(</span><span class="nb">seq </span>1 254<span class="si">)</span><span class="p">;</span> <span class="k">do</span> <span class="o">(</span>ping <span class="nt">-c</span> 1 172.16.101.<span class="k">${</span><span class="nv">i</span><span class="k">}</span> | <span class="nb">grep</span> <span class="s2">"64 bytes from"</span> &amp;<span class="o">)</span><span class="p">;</span> <span class="k">done</span><span class="p">;</span>
+</code></pre></div></div>
+<p><img src="/assets/img/blog4-pivoting/19-loop-ping.png" alt="  ping scan hosts &gt;&lt;" /></p>
+<p align="center">Fig:Host scan using ping </p>
+
+:ET

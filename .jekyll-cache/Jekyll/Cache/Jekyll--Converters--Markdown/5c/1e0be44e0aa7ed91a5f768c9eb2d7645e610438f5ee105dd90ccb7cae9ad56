@@ -1,6 +1,7 @@
-I"�<h3 id="pivoting">Pivoting…</h3>
+I"z<h2 id="pivoting">Pivoting…</h2>
 
-<p>You may be familiar with the concept of pivoting. Pivoting is the way to move from one comporised system to another system.
+<!-- excerpt-start -->
+<p>You may be familiar with the concept of pivoting. Pivoting is the way to move from one comporised system<!-- excerpt-end --> to another system.
 <br /></p>
 
 <p>Suppose,
@@ -42,7 +43,7 @@ Victim1 and Victim2 are our targets.They are on subnet <em>172.16.101.0/24</em>.
   </li>
 </ol>
 
-<p>By default docker use bridge driver. For this lab also we are sticking with it although we can specify different network drivers.</p>
+<p>By default docker use bridge driver. We are sticking with it although we can specify different network drivers.</p>
 
 <p><img src="/assets/img/blog4-pivoting/2-subnet.png" alt=" subnet image &gt;&lt;" /></p>
 <p align="center">Fig: docker-compose-subnet.yml</p>
@@ -51,18 +52,17 @@ Victim1 and Victim2 are our targets.They are on subnet <em>172.16.101.0/24</em>.
 
 <p>Notice <em>helper</em> container is built locally. This will make easy as the base image will be customized rather than pulling everytime.</p>
 
-<p>This container is part of the both networks: attacker and victim.</p>
+<p>This container is part of the both networks: <em>attacker</em> and <em>victim</em>.</p>
 
 <p><img src="/assets/img/blog4-pivoting/3-helper.png" alt=" helper image &gt;&lt;" /></p>
 <p align="center">Fig: docker-compose.yml</p>
 
-<p>A baseimage is being pulled. I won’t recommend to do this in your production enviroment or anywhere. 
-I have enable ssh root login.</p>
+<p>A baseimage is being pulled.I have enabled ssh root login I don’t recommend doing this in your production environment or anywhere without proper security guidelines.XD</p>
 
 <p><img src="/assets/img/blog4-pivoting/4-helper-image.png" alt=" helper image &gt;&lt;" /></p>
 <p align="center">Fig: helper.Dockerfile</p>
 
-<p><em>attacker</em> is the part of <em>*attacker</em> subnet habing an ip of <em>172.16.100.10</em></p>
+<p><em>attacker</em> is the part of <em>attacker</em> subnet having an ip of <em>172.16.100.10</em></p>
 
 <p><img src="/assets/img/blog4-pivoting/5-attacker.png" alt=" attacker image &gt;&lt;" /></p>
 <p align="center">Fig: docker-compose.yml</p>
@@ -77,36 +77,72 @@ I have enable ssh root login.</p>
 <p><img src="/assets/img/blog4-pivoting/6-victim1.png" alt=" victim1 image &gt;&lt;" /></p>
 <p align="center">Fig: docker-compose.yml</p>
 
-<p>I have installed sar2html Github Link: <a href="https://github.com/cemtan/sar2html/">Repository</a>.</p>
+<p>I have installed <em>sar2html</em> Github Link: <a href="https://github.com/cemtan/sar2html/">Repository</a>.</p>
 
 <p>It is the plotting tool for system statistics. There is an issue in this tool. We will discuss about this on different section. For now just assume there is a vulnerability in this tool.</p>
 
 <p><img src="/assets/img/blog4-pivoting/6-victim1-image.png" alt=" victim1 image &gt;&lt;" /></p>
 <p align="center">Fig: victim1.Dockerfile</p>
 
-<p>For <em>victim2</em> there is no need to manipluate the image locally. There is already a vulnerable wordpress in docker hub. We just pull it from there. Below image show the structure to configure the wordpress as we also need database server. They are in same subnetwork so they can communicate with each other.</p>
+<p>For <em>victim2</em> there is no need to manipluate the image locally. There is already a vulnerable wordpress in docker hub. We just pull it from there. Below image show the structure to configure the wordpress as we also need a database server. They are in same subnetwork so they can communicate with each other.</p>
 
 <p><img src="/assets/img/blog4-pivoting/7-victim2.png" alt=" victim2 image &gt;&lt;" /></p>
 <p align="center">Fig: docker-compose.yml</p>
 
 <h3 id="running-and-checking">Running and Checking</h3>
 
-<p>As far now we have little overview of our lab enviroment. Now we run the docker compose files and check them.</p>
+<p>As far now we have brief overview of our lab enviroment. Now we run the docker compose files and check them.</p>
 
 <p>We first build them. It may take some time for pulling, download and installing. Then we create and run the created containers.</p>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker-compose <span class="nt">-f</span> docker-compose-subnet.yml <span class="nt">-f</span> docker-compose.yml build
-docker-compose <span class="nt">-f</span> docker-compose-subnet.yml <span class="nt">-f</span> docker-compose.yml up <span class="nt">--remove-orphans</span>
+docker-compose <span class="nt">-f</span> docker-compose-subnet.yml <span class="nt">-f</span> docker-compose.yml up
 
 </code></pre></div></div>
 
 <p> </p>
 
-<p>There are total of 5 containers running.Once <em>Attacker</em>, <em>helper</em>, <em>victim1</em> and <em>victim2</em> are running then we check the connection between them.</p>
+<p>There are total of 5 containers running.Once <em>Attacker</em>, <em>helper</em>, <em>victim1</em> and <em>victim2</em> are running  we check the connection between them.</p>
 
 <p><img src="/assets/img/blog4-pivoting/8-dockercompose.png" alt=" dockercomposeup image &gt;&lt;" /></p>
 <p align="center">Fig: docker compose build &amp; up</p>
 
-<p><img src="/assets/img/blog4-pivoting/9-attacker-ping-helper.png" alt=" pinging helper image &gt;&lt;" /></p>
-<p align="center">Fig: docker compose build &amp; up</p>
+<p><em>attacker</em> container can reach the <em>helper</em> network.You see the successful ping reply back from the <em>helper</em>.</p>
 
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ping helper
+</code></pre></div></div>
+<p><img src="/assets/img/blog4-pivoting/9-attacker-ping-helper.png" alt=" pinging from attacher to helper image &gt;&lt;" /></p>
+<p align="center">Fig:Ping check from attacker </p>
+
+<p><img src="/assets/img/blog4-pivoting/9-attacker-ping-helper.png" alt=" pinging from attacher to helper image &gt;&lt;" /></p>
+<p align="center">Fig:Ping check from attacker </p>
+
+<p>I guess you can figure it out from the below picture.</p>
+
+<p><img src="/assets/img/blog4-pivoting/10-pingall.png" alt=" pinging from attacker to helper image &gt;&lt;" /></p>
+<p align="center">Fig:Ping check </p>
+
+<h2 id="attacking-and-pivoting">Attacking and Pivoting</h2>
+
+<p>Let’s first prefer discovering the ports in <em>helper</em> host.So our target is first to get access into the <em>helper</em> host.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nmap <span class="nt">-sC</span> <span class="nt">-sV</span> <span class="nt">-T4</span> 172.16.100.11
+</code></pre></div></div>
+<p><img src="/assets/img/blog4-pivoting/11-nmap-helper.png" alt=" helper nmap scan &gt;&lt;" /></p>
+<p align="center">Fig:nmap scan (helper) </p>
+
+<p>So there is port 22 (ssh) open.We have hydra installed in the attacker machine and there is a rockyou.txt.
+Bruteforcing the ssh login.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hydra <span class="nt">-l</span> root <span class="nt">-P</span> /home/rock.txt ssh://172.16.100.11
+</code></pre></div></div>
+
+<p><img src="/assets/img/blog4-pivoting/12-hydra.png" alt=" bruteforce ssh &gt;&lt;" /></p>
+<p align="center">Fig:Brutefore with Hydra </p>
+
+<p>We got the password for the user <strong>root</strong>.Let’s try using this cred.OK, we are now into the helper machine.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh root@172.16.100.11
+</code></pre></div></div>
+<p><img src="/assets/img/blog4-pivoting/13-sshlogin.png" alt="  ssh login &gt;&lt;" /></p>
+<p align="center">Fig:SSh Login </p>
 :ET
