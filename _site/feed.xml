@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-07-08T21:49:57+05:45</updated><id>http://localhost:4000/feed.xml</id><title type="html">Sau Theme</title><subtitle>Nothing included right now. I will think about it.ss</subtitle><entry><title type="html">Docker: Creating a Pivoting Lab and Exploiting it</title><link href="http://localhost:4000/blog/pivoting" rel="alternate" type="text/html" title="Docker: Creating a Pivoting Lab and Exploiting it" /><published>2022-07-03T00:00:00+05:45</published><updated>2022-07-03T00:00:00+05:45</updated><id>http://localhost:4000/blog/pivoting</id><content type="html" xml:base="http://localhost:4000/blog/pivoting"><![CDATA[<h2 id="pivoting">Pivoting…</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-07-08T21:50:46+05:45</updated><id>http://localhost:4000/feed.xml</id><title type="html">Sau Theme</title><subtitle>Nothing included right now. I will think about it.ss</subtitle><entry><title type="html">Docker: Creating a Pivoting Lab and Exploiting it</title><link href="http://localhost:4000/blog/pivoting" rel="alternate" type="text/html" title="Docker: Creating a Pivoting Lab and Exploiting it" /><published>2022-07-03T00:00:00+05:45</published><updated>2022-07-03T00:00:00+05:45</updated><id>http://localhost:4000/blog/pivoting</id><content type="html" xml:base="http://localhost:4000/blog/pivoting"><![CDATA[<h2 id="pivoting">Pivoting…</h2>
 
 <!-- excerpt-start -->
 <p>You may be familiar with the concept of pivoting. Pivoting is the way to move from one compromised system<!-- excerpt-end --> to another system.
@@ -11,7 +11,7 @@
 <strong>“A”</strong> does not have access <strong>“C”</strong>.<br /></p>
 
 <p>So how can we access <strong>“C”</strong> from <strong>“A”</strong>? Well, that’s directly not possible so we use the concept of pivoting. <strong>“A”</strong> can use <strong>“B”</strong> as the foothold to get access to <strong>“C”</strong>.
-<strong>“A”</strong> first compromise the system <strong>“B”</strong> then can use this machine as the lauch point to attack the <strong>“C”</strong>.</p>
+<strong>“A”</strong> first compromise the system <strong>“B”</strong> then can use this machine as the launch point to attack the <strong>“C”</strong>.</p>
 
 <h2 id="lab-creation-overview">Lab Creation Overview</h2>
 

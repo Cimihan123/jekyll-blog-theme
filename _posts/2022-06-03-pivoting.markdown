@@ -20,7 +20,7 @@ Suppose,
 **"A"** does not have access **"C"**.<br>
 
 So how can we access **"C"** from **"A"**? Well, that's directly not possible so we use the concept of pivoting. **"A"** can use **"B"** as the foothold to get access to **"C"**.
-**"A"** first compromise the system **"B"** then can use this machine as the lauch point to attack the **"C"**. 
+**"A"** first compromise the system **"B"** then can use this machine as the launch point to attack the **"C"**. 
 
 ## Lab Creation Overview
 
