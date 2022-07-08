@@ -19,7 +19,7 @@ Suppose,
 **"B"** has access **"C"**.<br>
 **"A"** does not have access **"C"**.<br>
 
-So how can we access **"C"** from **"A"**? Well, that's direcly not possbile so we use the concept of pivoting. **"A"** can use **"B"** as the foothold to get access to **"C"**.
+So how can we access **"C"** from **"A"**? Well, that's directly not possible so we use the concept of pivoting. **"A"** can use **"B"** as the foothold to get access to **"C"**.
 **"A"** first compromise the system **"B"** then can use this machine as the lauch point to attack the **"C"**. 
 
 ## Lab Creation Overview
@@ -300,7 +300,7 @@ We have successfully exploited this issue.
 
 <br>
 
-<span style="font-weight: bold; font-size: 2em;">Vcitim 2</span>
+<span style="font-weight: bold; font-size: 2em;">Victim 2</span>
 
 Again we start with the same tedious *nmap* scan. There is a http service running on port 80.
 
@@ -312,7 +312,7 @@ Here we see mysql service running on.
 ![  mysql nmap  ><](/assets/img/blog4-pivoting/25-victim-nmap-mysql.png)
 <p align="center" style="color:white;">Fig:Nmap scan (victim2)</p>
 
-For now our taget is http service.
+For now our target is http service.
 
 Seems like it is running a wordpress cms.
 
