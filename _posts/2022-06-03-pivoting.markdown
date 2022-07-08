@@ -29,7 +29,7 @@ To have some practises on pivoting I have created a lab in docker.
 Figure below gives the overview of the network setup of the docker compose files.
 *Victim1* and *Victim2* are our targets.They are on  same subnet *172.16.101.0/24*  while *Attacker* is on different subnet *172.16.100.0/24*.
 
-Our helper machine  ( gateway machine ) is sitting on both subnetworks.
+Our helper machine  ( gateway machine ) is sitting on both sub-networks.
 
 ![ pivoting image ><](/assets/img/blog4-pivoting/1-overview.png)
 
@@ -86,7 +86,7 @@ It is the plotting tool for system statistics. There is an issue in this tool. W
 ![ victim1 image ><](/assets/img/blog4-pivoting/6-victim1-image.png)
 <p align="center" style="color:white;">Fig: victim1.Dockerfile</p>
 
-For *victim2* there is no need to manipluate the image locally. There is already a vulnerable wordpress in docker hub. We just pull it from there. Below image show the structure to configure the wordpress as we also need a database server. They are in same subnetwork so they can communicate with each other.
+For *victim2* there is no need to manipulate the image locally. There is already a vulnerable wordpress in docker hub. We just pull it from there. Below image show the structure to configure the wordpress as we also need a database server. They are in same sub-network so they can communicate with each other.
 
 ![ victim2 image ><](/assets/img/blog4-pivoting/7-victim2.png)
 <p align="center" style="color:white;">Fig: docker-compose.yml</p>
@@ -99,7 +99,7 @@ Plus we have **wp-cli** to configure the wordpress setup automatically.
 
 ### Docker Compose Build and Run
 
-As far now we have brief overview of our lab enviroment. Now we run the docker compose files and check them.
+As far now we have brief overview of our lab environment. Now we run the docker compose files and check them.
 
 We first build them. It may take some time for pulling, download and installing. Then we create and run the created containers.
 ```bash
@@ -144,7 +144,7 @@ nmap -sC -sV -T4 172.16.100.11
 <p align="center" style="color:white;">Fig:nmap scan (helper) </p>
 
 So there is port 22 (ssh) open.We have hydra installed in the attacker machine and there is a rockyou.txt file.
-Bruteforcing the ssh login.
+Brute forcing the ssh login.
 
 ```bash
 hydra -l root -P /home/rock.txt ssh://172.16.100.11
@@ -152,7 +152,7 @@ hydra -l root -P /home/rock.txt ssh://172.16.100.11
 &nbsp;
 
 ![ bruteforce ssh ><](/assets/img/blog4-pivoting/12-hydra.png)
-<p align="center" style="color:white;">Fig:Brutefore with Hydra </p>
+<p align="center" style="color:white;">Fig:Bruteforce with Hydra </p>
 
 We got the password for the user **root**.Let's try using this cred.So, we are now into the helper machine.
 
@@ -166,7 +166,7 @@ ssh root@172.16.100.11
 
 There might be new hosts so I am going to scan further to gather new hosts and ports.
 
-*ifconfig* shows that the *helper* machine is the part of two netwwork family.
+*ifconfig* shows that the *helper* machine is the part of two network families.
 
                                                     1. 172.16.100.11
                                                     2. 172.16.101.11
@@ -185,7 +185,7 @@ hostname -I -> displays all the addresses for the host
 
 &nbsp;
 
-Having ssh access makes very easy for tunneling.Creating dynamically port forwading leverages the SOCKS proxy.This will deliver all the trafic through ssh conncetion via given port to the destination server.Here we are forwading all the traffics to the attacker machine.
+Having ssh access makes very easy for tunneling.Creating dynamically port forwarding leverages the SOCKS proxy.This will deliver all the traffic through ssh conncetion via given port to the destination server.Here we are forwarding all the traffics to the attacker machine.
 
 **-N = disable execution of command**
 
@@ -211,7 +211,7 @@ What we need now is a proxy tool.I am going to use *proxychains*.Remember the po
 
 #### Discovering newer hosts (victims)
 
-The major concern is finding hosts.Having *nmap* would have been easier but mostly in real case scenerio you won't find it.
+The major concern is finding hosts.Having *nmap* would have been easier but mostly in real case scenario you won't find it.
 
 ![  no nmap ><](/assets/img/blog4-pivoting/14-nonmap.png)
 <p align="center" style="color:white;">Fig:no nmap </p>
@@ -237,7 +237,7 @@ We have now gather total 5 live hosts.
 
 <span style="font-weight: bold; font-size: 2em;">Vcitim 1</span>
 
-The reason why we cannot ping is because proxies do not support **icmp** prtocols.Their working OSI layers are different.
+The reason why we cannot ping is because proxies do not support **icmp** protocols.Their working OSI layers are different.
 ![  not working  ><](/assets/img/blog4-pivoting/20-proxy-ping-notworking.png)
 <p align="center" style="color:white;">Fig:Proxymap ping </p>
 
@@ -288,12 +288,12 @@ python2 evilarc.py  -o linux -f pay.tar test.css -p 'static/css' -d 3
 **5.Check the for the file.**
 
 ![  file.css check  ><](/assets/img/blog4-pivoting/24-testcss.png)
-<p align="center" style="color:white;">Fig:Using Browswer </p>
+<p align="center" style="color:white;">Fig:Using Browser </p>
 
 ![  file.css check using curl  ><](/assets/img/blog4-pivoting/24-testcss1.png)
-<p align="center" style="color:white;">Fig:Using Curl></p>
+<p align="center" style="color:white;">Fig:Using Curl</p>
 <br>
-We have successfully exploitated this issue.
+We have successfully exploited this issue.
 <br>
 
 **Victim1 is compromised**.

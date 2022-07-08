@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-07-08T21:36:50+05:45</updated><id>http://localhost:4000/feed.xml</id><title type="html">Sau Theme</title><subtitle>Nothing included right now. I will think about it.ss</subtitle><entry><title type="html">Docker: Creating a Pivoting Lab and Exploiting it</title><link href="http://localhost:4000/blog/pivoting" rel="alternate" type="text/html" title="Docker: Creating a Pivoting Lab and Exploiting it" /><published>2022-07-03T00:00:00+05:45</published><updated>2022-07-03T00:00:00+05:45</updated><id>http://localhost:4000/blog/pivoting</id><content type="html" xml:base="http://localhost:4000/blog/pivoting"><![CDATA[<h2 id="pivoting">Pivoting…</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-07-08T21:45:05+05:45</updated><id>http://localhost:4000/feed.xml</id><title type="html">Sau Theme</title><subtitle>Nothing included right now. I will think about it.ss</subtitle><entry><title type="html">Docker: Creating a Pivoting Lab and Exploiting it</title><link href="http://localhost:4000/blog/pivoting" rel="alternate" type="text/html" title="Docker: Creating a Pivoting Lab and Exploiting it" /><published>2022-07-03T00:00:00+05:45</published><updated>2022-07-03T00:00:00+05:45</updated><id>http://localhost:4000/blog/pivoting</id><content type="html" xml:base="http://localhost:4000/blog/pivoting"><![CDATA[<h2 id="pivoting">Pivoting…</h2>
 
 <!-- excerpt-start -->
 <p>You may be familiar with the concept of pivoting. Pivoting is the way to move from one compromised system<!-- excerpt-end --> to another system.
@@ -20,7 +20,7 @@
 <p>Figure below gives the overview of the network setup of the docker compose files.
 <em>Victim1</em> and <em>Victim2</em> are our targets.They are on  same subnet <em>172.16.101.0/24</em>  while <em>Attacker</em> is on different subnet <em>172.16.100.0/24</em>.</p>
 
-<p>Our helper machine  ( gateway machine ) is sitting on both subnetworks.</p>
+<p>Our helper machine  ( gateway machine ) is sitting on both sub-networks.</p>
 
 <p><img src="/assets/img/blog4-pivoting/1-overview.png" alt=" pivoting image &gt;&lt;" /></p>
 
@@ -81,7 +81,7 @@ This container is part of the both networks: <em>attacker</em> and <em>victim</e
 <p><img src="/assets/img/blog4-pivoting/6-victim1-image.png" alt=" victim1 image &gt;&lt;" /></p>
 <p align="center" style="color:white;">Fig: victim1.Dockerfile</p>
 
-<p>For <em>victim2</em> there is no need to manipluate the image locally. There is already a vulnerable wordpress in docker hub. We just pull it from there. Below image show the structure to configure the wordpress as we also need a database server. They are in same subnetwork so they can communicate with each other.</p>
+<p>For <em>victim2</em> there is no need to manipulate the image locally. There is already a vulnerable wordpress in docker hub. We just pull it from there. Below image show the structure to configure the wordpress as we also need a database server. They are in same sub-network so they can communicate with each other.</p>
 
 <p><img src="/assets/img/blog4-pivoting/7-victim2.png" alt=" victim2 image &gt;&lt;" /></p>
 <p align="center" style="color:white;">Fig: docker-compose.yml</p>
@@ -93,7 +93,7 @@ This container is part of the both networks: <em>attacker</em> and <em>victim</e
 
 <h3 id="docker-compose-build-and-run">Docker Compose Build and Run</h3>
 
-<p>As far now we have brief overview of our lab enviroment. Now we run the docker compose files and check them.</p>
+<p>As far now we have brief overview of our lab environment. Now we run the docker compose files and check them.</p>
 
 <p>We first build them. It may take some time for pulling, download and installing. Then we create and run the created containers.</p>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker-compose <span class="nt">-f</span> docker-compose-subnet.yml <span class="nt">-f</span> docker-compose.yml build
@@ -133,14 +133,14 @@ docker-compose <span class="nt">-f</span> docker-compose-subnet.yml <span class=
 <p align="center" style="color:white;">Fig:nmap scan (helper) </p>
 
 <p>So there is port 22 (ssh) open.We have hydra installed in the attacker machine and there is a rockyou.txt file.
-Bruteforcing the ssh login.</p>
+Brute forcing the ssh login.</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hydra <span class="nt">-l</span> root <span class="nt">-P</span> /home/rock.txt ssh://172.16.100.11
 </code></pre></div></div>
 <p> </p>
 
 <p><img src="/assets/img/blog4-pivoting/12-hydra.png" alt=" bruteforce ssh &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig:Brutefore with Hydra </p>
+<p align="center" style="color:white;">Fig:Bruteforce with Hydra </p>
 
 <p>We got the password for the user <strong>root</strong>.Let’s try using this cred.So, we are now into the helper machine.</p>
 
@@ -153,7 +153,7 @@ Bruteforcing the ssh login.</p>
 
 <p>There might be new hosts so I am going to scan further to gather new hosts and ports.</p>
 
-<p><em>ifconfig</em> shows that the <em>helper</em> machine is the part of two netwwork family.</p>
+<p><em>ifconfig</em> shows that the <em>helper</em> machine is the part of two network families.</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                                                1. 172.16.100.11
                                                 2. 172.16.101.11
@@ -172,7 +172,7 @@ Bruteforcing the ssh login.</p>
 
 <p> </p>
 
-<p>Having ssh access makes very easy for tunneling.Creating dynamically port forwading leverages the SOCKS proxy.This will deliver all the trafic through ssh conncetion via given port to the destination server.Here we are forwading all the traffics to the attacker machine.</p>
+<p>Having ssh access makes very easy for tunneling.Creating dynamically port forwarding leverages the SOCKS proxy.This will deliver all the traffic through ssh conncetion via given port to the destination server.Here we are forwarding all the traffics to the attacker machine.</p>
 
 <p><strong>-N = disable execution of command</strong></p>
 
@@ -197,7 +197,7 @@ Bruteforcing the ssh login.</p>
 
 <h4 id="discovering-newer-hosts-victims">Discovering newer hosts (victims)</h4>
 
-<p>The major concern is finding hosts.Having <em>nmap</em> would have been easier but mostly in real case scenerio you won’t find it.</p>
+<p>The major concern is finding hosts.Having <em>nmap</em> would have been easier but mostly in real case scenario you won’t find it.</p>
 
 <p><img src="/assets/img/blog4-pivoting/14-nonmap.png" alt="  no nmap &gt;&lt;" /></p>
 <p align="center" style="color:white;">Fig:no nmap </p>
@@ -222,7 +222,7 @@ Bruteforcing the ssh login.</p>
 
 <p><span style="font-weight: bold; font-size: 2em;">Vcitim 1</span></p>
 
-<p>The reason why we cannot ping is because proxies do not support <strong>icmp</strong> prtocols.Their working OSI layers are different.
+<p>The reason why we cannot ping is because proxies do not support <strong>icmp</strong> protocols.Their working OSI layers are different.
 <img src="/assets/img/blog4-pivoting/20-proxy-ping-notworking.png" alt="  not working  &gt;&lt;" /></p>
 <p align="center" style="color:white;">Fig:Proxymap ping </p>
 
@@ -274,12 +274,12 @@ Bruteforcing the ssh login.</p>
 <p><strong>5.Check the for the file.</strong></p>
 
 <p><img src="/assets/img/blog4-pivoting/24-testcss.png" alt="  file.css check  &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig:Using Browswer </p>
+<p align="center" style="color:white;">Fig:Using Browser </p>
 
 <p><img src="/assets/img/blog4-pivoting/24-testcss1.png" alt="  file.css check using curl  &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig:Using Curl&gt;</p>
+<p align="center" style="color:white;">Fig:Using Curl</p>
 <p><br />
-We have successfully exploitated this issue.
+We have successfully exploited this issue.
 <br /></p>
 
 <p><strong>Victim1 is compromised</strong>.</p>
