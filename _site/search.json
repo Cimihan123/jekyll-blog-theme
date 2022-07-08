@@ -2,7 +2,7 @@
   
     {
 
-      "title"    : "Docker: Pivoting Lab",
+      "title"    : "Docker: Creating a Pivoting Lab and Exploiting it",
       "url"      : "http://localhost:4000/blog/pivoting",
       "category" : "pivot",
       "tags"     : "",
