@@ -27,7 +27,7 @@ So how can we access **"C"** from **"A"**? Well, that's directly not possible so
 To have some practises on pivoting I have created a lab in docker.
 
 Figure below gives the overview of the network setup of the docker compose files.
-*Victim1* and *Victim2* are our targets.They are on  same subnet *172.16.101.0/24*  while *Attacker* is on different subnet *172.16.100.0/24*.
+*Victim1* and *Victim2* are our targets.They both are on the same subnet *172.16.101.0/24*  while *Attacker* is on different subnet *172.16.100.0/24*.
 
 Our helper machine  ( gateway machine ) is sitting on both sub-networks.
 
@@ -59,7 +59,7 @@ This container is part of the both networks: *attacker* and *victim*.
 ![ helper image ><](/assets/img/blog4-pivoting/3-helper.png)
 <p align="center" style="color:white;" style="color:white;">Fig: docker-compose.yml</p>
 
-A baseimage is being pulled.I have enabled ssh root login.I don't recommend doing this in your production environment or anywhere without proper security guidelines.XD
+A baseimage is being pulled.I have enabled ssh root login.I don't recommend doing without proper security guidelines.XD
 
 ![ helper image ><](/assets/img/blog4-pivoting/4-helper-image.png)
 <p align="center" style="color:white;">Fig: helper.Dockerfile</p>

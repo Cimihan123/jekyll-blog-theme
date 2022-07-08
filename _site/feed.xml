@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-07-08T21:50:46+05:45</updated><id>http://localhost:4000/feed.xml</id><title type="html">Sau Theme</title><subtitle>Nothing included right now. I will think about it.ss</subtitle><entry><title type="html">Docker: Creating a Pivoting Lab and Exploiting it</title><link href="http://localhost:4000/blog/pivoting" rel="alternate" type="text/html" title="Docker: Creating a Pivoting Lab and Exploiting it" /><published>2022-07-03T00:00:00+05:45</published><updated>2022-07-03T00:00:00+05:45</updated><id>http://localhost:4000/blog/pivoting</id><content type="html" xml:base="http://localhost:4000/blog/pivoting"><![CDATA[<h2 id="pivoting">Pivoting…</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-07-08T21:53:33+05:45</updated><id>http://localhost:4000/feed.xml</id><title type="html">Sau Theme</title><subtitle>Nothing included right now. I will think about it.ss</subtitle><entry><title type="html">Docker: Creating a Pivoting Lab and Exploiting it</title><link href="http://localhost:4000/blog/pivoting" rel="alternate" type="text/html" title="Docker: Creating a Pivoting Lab and Exploiting it" /><published>2022-07-03T00:00:00+05:45</published><updated>2022-07-03T00:00:00+05:45</updated><id>http://localhost:4000/blog/pivoting</id><content type="html" xml:base="http://localhost:4000/blog/pivoting"><![CDATA[<h2 id="pivoting">Pivoting…</h2>
 
 <!-- excerpt-start -->
 <p>You may be familiar with the concept of pivoting. Pivoting is the way to move from one compromised system<!-- excerpt-end --> to another system.
@@ -18,7 +18,7 @@
 <p>To have some practises on pivoting I have created a lab in docker.</p>
 
 <p>Figure below gives the overview of the network setup of the docker compose files.
-<em>Victim1</em> and <em>Victim2</em> are our targets.They are on  same subnet <em>172.16.101.0/24</em>  while <em>Attacker</em> is on different subnet <em>172.16.100.0/24</em>.</p>
+<em>Victim1</em> and <em>Victim2</em> are our targets.They both are on the same subnet <em>172.16.101.0/24</em>  while <em>Attacker</em> is on different subnet <em>172.16.100.0/24</em>.</p>
 
 <p>Our helper machine  ( gateway machine ) is sitting on both sub-networks.</p>
 
@@ -54,7 +54,7 @@ This container is part of the both networks: <em>attacker</em> and <em>victim</e
 <p><img src="/assets/img/blog4-pivoting/3-helper.png" alt=" helper image &gt;&lt;" /></p>
 <p align="center" style="color:white;">Fig: docker-compose.yml</p>
 
-<p>A baseimage is being pulled.I have enabled ssh root login.I don’t recommend doing this in your production environment or anywhere without proper security guidelines.XD</p>
+<p>A baseimage is being pulled.I have enabled ssh root login.I don’t recommend doing without proper security guidelines.XD</p>
 
 <p><img src="/assets/img/blog4-pivoting/4-helper-image.png" alt=" helper image &gt;&lt;" /></p>
 <p align="center" style="color:white;">Fig: helper.Dockerfile</p>
