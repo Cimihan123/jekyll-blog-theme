@@ -10,7 +10,7 @@ excerpt_separator:  <!-- excerpt-end -->
 
 ## Pivoting...
 
-<!-- excerpt-start --> You may be familiar with the concept of pivoting. Pivoting is the way to move from one comporised system<!-- excerpt-end --> to another system.
+<!-- excerpt-start --> You may be familiar with the concept of pivoting. Pivoting is the way to move from one compromised system<!-- excerpt-end --> to another system.
 <br>
 
 Suppose,
