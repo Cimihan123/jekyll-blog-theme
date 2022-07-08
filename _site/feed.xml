@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-07-08T17:31:17+05:45</updated><id>http://localhost:4000/feed.xml</id><title type="html">Sau Theme</title><subtitle>Nothing included right now. I will think about it.ss</subtitle><entry><title type="html">Docker: Creating a Pivoting Lab and Exploiting it</title><link href="http://localhost:4000/blog/pivoting" rel="alternate" type="text/html" title="Docker: Creating a Pivoting Lab and Exploiting it" /><published>2022-07-03T00:00:00+05:45</published><updated>2022-07-03T00:00:00+05:45</updated><id>http://localhost:4000/blog/pivoting</id><content type="html" xml:base="http://localhost:4000/blog/pivoting"><![CDATA[<h2 id="pivoting">Pivoting…</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-07-08T21:17:53+05:45</updated><id>http://localhost:4000/feed.xml</id><title type="html">Sau Theme</title><subtitle>Nothing included right now. I will think about it.ss</subtitle><entry><title type="html">Docker: Creating a Pivoting Lab and Exploiting it</title><link href="http://localhost:4000/blog/pivoting" rel="alternate" type="text/html" title="Docker: Creating a Pivoting Lab and Exploiting it" /><published>2022-07-03T00:00:00+05:45</published><updated>2022-07-03T00:00:00+05:45</updated><id>http://localhost:4000/blog/pivoting</id><content type="html" xml:base="http://localhost:4000/blog/pivoting"><![CDATA[<h2 id="pivoting">Pivoting…</h2>
 
 <!-- excerpt-start -->
 <p>You may be familiar with the concept of pivoting. Pivoting is the way to move from one comporised system<!-- excerpt-end --> to another system.
@@ -84,6 +84,11 @@ This container is part of the both networks: <em>attacker</em> and <em>victim</e
 <p>For <em>victim2</em> there is no need to manipluate the image locally. There is already a vulnerable wordpress in docker hub. We just pull it from there. Below image show the structure to configure the wordpress as we also need a database server. They are in same subnetwork so they can communicate with each other.</p>
 
 <p><img src="/assets/img/blog4-pivoting/7-victim2.png" alt=" victim2 image &gt;&lt;" /></p>
+<p align="center" style="color:white;">Fig: docker-compose.yml</p>
+
+<p>Plus we have <strong>wp-cli</strong> to configure the wordpress setup automatically.</p>
+
+<p><img src="/assets/img/blog4-pivoting/7-victim2-1.png" alt=" victim2 wpcli &gt;&lt;" /></p>
 <p align="center" style="color:white;">Fig: docker-compose.yml</p>
 
 <h3 id="docker-compose-build-and-run">Docker Compose Build and Run</h3>
@@ -300,13 +305,13 @@ We have successfully exploitated this issue.
 <p><img src="/assets/img/blog4-pivoting/26-victim2-wp-curl.png" alt="  curl victim2  &gt;&lt;" /></p>
 <p align="center" style="color:white;">Fig:Check</p>
 
-<p>Visit: <em>http://172.16.101.21/wp-admin/install.php</em>, we have to first finish the wordpress install process.</p>
-
-<p>Set username and password for the administration.Complete the process. Now we are ready to exploit the <em>RCE</em> vulnerability.</p>
+<p>If we have not automate the installation process with <strong>wp-cli</strong> then we should have first finished the wordpress installation process manually.</p>
 
 <p>To know more about this vulnerability in wordpress, you can <a href="https://exploitbox.io/vuln/WordPress-Exploit-4-6-RCE-CODE-EXEC-CVE-2016-10033.html">Click Me</a>.</p>
 
-<p><img src="/assets/img/blog4-pivoting/27-wordpress-install.png" alt="  wordpress installation  &gt;&lt;" /></p>
+<p>It is already configured and installed.The username and password for wp-admin is <strong>“admin”</strong> and <strong>“adminpass”</strong> respectively.</p>
+
+<p><img src="/assets/img/blog4-pivoting/install.png" alt="  wordpress installation  &gt;&lt;" /></p>
 <p align="center" style="color:white;">Fig:Wordpress Installation</p>
 
 <p>Save the below reverses shell payload.</p>

@@ -91,6 +91,11 @@ For *victim2* there is no need to manipluate the image locally. There is already
 ![ victim2 image ><](/assets/img/blog4-pivoting/7-victim2.png)
 <p align="center" style="color:white;">Fig: docker-compose.yml</p>
 
+Plus we have **wp-cli** to configure the wordpress setup automatically.
+
+![ victim2 wpcli ><](/assets/img/blog4-pivoting/7-victim2-1.png)
+<p align="center" style="color:white;">Fig: docker-compose.yml</p>
+
 
 ### Docker Compose Build and Run
 
@@ -314,14 +319,14 @@ Seems like it is running a wordpress cms.
 ![  curl victim2  ><](/assets/img/blog4-pivoting/26-victim2-wp-curl.png)
 <p align="center" style="color:white;">Fig:Check</p>
 
-Visit: *http://172.16.101.21/wp-admin/install.php*, we have to first finish the wordpress install process.
-
-Set username and password for the administration.Complete the process. Now we are ready to exploit the *RCE* vulnerability.
+If we have not automate the installation process with **wp-cli** then we should have first finished the wordpress installation process manually.
 
 To know more about this vulnerability in wordpress, you can [Click Me](https://exploitbox.io/vuln/WordPress-Exploit-4-6-RCE-CODE-EXEC-CVE-2016-10033.html).
 
 
-![  wordpress installation  ><](/assets/img/blog4-pivoting/27-wordpress-install.png)
+It is already configured and installed.The username and password for wp-admin is **"admin"** and **"adminpass"** respectively.
+
+![  wordpress installation  ><](/assets/img/blog4-pivoting/install.png)
 <p align="center" style="color:white;">Fig:Wordpress Installation</p>
 
 Save the below reverses shell payload.
