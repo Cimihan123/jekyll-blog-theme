@@ -312,7 +312,7 @@ Here we see MySQL service running on.
 ![  mysql nmap  ><](/assets/img/blog4-pivoting/25-victim-nmap-mysql.png)
 <p align="center" style="color:white;">Fig: Nmap scan (victim2)</p>
 
-For now, our target is HTTP service. Seems like it is running WordPress cms.
+For now, our target is HTTP service. It is running WordPress cms.
 
 ![  curl victim2  ><](/assets/img/blog4-pivoting/26-victim2-wp-curl.png)
 <p align="center" style="color:white;">Fig: Check</p>
