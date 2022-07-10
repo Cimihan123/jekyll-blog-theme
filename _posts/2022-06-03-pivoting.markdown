@@ -322,7 +322,7 @@ If we have not automated the installation/setup process with **wp-cli** then we 
 To know more about this vulnerability in WordPress, you can [Click here](https://exploitbox.io/vuln/WordPress-Exploit-4-6-RCE-CODE-EXEC-CVE-2016-10033.html).
 
 
-If it is already configured and installed. The username and password for wp-admin are **"admin"** and **"adminpass"** respectively.
+It is already configured and installed. The username and password for wp-admin are **"admin"** and **"adminpass"** respectively.
 
 ![  wordpress installation  ><](/assets/img/blog4-pivoting/install.png)
 <p align="center" style="color:white;">Fig: Wordpress Installation</p>
